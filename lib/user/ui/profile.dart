@@ -193,7 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed("/home");
+                        Navigator.of(context).pushNamed("/login");
                       },
                       child: const Text(
                         "Modificar Información",

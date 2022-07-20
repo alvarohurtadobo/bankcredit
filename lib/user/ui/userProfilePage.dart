@@ -236,7 +236,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   ),
                   child: TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed("/home");
+                        Navigator.of(context).pushNamed("/login");
                       },
                       child: const Text(
                         "Crear cuenta",

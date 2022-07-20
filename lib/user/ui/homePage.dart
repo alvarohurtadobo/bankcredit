@@ -3,14 +3,14 @@
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           child: TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamed("/house");
+                                Navigator.of(context).pushNamed("/home");
                               },
                               child: const Text(
                                 "Ingresar",

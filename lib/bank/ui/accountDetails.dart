@@ -58,7 +58,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                         border: Border.all(color: const Color(0xff7A8084))),
                     child: TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed("/home");
+                          Navigator.of(context).pushNamed("/login");
                         },
                         child: const Text(
                           "Histórico movimientos",
@@ -77,7 +77,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                         border: Border.all(color: const Color(0xff7A8084))),
                     child: TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed("/home");
+                          Navigator.of(context).pushNamed("/login");
                         },
                         child: const Text(
                           "Detalle cuota",

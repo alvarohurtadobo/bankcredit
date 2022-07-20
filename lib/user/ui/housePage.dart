@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/common/widgets/summaryCard.dart';
 
-class HousePage extends StatefulWidget {
-  const HousePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HousePageState createState() => _HousePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HousePageState extends State<HousePage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;

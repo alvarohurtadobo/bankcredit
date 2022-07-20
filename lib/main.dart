@@ -41,11 +41,11 @@ class MyApp extends StatelessWidget {
         // home: const MyHomePage(title: 'Flutter Demo Home Page'),
         routes: {
           '/': (context) => const SplashPage(),
-          '/home': (context) => const HomePage(),
+          '/login': (context) => const LoginPage(),
           '/resetPassword01': (context) => const ResetPassword01Page(),
           '/resetPassword02': (context) => const ResetPassword02Page(),
           '/createAccount': (context) => const CreateAccountPage(),
-          '/house': (context) => const HousePage(),
+          '/home': (context) => const HomePage(),
           '/politics': (context) => const PoliticsPage(),
           '/contact': (context) => const ContactPage(),
           '/promotions': (context) => const PromotionsPage(),

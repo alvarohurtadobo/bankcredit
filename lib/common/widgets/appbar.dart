@@ -28,7 +28,7 @@ PreferredSizeWidget myAppBar(BuildContext context) {
             padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
             child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed("/house");
+                  Navigator.of(context).pushNamed("/home");
                 },
                 child: Icon(Icons.home))),
       )
