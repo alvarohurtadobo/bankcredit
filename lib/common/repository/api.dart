@@ -42,23 +42,31 @@ class API {
     Response myResponse;
     if (isPost) {
       if (debug) {
-        print("POST");
+        print("POST: $url");
       }
       myResponse = await post(Uri.parse(url),
-              body: body, headers: {"Content-Type": "application/json"})
+              body: json.encode(body),
+              headers: {"Content-Type": "application/json"})
           .timeout(const Duration(seconds: 12), onTimeout: () {
         return Response("{}", 999);
       }).catchError((err) {
+        print("Error is $err");
         return Response("{}", 666);
       });
     } else {
       myResponse = await put(Uri.parse(url),
-              body: body, headers: {"Content-Type": "application/json"})
+              body: json.encode(body),
+              headers: {"Content-Type": "application/json"})
           .timeout(const Duration(seconds: 12), onTimeout: () {
         return Response("{}", 999);
       }).catchError((err) {
+        print("Error is $err");
         return Response("{}", 666);
       });
+    }
+
+    if (debug) {
+      print("Response: ${myResponse.statusCode}. Body: ${myResponse.body}");
     }
 
     Map objectResponse = json.decode(myResponse.body);

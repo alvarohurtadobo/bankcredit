@@ -59,7 +59,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                 // decoration: // UnderlineDecoration, BoxLooseDecoration or BoxTightDecoration see https://github.com/TinoGuo/pin_input_text_field for more info,
                 // currentCode: // prefill with a code
                 onCodeSubmitted: (value) {
-                  Navigator.of(context).pushNamed("/login");
+                  Navigator.of(context).pushNamed("/resetPassword");
                 }, //code submitted callback
                 onCodeChanged: (value) {
                   print("Current value is $value");

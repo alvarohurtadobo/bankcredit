@@ -3,7 +3,6 @@ import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 
-import '../../common/widgets/summaryCard.dart';
 
 class AccountDetailsPage extends StatefulWidget {
   const AccountDetailsPage({Key? key}) : super(key: key);

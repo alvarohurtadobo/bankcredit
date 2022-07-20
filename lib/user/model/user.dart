@@ -10,8 +10,10 @@ class User {
   int idIdentification = 0;
   String identification = "";
 
+  String pictureUrl = "";
+
   User.empty();
-  
+
   User(
       {required this.firstName,
       required this.secondName,

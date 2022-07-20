@@ -239,7 +239,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         Navigator.of(context).pushNamed("/login");
                       },
                       child: const Text(
-                        "Crear cuenta",
+                        "Actualizar cuenta",
                         style:
                             TextStyle(color: Color(0xffb8b8b8), fontSize: 18),
                       )))
