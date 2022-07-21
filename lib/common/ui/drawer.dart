@@ -1,5 +1,8 @@
 import 'package:credidiunsa_app/common/ui/sizes.dart';
+import 'package:credidiunsa_app/common/widgets/genericConfirmationDialog.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDrawer extends StatelessWidget {
   // const MyDrawer({Key? key}) : super(key: key);
@@ -27,8 +30,8 @@ class MyDrawer extends StatelessWidget {
                   ),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           "¡Hola!",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -36,13 +39,13 @@ class MyDrawer extends StatelessWidget {
                               color: Colors.white),
                         ),
                         Text(
-                          "María Camila Pérez",
-                          style: TextStyle(
+                          currentUser.getFullName(),
+                          style: const TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 18,
                               color: Colors.white),
                         ),
-                        Text(
+                        const Text(
                           "Última sesión 01/15/2022",
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
@@ -84,6 +87,7 @@ class MyDrawer extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (route != "/") {
+          Navigator.of(context).pop();
           Navigator.of(context).pushNamed(route);
         }
       },
@@ -99,6 +103,42 @@ class MyDrawer extends StatelessWidget {
           ),
           title: Text(title),
           subtitle: Text(subtitle),
+        ),
+      ),
+    );
+  }
+
+  Widget logoutTile(BuildContext context, {String route = "/"}) {
+    return GestureDetector(
+      onTap: () {
+        genericConfirmationDialog(
+                context, "¿Está seguro que desea cerrar sesión?")
+            .then((confirmation) {
+          if (confirmation) {
+            print("Confirm logout, clearing user notification id and token");
+            SharedPreferences.getInstance().then((myPrefs) {
+              myPrefs.remove("jwt");
+              myPrefs.remove("document");
+              myPrefs.remove("password");
+              myPrefs.remove("expiration");
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed("/login");
+            });
+          }
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.all(Sizes.boxSeparation),
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
+        child: const ListTile(
+          leading: Icon(
+            Icons.exit_to_app,
+            color: const Color(0xffFF6A1B),
+          ),
+          title: Text("Cerrar sesión"),
         ),
       ),
     );

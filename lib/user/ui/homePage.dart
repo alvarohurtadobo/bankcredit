@@ -1,5 +1,7 @@
 // Language: dart
 
+import 'package:credidiunsa_app/common/model/launcher.dart';
+
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
@@ -77,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: Sizes.width / 2.5,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
@@ -117,9 +119,14 @@ class _HomePageState extends State<HomePage> {
               Positioned(
                   top: 8 * Sizes.padding + Sizes.height / 6.2,
                   left: 2 * Sizes.padding,
-                  child: summaryCard(
-                      "Tu cuota", "mensual para pagar", "L 35,000.00",
-                      myColor: const Color(0xffFF6A1B), scale: 0.8))
+                  child: GestureDetector(
+                    onTap: () {
+                      launchUrl("https://www.diunsa.hn/credidiunsa");
+                    },
+                    child: summaryCard(
+                        "Tu cuota", "mensual para pagar", "L 35,000.00",
+                        myColor: const Color(0xffFF6A1B), scale: 0.8),
+                  ))
             ],
           ),
         ]),

@@ -29,6 +29,7 @@ class User {
 
   Map<String, dynamic> toBackendMap() {
     return {
+      "Id": 1,
       "Usuario": identification,
       "IdIdentificacion": idIdentification,
       "Identificacion": identification,
@@ -51,6 +52,38 @@ class User {
     phone = backendResponse["Celular"] ?? "";
     idIdentification = backendResponse["IdIdentificacion"] ?? 1;
     identification = backendResponse["Identificacion"] ?? 1;
+  }
+
+  String getName() {
+    if (secondName != "") {
+      return "$firstName $secondName";
+    }
+    return firstName;
+  }
+
+  String getLastName() {
+    if (secondSurname != "") {
+      return "$firstSurname $secondSurname";
+    }
+    return firstSurname;
+  }
+
+  void setNames(String names) {
+    if (names.contains(" ")) {
+      firstName = names.split(" ")[0];
+      secondName = names.split(" ").sublist(1).join(" ");
+    }
+  }
+
+  String getFullName() {
+    return "${getName()} ${getLastName()}";
+  }
+
+  void setLastNames(String surnames) {
+    if (surnames.contains(" ")) {
+      firstSurname = surnames.split(" ")[0];
+      secondSurname = surnames.split(" ").sublist(1).join(" ");
+    }
   }
 }
 

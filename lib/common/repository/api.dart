@@ -8,7 +8,7 @@ const bool DEBUG = true;
 
 class BackendResponse {
   int status = 0;
-  Map myBody = {};
+  Map<String, dynamic> myBody = {};
   BackendResponse({this.status = 0, this.myBody = const {}});
   @override
   String toString() {
@@ -28,11 +28,20 @@ class API {
     }).catchError((err) {
       return Response("{}", 666);
     });
+    
+    if (debug) {
+      print("Response: ${myResponse.statusCode}. Body: ${myResponse.body}");
+    }
+    Map<String, dynamic> objectResponse = {};
+    int auxStatus = myResponse.statusCode;
+    try {
+      objectResponse = json.decode(myResponse.body);
+    } catch (err) {
+      print("Unable to format cause $err");
+      auxStatus = 666;
+    }
 
-    Map objectResponse = json.decode(myResponse.body);
-
-    return BackendResponse(
-        status: myResponse.statusCode, myBody: objectResponse);
+    return BackendResponse(status: auxStatus, myBody: objectResponse);
   }
 
   static Future<BackendResponse> _doPostOrPut(
@@ -68,11 +77,16 @@ class API {
     if (debug) {
       print("Response: ${myResponse.statusCode}. Body: ${myResponse.body}");
     }
+    Map<String, dynamic> objectResponse = {};
+    int auxStatus = myResponse.statusCode;
+    try {
+      objectResponse = json.decode(myResponse.body);
+    } catch (err) {
+      print("Unable to format cause $err");
+      auxStatus = 666;
+    }
 
-    Map objectResponse = json.decode(myResponse.body);
-
-    return BackendResponse(
-        status: myResponse.statusCode, myBody: objectResponse);
+    return BackendResponse(status: auxStatus, myBody: objectResponse);
   }
 
   static Future<BackendResponse> _doPost(
