@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:http/http.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
+import 'package:credidiunsa_app/common/model/sesion.dart';
 
 const String SERVER_URL = "https://desarrollo.epik.com.co:5025/";
 const String API_PATH = "api/";
@@ -16,19 +17,25 @@ class BackendResponse {
   }
 }
 
+Map<String, String> getHeader() {
+  if (jwt == "") {
+    return {"Content-Type": "application/json"};
+  }
+  return {"Authorization": "Bearer $jwt", "Content-Type": "application/json"};
+}
+
 class API {
   static Future<BackendResponse> _doGet(String path,
       {bool debug = false}) async {
     String url = SERVER_URL + API_PATH + path;
 
-    Response myResponse =
-        await get(Uri.parse(url), headers: {"Content-Type": "application/json"})
-            .timeout(const Duration(seconds: 12), onTimeout: () {
+    Response myResponse = await get(Uri.parse(url), headers: getHeader())
+        .timeout(const Duration(seconds: 12), onTimeout: () {
       return Response("{}", 999);
     }).catchError((err) {
       return Response("{}", 666);
     });
-    
+
     if (debug) {
       print("Response: ${myResponse.statusCode}. Body: ${myResponse.body}");
     }
@@ -54,8 +61,7 @@ class API {
         print("POST: $url");
       }
       myResponse = await post(Uri.parse(url),
-              body: json.encode(body),
-              headers: {"Content-Type": "application/json"})
+              body: json.encode(body), headers: getHeader())
           .timeout(const Duration(seconds: 12), onTimeout: () {
         return Response("{}", 999);
       }).catchError((err) {
@@ -64,8 +70,7 @@ class API {
       });
     } else {
       myResponse = await put(Uri.parse(url),
-              body: json.encode(body),
-              headers: {"Content-Type": "application/json"})
+              body: json.encode(body), headers: getHeader())
           .timeout(const Duration(seconds: 12), onTimeout: () {
         return Response("{}", 999);
       }).catchError((err) {
@@ -108,21 +113,34 @@ class API {
   static Future<BackendResponse> login(
       String documentId, String password) async {
     Map<String, String> myBody = {"Usuario": documentId, "Clave": password};
-    return _doPost("auth/token", myBody, debug: DEBUG);
+    if (DEBUG) {
+      print("loging with $myBody");
+    }
+    return await _doPost("auth/token", myBody, debug: DEBUG);
   }
 
   static Future<BackendResponse> register(User myUser) async {
-    return _doPost("usuario/registrar", myUser.toBackendMap(), debug: DEBUG);
+    return await _doPost("usuario/registrar", myUser.toBackendMap(),
+        debug: DEBUG);
   }
 
   static Future<BackendResponse> update(User myUser) async {
-    return _doPost("usuario/actualizar", myUser.toBackendMap(), debug: DEBUG);
+    print("Updating with data ${myUser.toBackendMap()}");
+    return await _doPost("usuario/actualizar", myUser.toBackendMap(),
+        debug: DEBUG);
   }
 
   static Future<BackendResponse> updatePassword(
       String oldPassword, String newPassword) async {
-    return _doPost("clave/cambiar-clave/",
+    return await _doPost("clave/cambiar-clave/",
         {"ClaveActual": oldPassword, "ClaveNueva": newPassword},
+        debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getMovements(String userId) async {
+    print("Requesting for id $userId");
+    return await _doPost(
+        "historial-movimientos", {"NumeroIdentificacion": userId},
         debug: DEBUG);
   }
 }

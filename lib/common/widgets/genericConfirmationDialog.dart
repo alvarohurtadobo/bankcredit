@@ -11,7 +11,7 @@ Future<bool> genericConfirmationDialog(
           builder: (context) {
             return AlertDialog(
               backgroundColor: Colors.transparent,
-              contentPadding: EdgeInsets.all(0),
+              contentPadding: const EdgeInsets.all(0),
               content: Container(
                   height: dialogHeight,
                   width: dialogWidth,
@@ -32,9 +32,9 @@ Future<bool> genericConfirmationDialog(
                           margin: EdgeInsets.only(bottom: dialogHeight / 16),
                           height: dialogHeight * 0.12,
                           width: double.infinity,
-                          color: Color(0xffc4c4c4),
+                          color: const Color(0xffc4c4c4),
                           child: Text(
-                            "ARE YOU SURE?",
+                            "¿ESTÁ SEGURO?",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: Sizes.font8,
@@ -47,7 +47,7 @@ Future<bool> genericConfirmationDialog(
                         child: Text(
                           finalLabel,
                           style: TextStyle(
-                              color: Color(0xff858585),
+                              color: const Color(0xff858585),
                               decoration: TextDecoration.none,
                               fontWeight: FontWeight.normal,
                               fontSize: Sizes.font10),
@@ -64,9 +64,9 @@ Future<bool> genericConfirmationDialog(
                                 height: Sizes.tileHeightMedium,
                                 width: dialogWidth * 0.35,
                                 decoration: BoxDecoration(
-                                  color: Color(0xffEF4823),
-                                    border:
-                                        Border.all(color: Color(0xffc4c4c4)),
+                                    color: const Color(0xffFF6A1B),
+                                    border: Border.all(
+                                        color: const Color(0xffFF6A1B)),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
                                             Sizes.tileHeightMedium / 8))),
@@ -74,16 +74,16 @@ Future<bool> genericConfirmationDialog(
                                   onPressed: () {
                                     Navigator.of(context).pop(false);
                                   },
-                                  child: Text("NO",
+                                  child: const Text("NO",
                                       style: TextStyle(color: Colors.white)),
                                 )),
                             Container(
                                 height: Sizes.tileHeightMedium,
                                 width: dialogWidth * 0.35,
                                 decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    border:
-                                        Border.all(color: Color(0xffc4c4c4)),
+                                    color: const Color(0xff0077CD),
+                                    border: Border.all(
+                                        color: const Color(0xff0077CD)),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(
                                             Sizes.tileHeightMedium / 8))),
@@ -91,10 +91,9 @@ Future<bool> genericConfirmationDialog(
                                   onPressed: () {
                                     Navigator.of(context).pop(true);
                                   },
-                                  child: Text("YES",
+                                  child: const Text("YES",
                                       style: TextStyle(color: Colors.white)),
                                 )),
-                            
                           ],
                         ),
                       ),

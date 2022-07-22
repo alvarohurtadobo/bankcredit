@@ -19,7 +19,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     Sizes.setSizes(_width, _height);
 
     return Scaffold(
-      body: Column(children: [
+      body: ListView(children: [
         Container(
           width: double.infinity,
           height: Sizes.height * 0.18,
@@ -49,7 +49,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: Sizes.boxSeparation,
+                height: 3*Sizes.boxSeparation,
               ),
               Container(
                 width: Sizes.width * 0.6,
@@ -59,7 +59,27 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         image: AssetImage("assets/images/logo.png"),
                         fit: BoxFit.cover)),
               ),
-              const Text("Nombre completo",
+              const Text("Nombres",
+                  style: TextStyle(color: Color(0xff0077cd))),
+              SizedBox(
+                height: Sizes.boxSeparation,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(Sizes.border / 2),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+              ),
+              const Text("Apellidos",
                   style: TextStyle(color: Color(0xff0077cd))),
               SizedBox(
                 height: Sizes.boxSeparation,
@@ -242,7 +262,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         "Crear cuenta",
                         style:
                             TextStyle(color: Color(0xffb8b8b8), fontSize: 18),
-                      )))
+                      ))),
+                      SizedBox(
+                height: 3*Sizes.boxSeparation,
+              ),
             ],
           ),
         ),

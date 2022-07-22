@@ -48,7 +48,7 @@ class User {
     secondName = backendResponse["SegundoNombre"] ?? "";
     firstSurname = backendResponse["PrimerApellido"] ?? "";
     secondSurname = backendResponse["SegundoApellido"] ?? "";
-    email = backendResponse["email"] ?? "";
+    email = backendResponse["Correo"] ?? "";
     phone = backendResponse["Celular"] ?? "";
     idIdentification = backendResponse["IdIdentificacion"] ?? 1;
     identification = backendResponse["Identificacion"] ?? 1;

@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/user/bloc/userLogin.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,11 +25,11 @@ class _SplashPageState extends State<SplashPage> {
       String jwt = prefs.getString("jwt") ?? "";
       String document = prefs.getString("document") ?? "";
       String password = prefs.getString("password") ?? "";
+      print("Saved data is $document, $password, $jwt");
       if (jwt != "" && document != "" && password != "") {
         API.login(document, password).then((BackendResponse backendResponse) {
           if (backendResponse.status == 200) {
-            currentUser =
-                User.fromBackendResponse(backendResponse.myBody["body"]);
+            setUpUser(backendResponse.myBody, password: password);
             Timer(const Duration(seconds: 3), () {
               Navigator.of(context).pushReplacementNamed('/home');
             });

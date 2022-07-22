@@ -1,3 +1,5 @@
+import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/common/widgets/toasts.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
@@ -154,7 +156,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ),
                 child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed("/login");
+                      API.updatePassword("", newPassword).then((value) {
+                        if (value.status == 200) {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          showToast("Contraseña actualizada correctamente",
+                              type: 0);
+                        } else {
+                          showToast("No se pudo actualizar", type: 1);
+                        }
+                      });
                     },
                     child: const Text(
                       "Actualizar contraseña",

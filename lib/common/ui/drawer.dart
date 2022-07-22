@@ -12,7 +12,7 @@ class MyDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: const Color(0xff0077cd),
       child: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
             Container(
               padding: EdgeInsets.all(Sizes.padding * 0.6),
@@ -74,7 +74,11 @@ class MyDrawer extends StatelessWidget {
                 route: "/promotions"),
             drawerTile(context, Icons.whatsapp, "Contáctanos", "",
                 route: "/contact"),
-            Expanded(child: Container(color: Colors.white))
+            logoutTile(context),
+            Container(
+              height: Sizes.height * 0.2,
+              color: Colors.white,
+            )
           ],
         ),
       ),
@@ -108,7 +112,7 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
-  Widget logoutTile(BuildContext context, {String route = "/"}) {
+  Widget logoutTile(BuildContext context) {
     return GestureDetector(
       onTap: () {
         genericConfirmationDialog(

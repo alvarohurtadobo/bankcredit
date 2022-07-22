@@ -1,11 +1,10 @@
 // Language: dart
 
 import 'dart:async';
-
-import '../../common/model/secondsToMinSec.dart';
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:sms_autofill/sms_autofill.dart';
+import '../../common/model/secondsToMinSec.dart';
 import 'package:credidiunsa_app/common/widgets/toasts.dart';
 import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 
@@ -22,21 +21,24 @@ class ResetPassword02Page extends StatefulWidget {
 class _ResetPassword02PageState extends State<ResetPassword02Page> {
   String currentCode = "";
   bool wrongCodeWarning = false;
-
+  bool canContinue = false;
   StreamController timeController = StreamController<int>();
   int currentTime = AWAIT_TIME;
   bool canRequestNewCode = false;
+  late Timer myTimer;
 
   @override
   void initState() {
     showToast("For development introduce $TEST_CODE", type: 2);
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    myTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (currentTime > 0) {
         currentTime--;
         timeController.sink.add(currentTime);
       }
       if (!canRequestNewCode && currentTime == 0) {
-        canRequestNewCode = true;
+        setState(() {
+          canRequestNewCode = true;
+        });
       }
     });
     super.initState();
@@ -45,6 +47,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
   @override
   void dispose() {
     timeController.close();
+    myTimer.cancel();
     super.dispose();
     timeController.sink.add(currentTime);
   }
@@ -98,6 +101,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                     // decoration: // UnderlineDecoration, BoxLooseDecoration or BoxTightDecoration see https://github.com/TinoGuo/pin_input_text_field for more info,
                     // currentCode: // prefill with a code
                     onCodeSubmitted: (value) {
+                      print("SUBMIT");
                       setState(() {
                         wrongCodeWarning = currentCode != TEST_CODE;
                       });
@@ -106,7 +110,14 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                       } else {}
                     }, //code submitted callback
                     onCodeChanged: (value) {
-                      currentCode = value ?? "";
+                      if (value != null && value != "") {
+                        currentCode = value;
+                        if (currentCode.length == 4) {
+                          setState(() {
+                            canContinue = true;
+                          });
+                        }
+                      }
                       print("Current value is: $currentCode");
                     }, //code changed callback
                     codeLength: 4 //code length, default 6
@@ -115,24 +126,28 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
               height: 1 * Sizes.boxSeparation,
             ),
             warningLabel(
-                "¡El código ingresado no es correcto!", wrongCodeWarning),
+                "¡El código ingresado no es correcto!", wrongCodeWarning,
+                disappearWarning: true),
             SizedBox(
               height: 3 * Sizes.boxSeparation,
             ),
-            StreamBuilder<int>(builder: (context, snapshop) {
-              if (snapshop.hasData) {
-                int newTime = snapshop.data ?? 0;
-                if (newTime == 0) {
-                  return const Text("Reenviar",
-                      style: TextStyle(color: Color(0xffA3A8AC), fontSize: 20));
-                } else {
-                  return Text("Reenviar en ${convertToSecMin(newTime)}",
-                      style: const TextStyle(
-                          color: Color(0xffA3A8AC), fontSize: 20));
-                }
-              }
-              return Container();
-            }),
+            StreamBuilder<dynamic>(
+                stream: timeController.stream,
+                builder: (context, snapshop) {
+                  if (snapshop.hasData) {
+                    int newTime = snapshop.data ?? 0;
+                    if (newTime == 0) {
+                      return const Text("Reenviar",
+                          style: TextStyle(
+                              color: Color(0xffA3A8AC), fontSize: 20));
+                    } else {
+                      return Text("Reenviar en ${convertToSecMin(newTime)}",
+                          style: const TextStyle(
+                              color: Color(0xffA3A8AC), fontSize: 20));
+                    }
+                  }
+                  return Container();
+                }),
             Expanded(
               child: SizedBox(
                 height: 3 * Sizes.boxSeparation,
@@ -141,6 +156,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
             canRequestNewCode
                 ? Container(
                     padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+                    margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: const Color(0xff0077CD),
@@ -164,8 +180,9 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
             SizedBox(
               height: Sizes.boxSeparation,
             ),
-            (currentCode.length == 4)
+            (canContinue)
                 ? Container(
+                    margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
                     padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -180,7 +197,10 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                           "Validar código",
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         )))
-                : Container()
+                : Container(),
+            SizedBox(
+              height: 1 * Sizes.boxSeparation,
+            ),
           ]),
     );
   }

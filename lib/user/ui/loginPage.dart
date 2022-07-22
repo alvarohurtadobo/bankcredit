@@ -18,6 +18,8 @@ class _LoginPageState extends State<LoginPage> {
   String password = "";
   bool rememberMe = false;
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -74,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
               child: Form(
+                key: _formKey,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,9 +93,15 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(Sizes.border / 2),
                         ),
-                        child: TextField(
+                        child: TextFormField(
                           onChanged: (value) {
                             documentId = value;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Este campo es obligatorio";
+                            }
+                            return null;
                           },
                           decoration: InputDecoration(
                               border: InputBorder.none,
@@ -118,10 +127,16 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(Sizes.border / 2),
                         ),
-                        child: TextField(
+                        child: TextFormField(
                           obscureText: true,
                           onChanged: (value) {
                             password = value;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Este campo es obligatorio";
+                            }
+                            return null;
                           },
                           decoration: InputDecoration(
                               border: InputBorder.none,
@@ -179,21 +194,21 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           child: TextButton(
                               onPressed: () {
-                                if (documentId != "" && password != "") {
+                                if (_formKey.currentState!.validate()) {
                                   if (documentId == "d") {
                                     documentId = "1033796741";
                                   }
                                   if (documentId == "p") {
                                     documentId = "0101195000261";
                                   }
-                                  if (password == "d" || documentId == "p") {
+                                  if (password == "d" || password == "p") {
                                     password = "Colombia2022*";
                                   }
                                   API
                                       .login(documentId, password)
                                       .then((BackendResponse myResponse) {
                                     if (myResponse.myBody["IdError"] == 0) {
-                                      showToast("Login successful");
+                                      showToast("Ingreso exitoso");
                                       bool success = setUpUser(
                                           myResponse.myBody,
                                           password: password);
@@ -202,9 +217,9 @@ class _LoginPageState extends State<LoginPage> {
                                             .pushNamed("/home");
                                       }
                                     } else {
-                                      showToast("Login unsuccessful", type: 1);
+                                      showToast("Credenciales incorrectas",
+                                          type: 1);
                                     }
-                                    print(myResponse.myBody);
                                   });
                                 }
                               },

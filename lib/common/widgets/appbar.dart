@@ -18,6 +18,20 @@ PreferredSizeWidget myAppBar(BuildContext context) {
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(Sizes.padding),
               bottomRight: Radius.circular(Sizes.padding))),
+      // child: Container(
+      //   width: 100,
+      //   height: 100,
+      //   decoration: BoxDecoration(
+      //       image: const DecorationImage(
+      //           image: AssetImage(
+      //             "assets/images/logo_02.png",
+      //           ),
+      //           fit: BoxFit.none),
+      //       color: Colors.yellow,
+      //       borderRadius: BorderRadius.only(
+      //           bottomLeft: Radius.circular(Sizes.padding),
+      //           bottomRight: Radius.circular(Sizes.padding))),
+      // ),
     ),
     toolbarHeight: Sizes.height / 12,
     // leading: const Icon(Icons.menu),
@@ -30,7 +44,7 @@ PreferredSizeWidget myAppBar(BuildContext context) {
                 onTap: () {
                   Navigator.of(context).pushNamed("/home");
                 },
-                child: Icon(Icons.home))),
+                child: const Icon(Icons.home))),
       )
     ],
   );

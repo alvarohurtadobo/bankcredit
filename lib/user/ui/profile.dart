@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:credidiunsa_app/common/model/regEx.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
@@ -258,8 +256,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: TextFormField(
                     controller: phoneController,
                     validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Este campo es obligatorio";
+                      }
                       try {
-                        int.parse(value ?? "");
+                        int.parse(value);
                       } catch (error) {
                         return "Introduzca un número válido";
                       }
@@ -294,7 +295,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             currentUser.phone = phoneController.text;
                             currentUser.email = emailController.text;
                             API.update(currentUser).then((backendResponse) {
-                              if (backendResponse.status == 200) {
+                              if (backendResponse.status == 200 &&
+                                  backendResponse.myBody["IdError"] == 0) {
                                 showToast("Datos actualizados exitosamente");
                                 Navigator.of(context).pushNamed("/home");
                               } else {
