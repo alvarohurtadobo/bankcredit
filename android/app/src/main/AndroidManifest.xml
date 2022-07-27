@@ -2,7 +2,7 @@
     package="com.credidiunsa.credidiunsa_app">
     <uses-permission android:name="android.permission.INTERNET" /> 
     <application
-        android:label="credidiunsa_app"
+        android:label="CrediDiunsa"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

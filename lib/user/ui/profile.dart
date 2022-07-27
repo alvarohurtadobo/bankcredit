@@ -1,11 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
+import 'package:credidiunsa_app/common/ui/sizes.dart';
+import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/common/model/regEx.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
-import 'package:credidiunsa_app/common/ui/drawer.dart';
-import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:credidiunsa_app/common/widgets/toasts.dart';
-import 'package:credidiunsa_app/user/model/user.dart';
-import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -19,6 +19,8 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+
+  bool isLoading = false;
 
   final formKey = GlobalKey<FormState>();
 
@@ -280,35 +282,53 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: SizedBox(
                   height: 0,
                 )),
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff0077CD),
-                      borderRadius: BorderRadius.circular(Sizes.border),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            currentUser.setNames(nameController.text);
-                            currentUser.setLastNames(lastNameController.text);
-                            currentUser.phone = phoneController.text;
-                            currentUser.email = emailController.text;
-                            API.update(currentUser).then((backendResponse) {
-                              if (backendResponse.status == 200 &&
-                                  backendResponse.myBody["IdError"] == 0) {
-                                showToast("Datos actualizados exitosamente");
-                                Navigator.of(context).pushNamed("/home");
-                              } else {
-                                showToast("No se pudo actualizar");
+                isLoading
+                    ? const Center(
+                        child:
+                            CircularProgressIndicator(color: Color(0xff0077CD)),
+                      )
+                    : Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizes.padding),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xff0077CD),
+                          borderRadius: BorderRadius.circular(Sizes.border),
+                        ),
+                        child: TextButton(
+                            onPressed: () {
+                              if (isLoading) {
+                                return;
                               }
-                            });
-                          }
-                        },
-                        child: const Text(
-                          "Modificar Información",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        )))
+                              if (formKey.currentState!.validate()) {
+                                currentUser.setNames(nameController.text);
+                                currentUser
+                                    .setLastNames(lastNameController.text);
+                                currentUser.phone = phoneController.text;
+                                currentUser.email = emailController.text;
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                API.update(currentUser).then((backendResponse) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  if (backendResponse.status == 200 &&
+                                      backendResponse.myBody["IdError"] == 0) {
+                                    showToast(
+                                        "Datos actualizados exitosamente");
+                                    Navigator.of(context).pushNamed("/home");
+                                  } else {
+                                    showToast("No se pudo actualizar");
+                                  }
+                                });
+                              }
+                            },
+                            child: const Text(
+                              "Modificar Información",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            )))
               ]),
         ),
       ),

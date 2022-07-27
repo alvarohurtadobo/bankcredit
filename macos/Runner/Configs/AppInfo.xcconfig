@@ -8,7 +8,7 @@
 PRODUCT_NAME = credidiunsa_app
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.credidiunsa.credidiunsaApp
+PRODUCT_BUNDLE_IDENTIFIER = com.credidiunsa.diunsa-credit
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2022 com.credidiunsa. All rights reserved.

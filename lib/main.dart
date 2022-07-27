@@ -1,4 +1,3 @@
-import 'package:credidiunsa_app/user/ui/resetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:credidiunsa_app/user/ui/splash.dart';
@@ -8,6 +7,7 @@ import 'package:credidiunsa_app/bank/ui/politics.dart';
 import 'package:credidiunsa_app/user/ui/homePage.dart';
 import 'package:credidiunsa_app/user/ui/loginPage.dart';
 import 'package:credidiunsa_app/bank/ui/promotions.dart';
+import 'package:credidiunsa_app/user/ui/resetPassword.dart';
 import 'package:credidiunsa_app/bank/ui/accountDetails.dart';
 import 'package:credidiunsa_app/bank/ui/paymentMethods.dart';
 import 'package:credidiunsa_app/user/ui/createAccountPage.dart';

@@ -7,12 +7,14 @@ class User {
   String email = "";
   String phone = "";
   String password = "";
-  int idIdentification = 0;
+  int? idIdentification;
   String identification = "";
 
   String pictureUrl = "";
 
-  User.empty();
+  User.empty(){
+    idIdentification =1;
+  }
 
   User(
       {required this.firstName,

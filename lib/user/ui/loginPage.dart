@@ -18,6 +18,8 @@ class _LoginPageState extends State<LoginPage> {
   String password = "";
   bool rememberMe = false;
 
+  bool isLoading = false;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -184,50 +186,64 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         height: 2 * Sizes.boxSeparation,
                       ),
-                      Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: Sizes.padding),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color(0xff7b8084),
-                            borderRadius: BorderRadius.circular(Sizes.border),
-                          ),
-                          child: TextButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  if (documentId == "d") {
-                                    documentId = "1033796741";
-                                  }
-                                  if (documentId == "p") {
-                                    documentId = "0101195000261";
-                                  }
-                                  if (password == "d" || password == "p") {
-                                    password = "Colombia2022*";
-                                  }
-                                  API
-                                      .login(documentId, password)
-                                      .then((BackendResponse myResponse) {
-                                    if (myResponse.myBody["IdError"] == 0) {
-                                      showToast("Ingreso exitoso");
-                                      bool success = setUpUser(
-                                          myResponse.myBody,
-                                          password: password);
-                                      if (success) {
-                                        Navigator.of(context)
-                                            .pushNamed("/home");
-                                      }
-                                    } else {
-                                      showToast("Credenciales incorrectas",
-                                          type: 1);
+                      isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(color: Colors.white,),
+                            )
+                          : Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizes.padding),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff7b8084),
+                                borderRadius:
+                                    BorderRadius.circular(Sizes.border),
+                              ),
+                              child: TextButton(
+                                  onPressed: () {
+                                    if (isLoading) {
+                                      return;
                                     }
-                                  });
-                                }
-                              },
-                              child: const Text(
-                                "Ingresar",
-                                style: TextStyle(
-                                    color: Color(0xffb8b8b8), fontSize: 18),
-                              )))
+                                    if (_formKey.currentState!.validate()) {
+                                      if (documentId == "d") {
+                                        documentId = "1033796741";
+                                      }
+                                      if (documentId == "p") {
+                                        documentId = "0101195000261";
+                                      }
+                                      if (password == "d" || password == "p") {
+                                        password = "Colombia2022*";
+                                      }
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      API
+                                          .login(documentId, password)
+                                          .then((BackendResponse myResponse) {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                        if (myResponse.myBody["IdError"] == 0) {
+                                          showToast("Ingreso exitoso");
+                                          bool success = setUpUser(
+                                              myResponse.myBody,
+                                              password: password);
+                                          if (success) {
+                                            Navigator.of(context)
+                                                .pushNamed("/home");
+                                          }
+                                        } else {
+                                          showToast("Credenciales incorrectas",
+                                              type: 1);
+                                        }
+                                      });
+                                    }
+                                  },
+                                  child: const Text(
+                                    "Ingresar",
+                                    style: TextStyle(
+                                        color: Color(0xffb8b8b8), fontSize: 18),
+                                  )))
                     ]),
               ),
             ),

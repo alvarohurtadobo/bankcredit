@@ -1,5 +1,5 @@
-import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:credidiunsa_app/common/ui/sizes.dart';
 
 Future<bool> genericConfirmationDialog(
     BuildContext context, String finalLabel) async {
