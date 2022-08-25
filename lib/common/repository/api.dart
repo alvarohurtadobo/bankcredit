@@ -139,8 +139,47 @@ class API {
 
   static Future<BackendResponse> getMovements(String userId) async {
     print("Requesting for id $userId");
-    return await _doPost(
-        "historial-movimientos", {"NumeroIdentificacion": userId},
+    return await _doGet(
+        "historial-movimientos", // {"NumeroIdentificacion": userId},
         debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getAccountStatus() async {
+    print("Requesting estado cuenta");
+    return _doGet("archivo/reporte-estado-cuenta", debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getConstanciaSaldo() async {
+    print("Requesting constancia saldo");
+    return _doPost(
+        "archivo/reporte-constancia-saldo", {"Institucion": "", "IdCiudad": 1},
+        debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getReferenciaCredito() async {
+    print("Requesting reporte-constancia-referencia-credito");
+    return _doPost("archivo/reporte-constancia-referencia-credito",
+        {"Institucion": "", "IdCiudad": 1},
+        debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getContact() {
+    print("Requesting contact");
+    return _doGet("contacto/lista", debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getCuota() {
+    print("Requesting cuota");
+    return _doGet("detalle-cuenta/consultar", debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getTermsOfUse() {
+    print("Requesting terms of use");
+    return _doGet("politica-producto/consulta", debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getPaymentMethods(){
+    print("Requesting payment methods");
+    return _doGet("medio-pago/lista", debug: DEBUG);
   }
 }

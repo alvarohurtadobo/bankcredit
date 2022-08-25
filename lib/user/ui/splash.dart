@@ -30,18 +30,18 @@ class _SplashPageState extends State<SplashPage> {
         API.login(document, password).then((BackendResponse backendResponse) {
           if (backendResponse.status == 200) {
             setUpUser(backendResponse.myBody, password: password);
-            Timer(const Duration(seconds: 3), () {
+            Timer(const Duration(seconds: 1), () {
               Navigator.of(context).pushReplacementNamed('/home');
             });
           } else {
             Fluttertoast.showToast(msg: "Problem with login");
-            Timer(const Duration(seconds: 5), () {
+            Timer(const Duration(seconds: 2), () {
               Navigator.of(context).pushReplacementNamed('/login');
             });
           }
         });
       } else {
-        Timer(const Duration(seconds: 5), () {
+        Timer(const Duration(seconds: 2), () {
           Navigator.of(context).pushReplacementNamed('/login');
         });
       }
@@ -56,14 +56,18 @@ class _SplashPageState extends State<SplashPage> {
     Sizes.setSizes(width, height);
 
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.all(Sizes.padding),
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-          'assets/images/logo.png',
-        ))),
+      body: Center(
+        child: Container(
+          width: Sizes.width*0.8,
+          height: Sizes.width*0.8,
+          // margin: EdgeInsets.all(Sizes.padding),
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+            'assets/images/logo.png',
+          ), fit: BoxFit.contain)),
+        ),
       ),
     );
   }

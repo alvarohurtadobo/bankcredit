@@ -43,7 +43,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
               ]),
             ),
             SizedBox(
-              height: 3 * Sizes.boxSeparation,
+              height: 2 * Sizes.boxSeparation,
             ),
             SizedBox(
               height: Sizes.height / 5,
@@ -51,22 +51,95 @@ class _PromotionsPageState extends State<PromotionsPage> {
               child: ListView(scrollDirection: Axis.horizontal, children: [
                 mediumCard(context, name: "assets/demo/image_04.png"),
                 mediumCard(context, name: "assets/demo/image_05.png"),
-                mediumCard(context, name: "assets/demo/image_06.png"),
+                mediumCard(context, name: "assets/demo/image_04.png"),
               ]),
             ),
             // SizedBox(
             //   height: 1*Sizes.boxSeparation,
             // ),
             Container(
-                height: Sizes.height / 2,
-                width: Sizes.width * 1.3,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/demo/image_07.png"),
-                        fit: BoxFit.contain)))
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal:Sizes.boxSeparation, vertical: Sizes.padding*0.7),
+              child: Text(
+                "Latest from DIUNSA",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: Sizes.font10),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: Sizes.width * 0.7 * 0.7,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  newsBox(
+                      "¡Estamos preparados para cualquier entrenamiento!",
+                      "DIUNSA",
+                      "45K views",
+                      "2 weeks ago",
+                      "assets/demo/image_12.png"),
+                  newsBox(
+                      "¡Estamos preparados para cualquier entrenamiento!",
+                      "DIUNSA",
+                      "45K views",
+                      "2 weeks ago",
+                      "assets/demo/image_12.png"),
+                ],
+              ),
+            )
           ],
         ),
       ),
+    );
+  }
+
+  Widget newsBox(String title, String author, String views, String releaseDate,
+      String assetImage) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+      color: Colors.white,
+      width: Sizes.width * 0.7,
+      height: Sizes.width * 0.7 * 0.7,
+      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        Container(
+          width: Sizes.width * 0.7,
+          height: Sizes.width * 0.7 * 0.7 * 0.7,
+          decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage(assetImage), fit: BoxFit.cover)),
+        ),
+        Padding(
+          padding:  EdgeInsets.symmetric(vertical: Sizes.boxSeparation),
+          child: Row(
+            children: [
+              Container(
+                width: Sizes.width * 0.7 * 0.7 * 0.15,
+                height: Sizes.width * 0.7 * 0.7 * 0.15,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/demo/image_13.png"))),
+              ),
+              SizedBox(
+                width: Sizes.width * 0.7 * 0.85,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title,maxLines: 2, style: const TextStyle(fontWeight: FontWeight.bold),),
+                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(author),
+                        Text(views),
+                        Text(releaseDate),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
+      ]),
     );
   }
 
@@ -83,10 +156,12 @@ class _PromotionsPageState extends State<PromotionsPage> {
   Widget mediumCard(BuildContext context,
       {String name = "assets/demo/image_04.png"}) {
     return Container(
+      margin: EdgeInsets.only(right: Sizes.padding),
       height: Sizes.height / 5,
       width: Sizes.width / 2.8,
       decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(name), fit: BoxFit.fill)),
+        // color: Colors.yellow,
+          image: DecorationImage(image: AssetImage(name), fit: BoxFit.contain)),
     );
   }
 }

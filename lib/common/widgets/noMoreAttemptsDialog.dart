@@ -54,7 +54,7 @@ Future<bool> getNoMoreAttemptsDialog(
                     ),
                     child: TextButton(
                         onPressed: () {
-                          launchUrl("www.facebook.com");
+                          customLaunchUrl("www.facebook.com");
                         },
                         child: const Text(
                           "Quiero ir al chat",

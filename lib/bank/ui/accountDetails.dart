@@ -1,3 +1,6 @@
+import 'package:credidiunsa_app/bank/bloc/receiveFiles.dart';
+import 'package:credidiunsa_app/common/model/cuotaMensual.dart';
+import 'package:credidiunsa_app/common/widgets/extendedSummaryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -29,7 +32,7 @@ class AccountDetailsPage extends StatefulWidget {
 }
 
 class _AccountDetailsPageState extends State<AccountDetailsPage> {
-  bool historicMovementActive = false;
+  bool historicMovementActive = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,11 +70,13 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Sizes.boxSeparation, vertical: 0),
+                    // padding: EdgeInsets.symmetric(
+                    //     horizontal: Sizes.boxSeparation, vertical: 0),
                     width: (Sizes.width - 3 * Sizes.padding) / 2,
                     decoration: BoxDecoration(
-                        color: const Color(0xffE8E8E8),
+                        color: historicMovementActive
+                            ? const Color(0xff0077CD)
+                            : const Color(0xffE8E8E8),
                         borderRadius: BorderRadius.circular(Sizes.border / 2),
                         border: Border.all(color: const Color(0xff7A8084))),
                     child: TextButton(
@@ -80,20 +85,25 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                             historicMovementActive = true;
                           });
                         },
-                        child: const Text(
+                        child: Text(
                           "Histórico movimientos",
-                          style:
-                              TextStyle(color: Color(0xff7A8084), fontSize: 12),
+                          style: TextStyle(
+                              color: historicMovementActive
+                                  ? Colors.white
+                                  : const Color(0xff7A8084),
+                              fontSize: Sizes.font10 * 0.95),
                         ))),
                 SizedBox(
                   width: Sizes.boxSeparation,
                 ),
                 Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                    // padding:
+                    //     EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
                     width: (Sizes.width - 3 * Sizes.padding) / 2,
                     decoration: BoxDecoration(
-                        color: const Color(0xffE8E8E8),
+                        color: historicMovementActive
+                            ? const Color(0xffE8E8E8)
+                            : const Color(0xff0077CD),
                         borderRadius: BorderRadius.circular(Sizes.border / 2),
                         border: Border.all(color: const Color(0xff7A8084))),
                     child: TextButton(
@@ -102,10 +112,13 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                             historicMovementActive = false;
                           });
                         },
-                        child: const Text(
+                        child: Text(
                           "Detalle cuota",
-                          style:
-                              TextStyle(color: Color(0xff7A8084), fontSize: 12),
+                          style: TextStyle(
+                              color: historicMovementActive
+                                  ? const Color(0xff7A8084)
+                                  : Colors.white,
+                              fontSize: Sizes.font10),
                         )))
               ],
             ),
@@ -129,7 +142,8 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                                     myRes.myBody["Lista"].map<Movement>((res) {
                                   return Movement.fromBackendResponse(res);
                                 }).toList();
-                                myMovements.sort((a,b)=>-a.datetimeProcess.compareTo(b.datetimeProcess));
+                                myMovements.sort((a, b) => -a.datetimeProcess
+                                    .compareTo(b.datetimeProcess));
                                 List<MonthYear> existingMonthYears =
                                     Movement.existingMonthYears(myMovements);
                                 print(existingMonthYears);
@@ -161,7 +175,14 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                           })
                     ],
                   )
-                : Container()
+                : FutureBuilder<BackendResponse>(future: API.getCuota(), builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    BackendResponse? myRes = snapshot.data ;
+                    CuotaMensual myCuota = CuotaMensual.fromBackendResponse(myRes!.myBody);
+                    return extendedSummaryCard(myCuota);
+                  }
+                  return const Center(child: CircularProgressIndicator(),);
+                })
           ],
         ),
       ),
@@ -293,36 +314,61 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         text = "Descargar histórico";
         iconPath = "assets/icons/downloadIcon.png";
     }
-    return Container(
-      alignment: Alignment.center,
-      height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
-      width: Sizes.width / 3,
-      margin: EdgeInsets.only(right: 2 * Sizes.boxSeparation),
-      padding: EdgeInsets.symmetric(vertical: Sizes.boxSeparation),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(Sizes.boxSeparation),
-          )),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: Sizes.tileHeightSmall,
-              width: Sizes.tileHeightSmall,
-              decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(iconPath))),
-            ),
-            Text(
-              text,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color(0xffFF6A1B),
-                fontSize: 18,
+    return GestureDetector(
+      onTap: (){
+        switch (type) {
+      case 0:
+        API.getAccountStatus().then((myResponse) {
+          displayFile(myResponse);
+        });
+        break;
+      case 1:
+        API.getConstanciaSaldo().then((myResponse) {
+          displayFile(myResponse);
+        });
+        break;
+      case 2:
+        API.getReferenciaCredito().then((myResponse) {
+          displayFile(myResponse);
+        });
+        break;
+      default:
+        API.getAccountStatus().then((myResponse) {
+          displayFile(myResponse);
+        });
+    }
+      },
+      child: Container(
+        alignment: Alignment.center,
+        height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
+        width: Sizes.width / 3,
+        margin: EdgeInsets.only(right: 2 * Sizes.boxSeparation),
+        padding: EdgeInsets.symmetric(vertical: Sizes.boxSeparation),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(Sizes.boxSeparation),
+            )),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: Sizes.tileHeightSmall,
+                width: Sizes.tileHeightSmall,
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage(iconPath))),
               ),
-            )
-          ]),
+              Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xffFF6A1B),
+                  fontSize: Sizes.font10,
+                ),
+              )
+            ]),
+      ),
     );
   }
 }

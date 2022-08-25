@@ -1,3 +1,6 @@
+import 'package:credidiunsa_app/bank/model/socialMedia.dart';
+import 'package:credidiunsa_app/common/model/launcher.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
@@ -74,7 +77,7 @@ class _ContactPageState extends State<ContactPage> {
                               image: AssetImage("assets/images/whatsapp.png"),
                               fit: BoxFit.cover))),
                   const Text(
-                    "Chatbot de WhatsApp",
+                    "WhatsApp",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -91,45 +94,63 @@ class _ContactPageState extends State<ContactPage> {
             SizedBox(
               height: 2 * Sizes.boxSeparation,
             ),
-            SizedBox(
-              height: Sizes.width / 4 * 1.2,
-              width: Sizes.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  socialMediaButton(context, name: "facebook"),
-                  SizedBox(
-                    width: 3 * Sizes.boxSeparation,
-                  ),
-                  socialMediaButton(context, name: "instagram")
-                ],
-              ),
-            )
+            FutureBuilder<BackendResponse>(
+                future: API.getContact(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<SocialMedia> myMedia = snapshot.data?.myBody["Lista"]
+                        .map<SocialMedia>((elem) => SocialMedia.fromBackendResponse(elem))
+                        .toList();
+                    return SizedBox(
+                      height: Sizes.width / 4 * 1.2,
+                      width: Sizes.width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: myMedia
+                              .map((e) => socialMediaButton(context, e))
+                              .toList()),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                })
           ],
         ),
       ),
     );
   }
 
-  Widget socialMediaButton(BuildContext context,
-      {String name = "facebook", String label = "@credidiunsa"}) {
-    return SizedBox(
-      height: Sizes.width / 4 * 1.2,
-      width: Sizes.width / 4,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: Sizes.width / 4,
-            width: Sizes.width / 4,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/$name.png"))),
-          ),
-          Text(label,
-              style: const TextStyle(
-                  color: Color(0xff0F62A4), fontWeight: FontWeight.bold))
-        ],
+  Widget socialMediaButton(BuildContext context, SocialMedia myMedia) {
+    String name = myMedia.name;
+    String label = myMedia.user;
+    String url = myMedia.link;
+    return GestureDetector(
+      onTap: (){
+        customLaunchUrl(url);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: 1.5 * Sizes.boxSeparation,
+        ),
+        height: Sizes.width / 4 * 1.2,
+        width: Sizes.width / 3.2,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: Sizes.width / 4,
+              width: Sizes.width / 4,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image:
+                          AssetImage("assets/images/${name.toLowerCase()}.png"))),
+            ),
+            Text(label,
+                style: const TextStyle(
+                    color: Color(0xff0F62A4), fontWeight: FontWeight.bold))
+          ],
+        ),
       ),
     );
   }

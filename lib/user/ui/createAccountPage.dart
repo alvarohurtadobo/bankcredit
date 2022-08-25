@@ -35,27 +35,50 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       body: Form(
         key: _formKey,
         child: ListView(children: [
-          Container(
-            width: double.infinity,
-            height: Sizes.height * 0.18,
-            padding: EdgeInsets.all(Sizes.padding),
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/image_02.png"),
-                    fit: BoxFit.cover)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text("¡Crea tu cuenta!",
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold)),
-                Text("Ingresa la información",
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
-              ],
-            ),
+          Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: Sizes.height * 0.18,
+                padding: EdgeInsets.all(Sizes.padding),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/image_02.png"),
+                        fit: BoxFit.cover)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text("¡Crea tu cuenta!",
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
+                    Text("Ingresa la información",
+                        style: TextStyle(fontSize: 20, color: Colors.white)),
+                  ],
+                ),
+              ),
+              Positioned(
+                  top: Sizes.padding,
+                  left: Sizes.padding,
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                          width: Sizes.padding * 1.6,
+                          height: Sizes.padding * 1.6,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(Sizes.padding * 1.6 / 2))),
+                          child: Icon(
+                            Icons.arrow_back,
+                            size: 1.5 * Sizes.padding,
+                            color: const Color(0xff0077cd),
+                          )))),
+            ],
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
@@ -66,43 +89,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 SizedBox(
                   height: 3 * Sizes.boxSeparation,
                 ),
-                Container(
-                  width: Sizes.width * 0.6,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/logo.png"),
-                          fit: BoxFit.cover)),
-                ),
-                const Text("Nombres",
-                    style: TextStyle(color: Color(0xff0077cd))),
-                SizedBox(
-                  height: Sizes.boxSeparation,
-                ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      return null;
-                    },
-                    onChanged: (newName) {
-                      currentUser.setNames(newName);
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "",
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
+                Center(
+                  child: Container(
+                    width: Sizes.width * 0.6,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/logo.png"),
+                            fit: BoxFit.cover)),
                   ),
                 ),
                 const Text("Apellidos",
@@ -110,31 +104,56 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      return null;
-                    },
-                    onChanged: (newName) {
-                      currentUser.setLastNames(newName);
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "",
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  onChanged: (newName) {
+                    currentUser.setLastNames(newName);
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
+                ),
+                const Text("Nombres",
+                    style: TextStyle(color: Color(0xff0077cd))),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  onChanged: (newName) {
+                    currentUser.setNames(newName);
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
                 ),
                 const Text("Tipo de documento",
                     style: TextStyle(color: Color(0xff0077cd))),
@@ -159,163 +178,151 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         .toList(),
                     onChanged: (value) {
                       print("Set value to $value");
-                      currentUser.idIdentification = value;
+                      setState(() {
+                        currentUser.idIdentification = value;
+                      });
                     },
                   ),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
                 ),
                 const Text("Número de documento",
                     style: TextStyle(color: Color(0xff0077cd))),
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      currentUser.identification = value;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "",
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    currentUser.identification = value;
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
                 ),
                 const Text("Correo electrónico",
                     style: TextStyle(color: Color(0xff0077cd))),
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (!isGoodEmail(value ?? "")) {
-                        return "Introduzca un correo válido";
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      currentUser.email = value;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "",
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
+                TextFormField(
+                  validator: (value) {
+                    if (!isGoodEmail(value ?? "")) {
+                      return "Introduzca un correo válido";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    currentUser.email = value;
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
                 ),
                 const Text("Teléfono",
                     style: TextStyle(color: Color(0xff0077cd))),
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      currentUser.email = value;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "",
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    currentUser.email = value;
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
                 ),
                 const Text("Contraseña",
                     style: TextStyle(color: Color(0xff0077cd))),
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    obscureText: true,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      currentUser.email = value;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "",
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
+                TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    currentUser.email = value;
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
                 ),
                 const Text("Confirmar contraseña",
                     style: TextStyle(color: Color(0xff0077cd))),
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    obscureText: true,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "",
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
+                TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,

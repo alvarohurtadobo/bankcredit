@@ -3,13 +3,12 @@
 import 'dart:async';
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 import '../../common/model/secondsToMinSec.dart';
 import 'package:credidiunsa_app/common/widgets/toasts.dart';
 import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 
 String TEST_CODE = "1234";
-int AWAIT_TIME = 6;
+int AWAIT_TIME = 300;
 
 class ResetPassword02Page extends StatefulWidget {
   const ResetPassword02Page({Key? key}) : super(key: key);
@@ -19,7 +18,10 @@ class ResetPassword02Page extends StatefulWidget {
 }
 
 class _ResetPassword02PageState extends State<ResetPassword02Page> {
-  String currentCode = "";
+  String digitA = "";
+  String digitB = "";
+  String digitC = "";
+  String digitD = "";
   bool wrongCodeWarning = false;
   bool canContinue = false;
   StreamController timeController = StreamController<int>();
@@ -95,33 +97,77 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
               child: const Text(
                   "Por favor ingresa el código que enviamos or mensaje de texto"),
             ),
-            Padding(
-                padding: EdgeInsets.all(Sizes.padding),
-                child: PinFieldAutoFill(
-                    // decoration: // UnderlineDecoration, BoxLooseDecoration or BoxTightDecoration see https://github.com/TinoGuo/pin_input_text_field for more info,
-                    // currentCode: // prefill with a code
-                    onCodeSubmitted: (value) {
-                      print("SUBMIT");
-                      setState(() {
-                        wrongCodeWarning = currentCode != TEST_CODE;
-                      });
-                      if (currentCode == TEST_CODE) {
-                        Navigator.of(context).pushNamed("/resetPassword");
-                      } else {}
-                    }, //code submitted callback
-                    onCodeChanged: (value) {
-                      if (value != null && value != "") {
-                        currentCode = value;
-                        if (currentCode.length == 4) {
-                          setState(() {
-                            canContinue = true;
-                          });
+            SizedBox(
+              height: Sizes.height*0.1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    color: Colors.yellow,
+                    child: TextField(
+                      maxLength: 1,
+                      maxLines: 1,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none),
+                      onChanged: (value) {
+                        if (value.length == 1) {
+                          FocusScope.of(context).nextFocus();
+                          digitA = value;
                         }
+                      },
+                    ),
+                  ),
+                  TextField(
+                    maxLength: 1,
+                    maxLines: 1,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: InputBorder.none),
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        FocusScope.of(context).nextFocus();
+                        digitB = value;
                       }
-                      print("Current value is: $currentCode");
-                    }, //code changed callback
-                    codeLength: 4 //code length, default 6
-                    )),
+                    },
+                  ),
+                  TextField(
+                    maxLength: 1,
+                    maxLines: 1,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: InputBorder.none),
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        FocusScope.of(context).nextFocus();
+                        digitC = value;
+                      }
+                    },
+                  ),
+                  TextField(
+                    maxLength: 1,
+                    maxLines: 1,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: InputBorder.none),
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        FocusScope.of(context).unfocus();
+                        digitD = value;
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
             SizedBox(
               height: 1 * Sizes.boxSeparation,
             ),
@@ -137,9 +183,22 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                   if (snapshop.hasData) {
                     int newTime = snapshop.data ?? 0;
                     if (newTime == 0) {
-                      return const Text("Reenviar",
-                          style: TextStyle(
-                              color: Color(0xffA3A8AC), fontSize: 20));
+                      return GestureDetector(
+                        onTap: () {
+                          currentTime = AWAIT_TIME;
+                          timeController.sink.add(currentTime);
+                          // TODO Add API here
+                          showToast("Se solicitó nuevo SMS");
+                          setState(() {
+                            canRequestNewCode == false;
+                          });
+                        },
+                        child: const Text("Reenviar código",
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Color(0xff4AA7EA),
+                                fontSize: 20)),
+                      );
                     } else {
                       return Text("Reenviar en ${convertToSecMin(newTime)}",
                           style: const TextStyle(
@@ -153,33 +212,33 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                 height: 3 * Sizes.boxSeparation,
               ),
             ),
-            canRequestNewCode
-                ? Container(
-                    padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
-                    margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff0077CD),
-                      borderRadius: BorderRadius.circular(Sizes.border),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          currentTime = AWAIT_TIME;
-                          timeController.sink.add(currentTime);
-                          // TODO Add API here
-                          showToast("Se solicitó nuevo SMS");
-                          setState(() {
-                            canRequestNewCode == false;
-                          });
-                        },
-                        child: const Text(
-                          "Enviar nuevo código",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        )))
-                : Container(),
-            SizedBox(
-              height: Sizes.boxSeparation,
-            ),
+            // canRequestNewCode
+            //     ? Container(
+            //         padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+            //         margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
+            //         width: double.infinity,
+            //         decoration: BoxDecoration(
+            //           color: const Color(0xff0077CD),
+            //           borderRadius: BorderRadius.circular(Sizes.border),
+            //         ),
+            //         child: TextButton(
+            //             onPressed: () {
+            //               currentTime = AWAIT_TIME;
+            //               timeController.sink.add(currentTime);
+            //               // TODO Add API here
+            //               showToast("Se solicitó nuevo SMS");
+            //               setState(() {
+            //                 canRequestNewCode == false;
+            //               });
+            //             },
+            //             child: const Text(
+            //               "Enviar nuevo código",
+            //               style: TextStyle(color: Colors.white, fontSize: 18),
+            //             )))
+            //     : Container(),
+            // SizedBox(
+            //   height: Sizes.boxSeparation,
+            // ),
             (canContinue)
                 ? Container(
                     margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
@@ -191,7 +250,12 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                     ),
                     child: TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed("/resetPassword");
+                          if (digitA != "" &&
+                              digitB != "" &&
+                              digitC != "" &&
+                              digitD != "") {
+                            Navigator.of(context).pushNamed("/resetPassword");
+                          }
                         },
                         child: const Text(
                           "Validar código",

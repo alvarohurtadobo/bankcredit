@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                     height: 2 * Sizes.boxSeparation,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+                    padding: EdgeInsets.all(Sizes.padding),
                     child: const Text(
                       "Promociones y novedades",
                       style: TextStyle(
@@ -79,7 +79,8 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(
+                  Container(
+                    padding: EdgeInsets.only(left:Sizes.padding),
                     height: Sizes.width / 2.5,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
@@ -100,16 +101,27 @@ class _HomePageState extends State<HomePage> {
                         scaffoldKey.currentState?.openDrawer();
                       },
                       child: Container(
-                          width: Sizes.padding * 1.6,
-                          height: Sizes.padding * 1.6,
+                          width: Sizes.padding * 2,
+                          height: Sizes.padding * 2,
                           decoration: BoxDecoration(
                               color: const Color(0xff0077cd),
                               borderRadius: BorderRadius.all(
-                                  Radius.circular(Sizes.padding * 1.6 / 2))),
-                          child: const Icon(
+                                  Radius.circular(Sizes.padding * 2 / 2))),
+                          child: Icon(
                             Icons.menu,
+                            size: 1.5*Sizes.padding,
                             color: Colors.white,
                           )))),
+              Positioned(
+                  top: Sizes.padding,
+                  left: 2.8 * Sizes.padding,
+                  child: Container(
+                      width: 6*Sizes.padding * 1.6,
+                      height: Sizes.padding * 2,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/logo_02.png"),
+                              fit: BoxFit.fitWidth)))),
               Positioned(
                   top: 6 * Sizes.padding,
                   left: 2 * Sizes.padding,
@@ -117,11 +129,11 @@ class _HomePageState extends State<HomePage> {
                       "Tu saldo", "disponible para compras", "L 40,000.00",
                       scale: 0.8)),
               Positioned(
-                  top: 8 * Sizes.padding + Sizes.height / 6.2,
+                  top: 6.5 * Sizes.padding + Sizes.height / 6.2,
                   left: 2 * Sizes.padding,
                   child: GestureDetector(
                     onTap: () {
-                      launchUrl("https://www.diunsa.hn/credidiunsa");
+                      customLaunchUrl("https://www.diunsa.hn/credidiunsa");
                     },
                     child: summaryCard(
                         "Tu cuota", "mensual para pagar", "L 35,000.00",
@@ -136,6 +148,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget displayImage(String assetName) {
     return Container(
+      margin: EdgeInsets.only(right:1.5*Sizes.boxSeparation),
       width: Sizes.width / 2.5,
       height: Sizes.width / 2.5,
       decoration: BoxDecoration(

@@ -1,78 +1,86 @@
-import 'package:credidiunsa_app/common/ui/sizes.dart';
-import 'package:credidiunsa_app/common/widgets/genericConfirmationDialog.dart';
-import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:flutter/material.dart';
+import 'package:credidiunsa_app/common/ui/sizes.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
+import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:credidiunsa_app/common/widgets/genericConfirmationDialog.dart';
 
 class MyDrawer extends StatelessWidget {
   // const MyDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    wasLogged = true;
     return Drawer(
-      backgroundColor: const Color(0xff0077cd),
+      backgroundColor: Colors.white,
       child: SafeArea(
         child: ListView(
           children: [
-            Container(
-              padding: EdgeInsets.all(Sizes.padding * 0.6),
-              decoration: const BoxDecoration(
-                color: Color(0xff0077cd),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    height: Sizes.width / 6,
-                    width: Sizes.width / 6,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/demo/avatar.png"))),
-                  ),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "¡Hola!",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22,
-                              color: Colors.white),
-                        ),
-                        Text(
-                          currentUser.getFullName(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 18,
-                              color: Colors.white),
-                        ),
-                        const Text(
-                          "Última sesión 01/15/2022",
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                              color: Colors.white),
-                        ),
-                      ])
-                ],
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed("/profile");
+              },
+              child: Container(
+                padding: EdgeInsets.all(Sizes.padding * 0.6),
+                decoration: const BoxDecoration(
+                  color: Color(0xff0077cd),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      height: Sizes.width / 6,
+                      width: Sizes.width / 6,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/demo/avatar.png"))),
+                    ),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "¡Hola!",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                                color: Colors.white),
+                          ),
+                          Text(
+                            currentUser.getFullName(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 18,
+                                color: Colors.white),
+                          ),
+                          const Text(
+                            "Última sesión 01/15/2022",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                                color: Colors.white),
+                          ),
+                        ])
+                  ],
+                ),
               ),
             ),
-            drawerTile(
-                context, Icons.person, "Mi Perfil", "Actualiza tu información",
+            drawerTile(context, "assets/icons/person.png", "Mi Perfil",
+                "Actualiza tu información",
                 route: "/profile"),
-            drawerTile(context, Icons.payments, "Medios de pago",
+            drawerTile(context, "assets/icons/cards.png", "Medios de pago",
                 "Donde hacer tus pagos",
                 route: "/payment"),
-            drawerTile(context, Icons.settings, "Detalles de la cuenta",
-                "Movimientos y pagos",
+            drawerTile(context, "assets/icons/settings.png",
+                "Detalles de la cuenta", "Movimientos y pagos",
                 route: "/accountDetails"),
-            drawerTile(context, Icons.keyboard_double_arrow_up_sharp, "Aumento",
-                "de cupo"),
-            drawerTile(
-                context, Icons.present_to_all, "Políticas", "de producto",
+            drawerTile(context, "assets/icons/rise.png", "Aumento", "de cupo"),
+            drawerTile(context, "assets/icons/policies.png", "Políticas",
+                "de producto",
                 route: "/politics"),
-            drawerTile(context, Icons.label, "Promociones", "y novedades",
+            drawerTile(
+                context, "assets/icons/promo.png", "Promociones", "y novedades",
                 route: "/promotions"),
-            drawerTile(context, Icons.whatsapp, "Contáctanos", "",
+            drawerTile(context, "assets/icons/whatsapp.png", "Contáctanos", "",
                 route: "/contact"),
             logoutTile(context),
             Container(
@@ -86,7 +94,7 @@ class MyDrawer extends StatelessWidget {
   }
 
   Widget drawerTile(
-      BuildContext context, IconData icon, String title, String subtitle,
+      BuildContext context, String assetName, String title, String subtitle,
       {String route = "/"}) {
     return GestureDetector(
       onTap: () {
@@ -96,19 +104,41 @@ class MyDrawer extends StatelessWidget {
         }
       },
       child: Container(
-        padding: EdgeInsets.all(Sizes.boxSeparation),
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
-        child: ListTile(
-          leading: Icon(
-            icon,
-            color: const Color(0xffFF6A1B),
-          ),
-          title: Text(title),
-          subtitle: Text(subtitle),
-        ),
-      ),
+          padding: EdgeInsets.symmetric(vertical: Sizes.padding),
+          margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
+          child: Row(
+            children: [
+              Container(
+                width: Sizes.padding,
+                height: Sizes.padding,
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage(assetName))),
+              ),
+              SizedBox(
+                width: Sizes.padding,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: TextStyle(
+                          color: const Color(0xff4F5051),
+                          fontSize: Sizes.font10,
+                          fontWeight: FontWeight.bold)),
+                  subtitle == ""
+                      ? Container()
+                      : Text(subtitle,
+                          style: TextStyle(
+                              color: const Color(0xff4F5051),
+                              fontSize: Sizes.font10,
+                              fontWeight: FontWeight.normal))
+                ],
+              ),
+            ],
+          )),
     );
   }
 
@@ -122,8 +152,8 @@ class MyDrawer extends StatelessWidget {
             print("Confirm logout, clearing user notification id and token");
             SharedPreferences.getInstance().then((myPrefs) {
               myPrefs.remove("jwt");
-              myPrefs.remove("document");
-              myPrefs.remove("password");
+              // myPrefs.remove("document");
+              // myPrefs.remove("password");
               myPrefs.remove("expiration");
               Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.of(context).pop();
@@ -133,18 +163,27 @@ class MyDrawer extends StatelessWidget {
         });
       },
       child: Container(
-        padding: EdgeInsets.all(Sizes.boxSeparation),
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
-        child: const ListTile(
-          leading: Icon(
-            Icons.exit_to_app,
-            color: const Color(0xffFF6A1B),
-          ),
-          title: Text("Cerrar sesión"),
-        ),
-      ),
+          padding: EdgeInsets.symmetric(vertical: Sizes.padding),
+          margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.exit_to_app,
+                color: Color(0xffFF6A1B),
+              ),
+              SizedBox(
+                width: Sizes.padding,
+              ),
+              Text("Cerrar sesión",
+                  style: TextStyle(
+                      color: const Color(0xff4F5051),
+                      fontSize: Sizes.font10,
+                      fontWeight: FontWeight.bold)),
+            ],
+          )),
     );
   }
 }

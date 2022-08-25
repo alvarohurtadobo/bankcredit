@@ -1,3 +1,4 @@
+import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:credidiunsa_app/user/ui/splash.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
           '/payment': (context) => const PaymentMethodsPage(),
           '/accountDetails': (context) => const AccountDetailsPage(),
           '/resetPassword': (context) => const ResetPasswordPage(),
+          '/biometric': (context) => const BiometricAuthentication(appBarTitle: "Ingresar con face/touch id"),
         });
   }
 }

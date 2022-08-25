@@ -1,10 +1,15 @@
+import 'package:credidiunsa_app/common/model/sesion.dart';
+import 'package:credidiunsa_app/common/widgets/biometricAuthDialog.dart';
+import 'package:local_auth/error_codes.dart' as local_auth_error;
 import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:credidiunsa_app/common/widgets/toasts.dart';
 import 'package:credidiunsa_app/user/bloc/userLogin.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../common/ui/sizes.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import '../../common/ui/sizes.dart';
+import '../../common/widgets/toasts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,10 +22,67 @@ class _LoginPageState extends State<LoginPage> {
   String documentId = "";
   String password = "";
   bool rememberMe = false;
+  bool localEnabled = false;
 
   bool isLoading = false;
 
+  final _localAuthentication = LocalAuthentication();
+
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    SharedPreferences.getInstance().then((prefs) {
+      localEnabled = prefs.getBool("localEnabled") ?? false;
+      print("Local auth is enabled $localEnabled, attempting login");
+      if (localEnabled && !wasLogged) {
+        documentId = prefs.getString("document") ?? "";
+        password = prefs.getString("password") ?? "";
+        print("cred: $documentId, $password");
+        if (documentId == "" || password == "") {
+          return;
+        }
+        try {
+          _localAuthentication
+              .authenticate(
+            localizedReason: "Please authenticate to see account balance",
+            // useErrorDialogs: true,
+            // stickyAuth: false,
+          )
+              .then((isAuth) {
+            if (isAuth) {
+              setState(() {
+                isLoading = true;
+              });
+              API
+                  .login(documentId, password)
+                  .then((BackendResponse myResponse) async {
+                setState(() {
+                  isLoading = false;
+                });
+                if (myResponse.myBody["IdError"] == 0) {
+                  // showToast("Ingreso exitoso");
+                  bool success =
+                      setUpUser(myResponse.myBody, password: password);
+                  if (success) {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushNamed("/home");
+                  }
+                }
+              });
+            }
+          });
+        } on PlatformException catch (exception) {
+          if (exception.code == local_auth_error.notAvailable ||
+              exception.code == local_auth_error.passcodeNotSet ||
+              exception.code == local_auth_error.notEnrolled) {
+            // Handle this exception here.
+          }
+        }
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
               image: DecorationImage(
                   image: AssetImage("assets/images/image_01.png"),
                   fit: BoxFit.cover)),
-          child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          child: Column( children: [
             SizedBox(
               height: 3 * Sizes.padding,
             ),
@@ -57,11 +119,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: Sizes.boxSeparation),
-            const Text("¡Bienvenido!",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold)),
+            GestureDetector(
+              onLongPress: () {
+                Navigator.of(context).pushNamed("/biometric");
+              },
+              child: const Text("¡Bienvenido!",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold)),
+            ),
             SizedBox(
               height: Sizes.padding,
             ),
@@ -188,7 +255,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       isLoading
                           ? const Center(
-                              child: CircularProgressIndicator(color: Colors.white,),
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
                             )
                           : Container(
                               padding: EdgeInsets.symmetric(
@@ -205,30 +274,67 @@ class _LoginPageState extends State<LoginPage> {
                                       return;
                                     }
                                     if (_formKey.currentState!.validate()) {
-                                      if (documentId == "d") {
-                                        documentId = "1033796741";
-                                      }
                                       if (documentId == "p") {
-                                        documentId = "0101195000261";
+                                        documentId = "0828199100005";
                                       }
-                                      if (password == "d" || password == "p") {
-                                        password = "Colombia2022*";
+                                      if (password == "p") {
+                                        password = "Diunsa2022*";
                                       }
                                       setState(() {
                                         isLoading = true;
                                       });
-                                      API
-                                          .login(documentId, password)
-                                          .then((BackendResponse myResponse) {
+                                      API.login(documentId, password).then(
+                                          (BackendResponse myResponse) async {
                                         setState(() {
                                           isLoading = false;
                                         });
                                         if (myResponse.myBody["IdError"] == 0) {
-                                          showToast("Ingreso exitoso");
+                                          // showToast("Ingreso exitoso");
                                           bool success = setUpUser(
                                               myResponse.myBody,
                                               password: password);
                                           if (success) {
+                                            bool useBio =
+                                                await biometricAuthConfirmationDialog(
+                                                    context);
+                                            bool isAuthorized = false;
+                                            bool correctlyEnabledBio = false;
+                                            if (useBio) {
+                                              try {
+                                                isAuthorized =
+                                                    await _localAuthentication
+                                                        .authenticate(
+                                                  localizedReason:
+                                                      "Please authenticate to see account balance",
+                                                  // useErrorDialogs: true,
+                                                  // stickyAuth: false,
+                                                );
+                                                correctlyEnabledBio =
+                                                    isAuthorized;
+                                              } on PlatformException catch (exception) {
+                                                if (exception.code ==
+                                                        local_auth_error
+                                                            .notAvailable ||
+                                                    exception.code ==
+                                                        local_auth_error
+                                                            .passcodeNotSet ||
+                                                    exception.code ==
+                                                        local_auth_error
+                                                            .notEnrolled) {
+                                                  // Handle this exception here.
+                                                }
+                                              }
+                                            }
+                                            print(
+                                                "Setting use bio to $correctlyEnabledBio");
+                                            if (isAuthorized) {
+                                              SharedPreferences.getInstance()
+                                                  .then((prefs) {
+                                                prefs.setBool("localEnabled",
+                                                    correctlyEnabledBio);
+                                              });
+                                            }
+                                            Navigator.of(context).pop();
                                             Navigator.of(context)
                                                 .pushNamed("/home");
                                           }
