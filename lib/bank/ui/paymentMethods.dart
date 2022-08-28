@@ -69,7 +69,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                 BackendResponse? myRes = snapshot.data;
                 print("myRes is $myRes");
                 double cuota = CuotaMensual.fromBackendResponse(myRes!.myBody).cuota;
-                print("Coute is $cuota");
+                print("Couta is $cuota");
                 return summaryCard("Tu cuota", "mensual actual es", currencyFormatter.format(cuota));
               }
               return const Center(child: CircularProgressIndicator(),);

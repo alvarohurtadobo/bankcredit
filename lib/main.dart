@@ -1,4 +1,8 @@
 import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
+import 'package:credidiunsa_app/user/ui/confirmProfilePicturePage.dart';
+import 'package:credidiunsa_app/user/ui/updateProfilePage.dart';
+import 'package:credidiunsa_app/user/ui/updateProfilePicturePage.dart';
+import 'package:credidiunsa_app/user/ui/validateProfileUpdate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:credidiunsa_app/user/ui/splash.dart';
@@ -52,6 +56,11 @@ class MyApp extends StatelessWidget {
           '/accountDetails': (context) => const AccountDetailsPage(),
           '/resetPassword': (context) => const ResetPasswordPage(),
           '/biometric': (context) => const BiometricAuthentication(appBarTitle: "Ingresar con face/touch id"),
+          '/updateProfilePicture': (context)=> const UpdateProfilePicturePage(),
+          '/confirmProfilePicture': (context)=> const ConfirmProfilePicturePage(),
+          '/updateEmail': (context)=> const UpdateProfilePage(type:0),
+          '/updatePhone': (context)=> const UpdateProfilePage(type:1),
+          '/validateProfileUpdate': (context)=> const ValidateProfileUpdatePage(type:1),
         });
   }
 }

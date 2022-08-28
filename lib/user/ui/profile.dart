@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
-import 'package:credidiunsa_app/common/model/regEx.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:credidiunsa_app/common/widgets/toasts.dart';
@@ -47,237 +46,254 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: Sizes.height / 8,
-                  width: Sizes.width,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [
-                            Container(
-                              height: Sizes.height / 8,
-                              width: Sizes.height / 8,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage("assets/demo/avatar.png"),
-                                      fit: BoxFit.cover)),
-                            ),
-                            Positioned(
-                              right: 0.7 * Sizes.padding,
-                              bottom: 0.7 * Sizes.padding,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(Sizes.padding / 2))),
-                                height: Sizes.padding,
-                                width: Sizes.padding,
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.white,
-                                  size: Sizes.padding * 0.7,
+                GestureDetector(
+                  onTap: () async {
+                    Navigator.of(context).pushNamed("/updateProfilePicture");
+                  },
+                  child: SizedBox(
+                    height: Sizes.height / 8,
+                    width: Sizes.width,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(Sizes.boxSeparation),
+                                child: Container(
+                                  height: Sizes.height / 8 -
+                                      2 * Sizes.boxSeparation,
+                                  width: Sizes.height / 8 -
+                                      2 * Sizes.boxSeparation,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(Sizes.height / 16)),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              currentUser.pictureUrl),
+                                          fit: BoxFit.cover)),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: Sizes.height / 8,
-                          width: Sizes.width / 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("Mi Perfil",
-                                  style: TextStyle(
-                                      color: Color(0xff0F62A4),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 24)),
-                              Text(currentUser.getFullName(),
-                                  style: const TextStyle(
-                                      color: Color(0xff0F62A4),
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 18))
+                              Positioned(
+                                right: 0.5 * Sizes.padding,
+                                bottom: 0.5 * Sizes.padding,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(Sizes.padding / 2))),
+                                  height: Sizes.padding,
+                                  width: Sizes.padding,
+                                  child: Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.white,
+                                    size: Sizes.padding * 0.7,
+                                  ),
+                                ),
+                              )
                             ],
                           ),
-                        ),
-                      ]),
+                          SizedBox(
+                            width: Sizes.padding,
+                          ),
+                          SizedBox(
+                            height: Sizes.height / 8,
+                            width: Sizes.width / 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Mi Perfil",
+                                    style: TextStyle(
+                                        color: Color(0xff0F62A4),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24)),
+                                Text(currentUser.getFullName(),
+                                    style: const TextStyle(
+                                        color: Color(0xff0F62A4),
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 18))
+                              ],
+                            ),
+                          ),
+                        ]),
+                  ),
                 ),
+                // SizedBox(
+                //   height: Sizes.boxSeparation,
+                // ),
+                // SizedBox(
+                //   width: Sizes.width,
+                //   height: Sizes.height / 20,
+                //   child: Row(
+                //     children: const [
+                //       Icon(
+                //         Icons.person,
+                //         color: Color(0xff0F62A4),
+                //       ),
+                //       Text("Nombres",
+                //           style: TextStyle(color: Color(0xff0077cd))),
+                //     ],
+                //   ),
+                // ),
+                // Container(
+                //   padding:
+                //       EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                //   decoration: BoxDecoration(
+                //     color: Colors.grey[300],
+                //     borderRadius: BorderRadius.circular(Sizes.border / 2),
+                //   ),
+                //   child: TextFormField(
+                //     controller: nameController,
+                //     validator: (value) {
+                //       if (value!.isEmpty) {
+                //         return "Este campo es obligatorio";
+                //       }
+                //       return null;
+                //     },
+                //     decoration: InputDecoration(
+                //         border: InputBorder.none,
+                //         hintText: "Nombres",
+                //         hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                //         contentPadding: EdgeInsets.symmetric(
+                //             horizontal: Sizes.boxSeparation),
+                //         focusedBorder: null,
+                //         disabledBorder: null),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: Sizes.boxSeparation,
+                // ),
+                // SizedBox(
+                //   width: Sizes.width,
+                //   height: Sizes.height / 20,
+                //   child: Row(
+                //     children: const [
+                //       Icon(
+                //         Icons.people,
+                //         color: Color(0xff0F62A4),
+                //       ),
+                //       Text("Apellidos",
+                //           style: TextStyle(color: Color(0xff0077cd))),
+                //     ],
+                //   ),
+                // ),
+                // Container(
+                //   padding:
+                //       EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                //   decoration: BoxDecoration(
+                //     color: Colors.grey[300],
+                //     borderRadius: BorderRadius.circular(Sizes.border / 2),
+                //   ),
+                //   child: TextFormField(
+                //     controller: lastNameController,
+                //     validator: (value) {
+                //       if (value!.isEmpty) {
+                //         return "Este campo es obligatorio";
+                //       }
+                //       return null;
+                //     },
+                //     decoration: InputDecoration(
+                //         border: InputBorder.none,
+                //         hintText: "Apellidos",
+                //         hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                //         contentPadding: EdgeInsets.symmetric(
+                //             horizontal: Sizes.boxSeparation),
+                //         focusedBorder: null,
+                //         disabledBorder: null),
+                //   ),
+                // ),
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                SizedBox(
-                  width: Sizes.width,
-                  height: Sizes.height / 20,
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.person,
-                        color: Color(0xff0F62A4),
-                      ),
-                      Text("Nombres",
-                          style: TextStyle(color: Color(0xff0077cd))),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    controller: nameController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Nombres",
-                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
-                ),
-                SizedBox(
-                  height: Sizes.boxSeparation,
-                ),
-                SizedBox(
-                  width: Sizes.width,
-                  height: Sizes.height / 20,
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.people,
-                        color: Color(0xff0F62A4),
-                      ),
-                      Text("Apellidos",
-                          style: TextStyle(color: Color(0xff0077cd))),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    controller: lastNameController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Apellidos",
-                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
-                ),
-                SizedBox(
-                  height: Sizes.boxSeparation,
-                ),
-                SizedBox(
-                  width: Sizes.width,
-                  height: Sizes.height / 20,
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.email,
-                        color: Color(0xff0F62A4),
-                      ),
-                      Text("Correo Electrónico",
-                          style: TextStyle(color: Color(0xff0077cd))),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    controller: emailController,
-                    validator: (value) {
-                      if (!isGoodEmail(value ?? "")) {
-                        return "Introduzca un correo válido";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Correo",
-                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
-                ),
-                SizedBox(
-                  height: Sizes.boxSeparation,
-                ),
-                SizedBox(
-                  width: Sizes.width,
-                  height: Sizes.height / 20,
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.smartphone,
-                        color: Color(0xff0F62A4),
-                      ),
-                      Text("Teléfono",
-                          style: TextStyle(color: Color(0xff0077cd))),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(Sizes.border / 2),
-                  ),
-                  child: TextFormField(
-                    controller: phoneController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Este campo es obligatorio";
-                      }
-                      try {
-                        int.parse(value);
-                      } catch (error) {
-                        return "Introduzca un número válido";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Teléfono",
-                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        focusedBorder: null,
-                        disabledBorder: null),
-                  ),
-                ),
+                newCard(context, type: 0),
+                newCard(context, type: 1),
+                // SizedBox(
+                //   width: Sizes.width,
+                //   height: Sizes.height / 20,
+                //   child: Row(
+                //     children: const [
+                //       Icon(
+                //         Icons.email,
+                //         color: Color(0xff0F62A4),
+                //       ),
+                //       Text("Correo Electrónico",
+                //           style: TextStyle(color: Color(0xff0077cd))),
+                //     ],
+                //   ),
+                // ),
+                // Container(
+                //   padding:
+                //       EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                //   decoration: BoxDecoration(
+                //     color: Colors.grey[300],
+                //     borderRadius: BorderRadius.circular(Sizes.border / 2),
+                //   ),
+                //   child: TextFormField(
+                //     controller: emailController,
+                //     validator: (value) {
+                //       if (!isGoodEmail(value ?? "")) {
+                //         return "Introduzca un correo válido";
+                //       }
+                //       return null;
+                //     },
+                //     decoration: InputDecoration(
+                //         border: InputBorder.none,
+                //         hintText: "Correo",
+                //         hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                //         contentPadding: EdgeInsets.symmetric(
+                //             horizontal: Sizes.boxSeparation),
+                //         focusedBorder: null,
+                //         disabledBorder: null),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: Sizes.boxSeparation,
+                // ),
+                // SizedBox(
+                //   width: Sizes.width,
+                //   height: Sizes.height / 20,
+                //   child: Row(
+                //     children: const [
+                //       Icon(
+                //         Icons.smartphone,
+                //         color: Color(0xff0F62A4),
+                //       ),
+                //       Text("Teléfono",
+                //           style: TextStyle(color: Color(0xff0077cd))),
+                //     ],
+                //   ),
+                // ),
+                // Container(
+                //   padding:
+                //       EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                //   decoration: BoxDecoration(
+                //     color: Colors.grey[300],
+                //     borderRadius: BorderRadius.circular(Sizes.border / 2),
+                //   ),
+                //   child: TextFormField(
+                //     controller: phoneController,
+                //     validator: (value) {
+                //       if (value!.isEmpty) {
+                //         return "Este campo es obligatorio";
+                //       }
+                //       try {
+                //         int.parse(value);
+                //       } catch (error) {
+                //         return "Introduzca un número válido";
+                //       }
+                //       return null;
+                //     },
+                //     decoration: InputDecoration(
+                //         border: InputBorder.none,
+                //         hintText: "Teléfono",
+                //         hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                //         contentPadding: EdgeInsets.symmetric(
+                //             horizontal: Sizes.boxSeparation),
+                //         focusedBorder: null,
+                //         disabledBorder: null),
+                //   ),
+                // ),
                 const Expanded(
                     child: SizedBox(
                   height: 0,
@@ -314,7 +330,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     isLoading = false;
                                   });
                                   if (backendResponse.status == 200 &&
-                                      backendResponse.myBody["IdError"] == 0) {
+                                      backendResponse.idError == 0) {
                                     showToast(
                                         "Datos actualizados exitosamente");
                                     Navigator.of(context).pushNamed("/home");
@@ -342,6 +358,84 @@ class _ProfilePageState extends State<ProfilePage> {
       width: Sizes.width / 1.4,
       decoration: BoxDecoration(
           image: DecorationImage(image: AssetImage(name), fit: BoxFit.cover)),
+    );
+  }
+
+  Widget newCard(BuildContext context, {int type = 0}) {
+    // type : 0 (email), 1 (phone)
+    return GestureDetector(
+      onTap: () {
+        String finalRoute = type == 0 ? "/updateEmail" : "/updatePhone";
+        Navigator.of(context).pushNamed(finalRoute);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: Sizes.boxSeparation),
+        padding: EdgeInsets.symmetric(vertical: Sizes.padding),
+        // height: Sizes.height * 0.12,
+        width: Sizes.width - 2 * Sizes.padding,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius:
+                BorderRadius.all(Radius.circular(Sizes.boxSeparation))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: Sizes.padding,
+            ),
+            Icon(
+              type == 0 ? Icons.email_outlined : Icons.smartphone,
+              color: const Color(0xff0077CD),
+            ),
+            SizedBox(
+              width: Sizes.boxSeparation,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    type == 0 ? "Correo electrónico" : "Teléfono",
+                    style: TextStyle(
+                      color: const Color(0xff0077CD),
+                      fontSize: Sizes.font10,
+                      // fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    type == 0 ? currentUser.email : currentUser.phone,
+                    style: TextStyle(fontSize: Sizes.font10),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              width: Sizes.boxSeparation,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+              width: 1.2 * Sizes.padding,
+              child: Container(
+                width: 1.2 * Sizes.padding,
+                height: 1.2 * Sizes.padding,
+                decoration: BoxDecoration(
+                    color: const Color(0xff0077CD),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(0.6 * Sizes.padding))),
+                child: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.white,
+                  size: Sizes.padding,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: Sizes.padding,
+            ),
+          ],
+        ),
+      ),
     );
   }
 

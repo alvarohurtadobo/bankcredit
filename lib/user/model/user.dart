@@ -54,6 +54,7 @@ class User {
     phone = backendResponse["Celular"] ?? "";
     idIdentification = backendResponse["IdIdentificacion"] ?? 1;
     identification = backendResponse["Identificacion"] ?? 1;
+    pictureUrl = backendResponse["FotoPerfil"] ?? "";
   }
 
   String getName() {
@@ -90,3 +91,5 @@ class User {
 }
 
 User currentUser = User.empty();
+
+String filePathTemporal = "";

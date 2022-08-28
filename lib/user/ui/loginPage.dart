@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                 setState(() {
                   isLoading = false;
                 });
-                if (myResponse.myBody["IdError"] == 0) {
+                if (myResponse.idError == 0) {
                   // showToast("Ingreso exitoso");
                   bool success =
                       setUpUser(myResponse.myBody, password: password);
@@ -288,7 +288,7 @@ class _LoginPageState extends State<LoginPage> {
                                         setState(() {
                                           isLoading = false;
                                         });
-                                        if (myResponse.myBody["IdError"] == 0) {
+                                        if (myResponse.idError == 0) {
                                           // showToast("Ingreso exitoso");
                                           bool success = setUpUser(
                                               myResponse.myBody,

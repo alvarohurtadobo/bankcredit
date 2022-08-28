@@ -9,8 +9,21 @@ const bool DEBUG = true;
 
 class BackendResponse {
   int status = 0;
+  int idError = 0;
+  String message = "";
   Map<String, dynamic> myBody = {};
-  BackendResponse({this.status = 0, this.myBody = const {}});
+  BackendResponse(
+      {this.status = 0,
+      this.myBody = const {},
+      this.idError = 0,
+      this.message = ""}) {
+    try {
+      idError = myBody["IdError"] ?? 0;
+      message = myBody["Mensaje"] ?? "";
+    } catch (err) {
+      print("Unable to assign error and message automatically");
+    }
+  }
   @override
   String toString() {
     return "[RES $status] $myBody";
@@ -178,8 +191,20 @@ class API {
     return _doGet("politica-producto/consulta", debug: DEBUG);
   }
 
-  static Future<BackendResponse> getPaymentMethods(){
+  static Future<BackendResponse> getPaymentMethods() {
     print("Requesting payment methods");
     return _doGet("medio-pago/lista", debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getPromos() {
+    print("Requesting promos");
+    return _doGet("promocion-noveda/lista", debug: DEBUG);
+  }
+
+  static Future<BackendResponse> updateProfilePicture(String base64Image) {
+    print("Requesting update profile pic");
+    return _doPost(
+        "usuario/actualizar-foto-perfil", {"FotoPerfil": base64Image},
+        debug: DEBUG);
   }
 }

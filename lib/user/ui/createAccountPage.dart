@@ -389,7 +389,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     loading = false;
                                   });
                                   try {
-                                    if (response.myBody["IdError"] == 0) {
+                                    if (response.idError == 0) {
                                       showToast("Usuario creado exitosamente",
                                           type: 0);
                                       Navigator.of(context).pop();

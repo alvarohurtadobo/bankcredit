@@ -22,21 +22,28 @@ class MyDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed("/profile");
               },
               child: Container(
+                height: Sizes.height/8,
                 padding: EdgeInsets.all(Sizes.padding * 0.6),
                 decoration: const BoxDecoration(
                   color: Color(0xff0077cd),
                 ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      height: Sizes.width / 6,
-                      width: Sizes.width / 6,
-                      decoration: const BoxDecoration(
+                      height: Sizes.width / 8,
+                      width: Sizes.width / 8,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(Sizes.width / 16)),
                           image: DecorationImage(
-                              image: AssetImage("assets/demo/avatar.png"))),
+                              image: NetworkImage(currentUser.pictureUrl),
+                              fit: BoxFit.cover)),
                     ),
+                    SizedBox(width: Sizes.boxSeparation),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
                             "¡Hola!",
@@ -52,13 +59,13 @@ class MyDrawer extends StatelessWidget {
                                 fontSize: 18,
                                 color: Colors.white),
                           ),
-                          const Text(
-                            "Última sesión 01/15/2022",
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                                color: Colors.white),
-                          ),
+                          // const Text(
+                          //   "Última sesión 01/15/2022",
+                          //   style: TextStyle(
+                          //       fontWeight: FontWeight.normal,
+                          //       fontSize: 14,
+                          //       color: Colors.white),
+                          // ),
                         ])
                   ],
                 ),
@@ -73,7 +80,7 @@ class MyDrawer extends StatelessWidget {
             drawerTile(context, "assets/icons/settings.png",
                 "Detalles de la cuenta", "Movimientos y pagos",
                 route: "/accountDetails"),
-            drawerTile(context, "assets/icons/rise.png", "Aumento", "de cupo"),
+            // drawerTile(context, "assets/icons/rise.png", "Aumento", "de cupo"),
             drawerTile(context, "assets/icons/policies.png", "Políticas",
                 "de producto",
                 route: "/politics"),
