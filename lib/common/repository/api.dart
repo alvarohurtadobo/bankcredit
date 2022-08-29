@@ -207,4 +207,24 @@ class API {
         "usuario/actualizar-foto-perfil", {"FotoPerfil": base64Image},
         debug: DEBUG);
   }
+
+  static Future<BackendResponse> restaurationMethods(String docId) {
+    print("Requesting restauration methods");
+    return _doPost("olvide-clave/consultar", {"Usuario": docId}, debug: DEBUG);
+  }
+
+  static Future<BackendResponse> generarOTPOlvidePass(
+      String docId, int idMedio) {
+    print("Requesting generate OTP olvide");
+    return _doPost(
+        "olvide-clave/generar-otp", {"Usuario": docId, "IdMedio": idMedio},
+        debug: DEBUG);
+  }
+
+  static Future<BackendResponse> validarOTPOlvidePass(
+      String docId, String otp) {
+    print("Requesting validar OTP olvide");
+    return _doPost("olvide-clave/validar-otp", {"Usuario": docId, "OTP": otp},
+        debug: DEBUG);
+  }
 }

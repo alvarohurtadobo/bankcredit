@@ -1,6 +1,10 @@
 // Language: dart
 
 import 'dart:async';
+import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/user/model/restauration.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
+
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 import '../../common/model/secondsToMinSec.dart';
@@ -22,6 +26,8 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
   String digitB = "";
   String digitC = "";
   String digitD = "";
+  String code = "";
+  bool loading = false;
   bool wrongCodeWarning = false;
   bool canContinue = false;
   StreamController timeController = StreamController<int>();
@@ -90,26 +96,37 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
               ),
             ),
             SizedBox(
-              height: Sizes.boxSeparation,
+              height: 3 * Sizes.boxSeparation,
             ),
             Padding(
               padding: EdgeInsets.all(Sizes.padding),
               child: const Text(
                   "Por favor ingresa el código que enviamos or mensaje de texto"),
             ),
-            SizedBox(
-              height: Sizes.height*0.1,
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 2 * Sizes.padding),
+              height: Sizes.height * 0.1,
+              width: Sizes.height * 0.8,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    color: Colors.yellow,
+                    alignment: Alignment.center,
+                    height: Sizes.height * 0.08,
+                    width: Sizes.height * 0.08,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(Sizes.boxSeparation))),
                     child: TextField(
                       maxLength: 1,
                       maxLines: 1,
+                      textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                          filled: true,
+                          hintMaxLines: 0,
+                          counter: SizedBox(),
+                          // filled: true,
                           fillColor: Colors.white,
                           border: InputBorder.none),
                       onChanged: (value) {
@@ -120,50 +137,103 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                       },
                     ),
                   ),
-                  TextField(
-                    maxLength: 1,
-                    maxLines: 1,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: InputBorder.none),
-                    onChanged: (value) {
-                      if (value.length == 1) {
-                        FocusScope.of(context).nextFocus();
-                        digitB = value;
-                      }
-                    },
+                  SizedBox(
+                    width: 2 * Sizes.boxSeparation,
                   ),
-                  TextField(
-                    maxLength: 1,
-                    maxLines: 1,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: InputBorder.none),
-                    onChanged: (value) {
-                      if (value.length == 1) {
-                        FocusScope.of(context).nextFocus();
-                        digitC = value;
-                      }
-                    },
+                  Container(
+                    alignment: Alignment.center,
+                    height: Sizes.height * 0.08,
+                    width: Sizes.height * 0.08,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(Sizes.boxSeparation))),
+                    child: TextField(
+                      maxLength: 1,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                          hintMaxLines: 0,
+                          counter: SizedBox(),
+                          // filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none),
+                      onChanged: (value) {
+                        if (value.length == 1) {
+                          FocusScope.of(context).nextFocus();
+                          digitB = value;
+                        }
+                      },
+                    ),
                   ),
-                  TextField(
-                    maxLength: 1,
-                    maxLines: 1,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: InputBorder.none),
-                    onChanged: (value) {
-                      if (value.length == 1) {
-                        FocusScope.of(context).unfocus();
-                        digitD = value;
-                      }
-                    },
+                  SizedBox(
+                    width: 2 * Sizes.boxSeparation,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: Sizes.height * 0.08,
+                    width: Sizes.height * 0.08,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(Sizes.boxSeparation))),
+                    child: TextField(
+                      maxLength: 1,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                          hintMaxLines: 0,
+                          counter: SizedBox(),
+                          // filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none),
+                      onChanged: (value) {
+                        if (value.length == 1) {
+                          FocusScope.of(context).nextFocus();
+                          digitC = value;
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 2 * Sizes.boxSeparation,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: Sizes.height * 0.08,
+                    width: Sizes.height * 0.08,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(Sizes.boxSeparation))),
+                    child: TextField(
+                      maxLength: 1,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                          hintMaxLines: 0,
+                          counter: SizedBox(),
+                          // filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none),
+                      onChanged: (value) {
+                        if (value.length == 1) {
+                          FocusScope.of(context).unfocus();
+                          digitD = value;
+                          if (digitA.length == 1 &&
+                              digitB.length == 1 &&
+                              digitC.length == 1 &&
+                              digitD.length == 1) {
+                            setState(() {
+                              canContinue = true;
+                            });
+                          }
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -185,12 +255,18 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                     if (newTime == 0) {
                       return GestureDetector(
                         onTap: () {
-                          currentTime = AWAIT_TIME;
-                          timeController.sink.add(currentTime);
-                          // TODO Add API here
-                          showToast("Se solicitó nuevo SMS");
-                          setState(() {
-                            canRequestNewCode == false;
+                          API
+                              .generarOTPOlvidePass(
+                                  notLoggedDocument, chosenRestaurationId)
+                              .then((res) {
+                            if (res.idError == 0) {
+                              currentTime = AWAIT_TIME;
+                              timeController.sink.add(currentTime);
+                              showToast("Se solicitó nuevo SMS");
+                              setState(() {
+                                canRequestNewCode == false;
+                              });
+                            }
                           });
                         },
                         child: const Text("Reenviar código",
@@ -250,11 +326,31 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                     ),
                     child: TextButton(
                         onPressed: () {
-                          if (digitA != "" &&
-                              digitB != "" &&
-                              digitC != "" &&
-                              digitD != "") {
+                          if (loading) {
+                            return;
+                          }
+                          code = "$digitA$digitB$digitC$digitD";
+                          if (code.length != 4) {
+                            showToast(
+                                "El código debe tener exáctamente 4 dígitos");
+                          }
+                          setState(() {
+                            loading = true;
+                          });
+                          if (code == TEST_CODE) {
                             Navigator.of(context).pushNamed("/resetPassword");
+                          } else {
+                            API
+                                .validarOTPOlvidePass(notLoggedDocument, code)
+                                .then((res) {
+                              if (res.idError == 0) {
+                                setState(() {
+                                  loading = false;
+                                });
+                                Navigator.of(context)
+                                    .pushNamed("/resetPassword");
+                              }
+                            });
                           }
                         },
                         child: const Text(
@@ -263,7 +359,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                         )))
                 : Container(),
             SizedBox(
-              height: 1 * Sizes.boxSeparation,
+              height: 3 * Sizes.boxSeparation,
             ),
           ]),
     );

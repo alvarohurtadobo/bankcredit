@@ -240,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context)
-                                  .pushNamed("/resetPassword01");
+                                  .pushNamed("/resetPassword00");
                             },
                             child: const Text("Olvidé mi contraseña",
                                 style: TextStyle(

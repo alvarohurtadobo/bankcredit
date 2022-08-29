@@ -20,6 +20,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   bool oneCapitalWarning = true;
   bool oneDigitWarning = true;
   bool differentPasswordsWarning = false;
+  bool canContinue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +72,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 borderRadius: BorderRadius.circular(Sizes.border / 2),
               ),
               child: TextField(
+                obscureText: true,
                 onChanged: (value) {
                   newPassword = value;
                   setState(() {
@@ -91,6 +93,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             .replaceAll("8", "")
                             .replaceAll("9", "");
                     differentPasswordsWarning = newPassword != confirmPassword;
+                    canContinue = !differentPasswordsWarning &&
+                        !min8charactersWarning &&
+                        !oneCapitalWarning &&
+                        !oneDigitWarning;
                   });
                 },
                 decoration: InputDecoration(
@@ -118,10 +124,18 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 borderRadius: BorderRadius.circular(Sizes.border / 2),
               ),
               child: TextField(
+                obscureText: true,
                 onChanged: (value) {
                   confirmPassword = value;
+                  if (newPassword == confirmPassword) {
+                    FocusScope.of(context).unfocus();
+                  }
                   setState(() {
                     differentPasswordsWarning = newPassword != confirmPassword;
+                    canContinue = !differentPasswordsWarning &&
+                        !min8charactersWarning &&
+                        !oneCapitalWarning &&
+                        !oneDigitWarning;
                   });
                 },
                 decoration: InputDecoration(
@@ -151,7 +165,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xff7b8084),
+                  color: canContinue
+                      ? const Color(0xff0077CD)
+                      : const Color(0xff7b8084),
                   borderRadius: BorderRadius.circular(Sizes.border),
                 ),
                 child: TextButton(

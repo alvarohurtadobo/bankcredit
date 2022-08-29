@@ -1,5 +1,6 @@
 import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
 import 'package:credidiunsa_app/user/ui/confirmProfilePicturePage.dart';
+import 'package:credidiunsa_app/user/ui/resetPassword00Page.dart';
 import 'package:credidiunsa_app/user/ui/updateProfilePage.dart';
 import 'package:credidiunsa_app/user/ui/updateProfilePicturePage.dart';
 import 'package:credidiunsa_app/user/ui/validateProfileUpdate.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const SplashPage(),
           '/login': (context) => const LoginPage(),
+          '/resetPassword00': (context) => const ResetPassword00Page(),
           '/resetPassword01': (context) => const ResetPassword01Page(),
           '/resetPassword02': (context) => const ResetPassword02Page(),
           '/createAccount': (context) => const CreateAccountPage(),

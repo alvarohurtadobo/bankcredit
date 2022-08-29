@@ -1,5 +1,9 @@
 // Language: dart
 
+import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/user/model/restauration.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
+
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -51,46 +55,88 @@ class _ResetPassword01PageState extends State<ResetPassword01Page> {
           child: const Text(
               "Enviaremos un código por mensaje de texto al celular que tenemos registrado"),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed("/resetPassword02");
-          },
-          child: Container(
-            margin: EdgeInsets.all(Sizes.padding),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(
-                  Sizes.border / 2), //border corner radius
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5), //color of shadow
-                  spreadRadius: 5, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: const Offset(0, 2), // changes position of shadow
-                  //first paramerter of offset is left-right
-                  //second parameter is top to down
-                ),
-                //you can set more BoxShadow() here
-              ],
-            ),
-            child: const ListTile(
-              leading: Icon(
-                Icons.phone_android,
-                color: Color(0xff0077cd),
-              ),
-              title: Text(
-                "Mensaje de Texto",
-                style: TextStyle(color: Color(0xff0077cd)),
-              ),
-              subtitle: Text("******56"),
-              trailing: Icon(
-                Icons.arrow_circle_right_sharp,
-                color: Color(0xff0077cd),
-              ),
-            ),
-          ),
-        )
+        SizedBox(
+          height: Sizes.boxSeparation,
+        ),
+        Column(
+            children: myRestaurations
+                .map<Widget>((e) => myRestaurationTypeButton(e))
+                .toList())
       ]),
+    );
+  }
+
+  Widget myRestaurationTypeButton(Restauration myRest) {
+    bool loading = false;
+    IconData myIcon = Icons.phone_android;
+    switch (myRest.id) {
+      case 1:
+        myIcon = Icons.email_outlined;
+        break;
+      case 2:
+        myIcon = Icons.phone_android;
+        break;
+      case 3:
+        myIcon = Icons.whatsapp;
+        break;
+      default:
+        myIcon = Icons.phone_android;
+    }
+    return GestureDetector(
+      onTap: () {
+        if (loading) {
+          return;
+        }
+        loading = true;
+        chosenRestaurationId = myRest.id;
+        API
+            .generarOTPOlvidePass(notLoggedDocument, chosenRestaurationId)
+            .then((res) {
+          loading = false;
+          if (res.idError == 0) {
+            Navigator.of(context).pushNamed("/resetPassword02");
+          }
+        });
+      },
+      onLongPress: () {
+        chosenRestaurationId = myRest.id;
+        Navigator.of(context).pushNamed("/resetPassword02");
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: Sizes.padding, vertical: Sizes.boxSeparation),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius:
+              BorderRadius.circular(Sizes.border / 2), //border corner radius
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), //color of shadow
+              spreadRadius: 5, //spread radius
+              blurRadius: 7, // blur radius
+              offset: const Offset(0, 2), // changes position of shadow
+              //first paramerter of offset is left-right
+              //second parameter is top to down
+            ),
+            //you can set more BoxShadow() here
+          ],
+        ),
+        child: ListTile(
+          leading: Icon(
+            myIcon,
+            color: const Color(0xff0077cd),
+          ),
+          title: Text(
+            myRest.mediumLabel,
+            style: const TextStyle(color: Color(0xff0077cd)),
+          ),
+          subtitle: Text(myRest.destiny),
+          trailing: const Icon(
+            Icons.arrow_circle_right_sharp,
+            color: Color(0xff0077cd),
+          ),
+        ),
+      ),
     );
   }
 }
