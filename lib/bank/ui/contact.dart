@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:credidiunsa_app/bank/model/socialMedia.dart';
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
@@ -64,7 +66,15 @@ class _ContactPageState extends State<ContactPage> {
               onTap: () {
                 try {
                   print("Launchuing $whatsappLink");
-                  customLaunchUrl(whatsappLink);
+                  // customLaunchUrl(whatsappLink);
+                  String number = whatsappLink.split("/").last;
+                  if (Platform.isIOS) {
+                    customLaunchUrl(
+                        "whatsapp://wa.me/$number");
+                  } else {
+                    customLaunchUrl(
+                        "whatsapp://send?phone=$number");
+                  }
                 } catch (err) {
                   print("TOO FAST");
                 }

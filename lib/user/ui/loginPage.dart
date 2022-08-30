@@ -1,16 +1,17 @@
+import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:credidiunsa_app/common/widgets/biometricAuthDialog.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
+import 'package:credidiunsa_app/common/widgets/toasts.dart';
 import 'package:local_auth/error_codes.dart' as local_auth_error;
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:credidiunsa_app/common/widgets/toasts.dart';
 import 'package:credidiunsa_app/user/bloc/userLogin.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import '../../bank/bloc/receiveFiles.dart';
 import '../../common/ui/sizes.dart';
-import '../../common/widgets/toasts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -120,16 +121,18 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: Sizes.boxSeparation),
-            GestureDetector(
-              onLongPress: () {
-                Navigator.of(context).pushNamed("/biometric");
-              },
-              child: const Text("¡Bienvenido!",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold)),
-            ),
+            // GestureDetector(
+            // onLongPress: () {
+            //   showToast("Launch whatsapp");
+            //   customLaunchUrl("whatsapp://send?phone=+50431904365");
+            // },
+            // child:
+            const Text("¡Bienvenido!",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold)),
+            // ),
             SizedBox(
               height: Sizes.padding,
             ),
@@ -167,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                           onChanged: (value) {
                             documentId = value;
                             setState(() {
-                              canContinue = documentId != "";
+                              canContinue = documentId != "" && password != "";
                             });
                           },
                           validator: (value) {
@@ -205,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                           onChanged: (value) {
                             password = value;
                             setState(() {
-                              canContinue = password!= "";
+                              canContinue = documentId != "" && password != "";
                             });
                           },
                           validator: (value) {
@@ -279,6 +282,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               child: TextButton(
                                   onPressed: () {
+                                    if (!canContinue) {
+                                      return;
+                                    }
                                     if (isLoading) {
                                       return;
                                     }
@@ -348,7 +354,8 @@ class _LoginPageState extends State<LoginPage> {
                                                 .pushNamed("/home");
                                           }
                                         } else {
-                                          simpleAlertDialog(context, "Error", "Credenciales incorrectas");
+                                          simpleAlertDialog(context, "Error",
+                                              "Credenciales incorrectas");
                                         }
                                       });
                                     }

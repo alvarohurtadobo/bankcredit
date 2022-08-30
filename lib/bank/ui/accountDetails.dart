@@ -249,17 +249,17 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
   Widget movementTile(Movement movement) {
     print("Processing ${movement.idProduct}, ${movement.dateString}");
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+      padding: EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
       decoration: const BoxDecoration(
           color: Colors.white,
           border: Border(bottom: BorderSide(color: Color(0xff7A8084)))),
       height: Sizes.tileHeightMedium,
-      width: Sizes.width - 2 * Sizes.padding,
+      width: Sizes.width - 2 * Sizes.boxSeparation,
       child: Row(children: [
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.14 * Sizes.width,
+          width: 0.16 * Sizes.width,
           child: Text(movement.idProduct.toString(),
               style: TextStyle(
                   fontSize: Sizes.font10,
@@ -279,7 +279,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.08 * Sizes.width,
+          width: 0.06 * Sizes.width,
           child: Text("TI:",
               maxLines: 1,
               style: TextStyle(

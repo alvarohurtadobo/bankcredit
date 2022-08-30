@@ -10,13 +10,10 @@ void displayFile(BackendResponse myResponse) async {
   if (base64file != "") {
     Uint8List bytes = base64.decode(base64file);
     String dir = (await getApplicationDocumentsDirectory()).path;
-    File file = File(
-        "$dir/${DateTime.now().millisecondsSinceEpoch}.pdf");
+    File file = File("$dir/${DateTime.now().millisecondsSinceEpoch}.pdf");
     print("PDF file is ${file.path}");
     await file.writeAsBytes(bytes);
     // await OpenFile.open(file.path);
-    print("Opening");
-    file.open();
-    print("Open!!");
+    file.openRead();
   }
 }
