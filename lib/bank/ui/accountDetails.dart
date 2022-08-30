@@ -2,6 +2,7 @@ import 'package:credidiunsa_app/bank/bloc/receiveFiles.dart';
 import 'package:credidiunsa_app/common/model/cuotaMensual.dart';
 import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
 import 'package:credidiunsa_app/common/widgets/extendedSummaryCard.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -128,53 +129,50 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
             SizedBox(
               height: Sizes.padding,
             ),
+            Container(
+                // padding:
+                //     EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                width: (Sizes.width - 2 * Sizes.padding),
+                decoration: BoxDecoration(
+                    color: const Color(0xffFF6A1B),
+                    borderRadius: BorderRadius.circular(Sizes.border / 2),
+                    border: Border.all(color: const Color(0xffFF6A1B))),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed("/documents");
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Documentos",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white, fontSize: Sizes.font10),
+                        ),
+                        SizedBox(
+                          width: Sizes.boxSeparation,
+                        ),
+                        Image.asset(
+                          "assets/icons/download.png",
+                          width: Sizes.padding,
+                          height: Sizes.padding,
+                        )
+                      ],
+                    ))),
+            SizedBox(
+              height: Sizes.padding,
+            ),
             historicMovementActive
                 ? Column(
                     children: [
-                      // carousel(),
-                      Container(
-                          // padding:
-                          //     EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                          width: (Sizes.width - 2 * Sizes.padding),
-                          decoration: BoxDecoration(
-                              color: const Color(0xffFF6A1B),
-                              borderRadius:
-                                  BorderRadius.circular(Sizes.border / 2),
-                              border:
-                                  Border.all(color: const Color(0xffFF6A1B))),
-                          child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamed("/documents");
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Documentos",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: Sizes.font10),
-                                  ),
-                                  SizedBox(
-                                    width: Sizes.boxSeparation,
-                                  ),
-                                  Image.asset(
-                                    "assets/icons/download.png",
-                                    width: Sizes.padding,
-                                    height: Sizes.padding,
-                                  )
-                                ],
-                              ))),
-                      SizedBox(
-                        height: Sizes.padding,
-                      ),
                       FutureBuilder<BackendResponse>(
                           future: API.getMovements(currentUser.identification),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               BackendResponse myRes = snapshot.data!;
-                              if (myRes.status == 200) {
+                              print("Response has error ${myRes.message}");
+                              if (myRes.idError == 0) {
                                 List<Movement> myMovements =
                                     myRes.myBody["Lista"].map<Movement>((res) {
                                   return Movement.fromBackendResponse(res);
@@ -197,6 +195,10 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                                               monthYear.year)
                                       .toList();
 
+                                  auxMovements.sort((a, b) =>
+                                      a.datetimeProcess.day -
+                                      b.datetimeProcess.day);
+
                                   myTiles.addAll(auxMovements.map((mov) {
                                     return movementTile(mov);
                                   }));
@@ -204,6 +206,9 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                                 return Column(
                                   children: myTiles,
                                 );
+                              } else {
+                                simpleAlertDialog(
+                                    context, "Error", myRes.message);
                               }
                             }
                             return const Center(
@@ -216,10 +221,14 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                     future: API.getCuota(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        BackendResponse? myRes = snapshot.data;
-                        CuotaMensual myCuota =
-                            CuotaMensual.fromBackendResponse(myRes!.myBody);
-                        return extendedSummaryCard(myCuota);
+                        BackendResponse myRes = snapshot.data!;
+                        if (myRes.idError == 0) {
+                          CuotaMensual myCuota =
+                              CuotaMensual.fromBackendResponse(myRes.myBody);
+                          return extendedSummaryCard(myCuota);
+                        } else {
+                          simpleAlertDialog(context, "Error", myRes.message);
+                        }
                       }
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -259,8 +268,8 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.16 * Sizes.width,
-          child: Text(movement.idProduct.toString(),
+          width: 0.10 * Sizes.width,
+          child: Text(movement.datetimeProcess.day.toString(),
               style: TextStyle(
                   fontSize: Sizes.font10,
                   color: const Color(0xff0F62A4),
@@ -269,7 +278,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.23 * Sizes.width,
+          width: 0.28 * Sizes.width,
           child: Text(movement.type.toString(),
               style: TextStyle(
                   fontSize: Sizes.font10,
@@ -301,7 +310,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
           child: Container(
             alignment: Alignment.centerRight,
             padding: EdgeInsets.only(right: Sizes.boxSeparation),
-            width: 0.2 * Sizes.width,
+            width: 0.21 * Sizes.width,
             child: Text(currencyFormatter.format(double.parse(movement.value)),
                 textAlign: TextAlign.end,
                 style: TextStyle(

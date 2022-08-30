@@ -1,7 +1,13 @@
 // Language: dart
 
+import 'package:credidiunsa_app/bank/bloc/getPromos.dart';
+import 'package:credidiunsa_app/bank/model/promo.dart';
+import 'package:credidiunsa_app/bank/ui/components/promoCards.dart';
+import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
 import 'package:credidiunsa_app/common/model/launcher.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
 
+import '../../common/model/cuotaMensual.dart';
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
@@ -15,6 +21,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double saldo = 0;
+  double cuota = 0;
+
+  @override
+  void initState() {
+    API.getCuota().then((myRes) {
+      CuotaMensual object = CuotaMensual.fromBackendResponse(myRes.myBody);
+      saldo = object.capital;
+      cuota = object.cuota;
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -58,13 +78,18 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: Sizes.height * 0.28,
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: Sizes.height * 0.3,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/image_04.png"),
-                            fit: BoxFit.cover)),
+                  GestureDetector(
+                    onTap: () {
+                      customLaunchUrl("https://www.diunsa.hn/credidiunsa");
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: Sizes.height * 0.3,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/image_04.png"),
+                              fit: BoxFit.cover)),
+                    ),
                   ),
                   SizedBox(
                     height: 2 * Sizes.boxSeparation,
@@ -79,18 +104,31 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(left:Sizes.padding),
-                    height: Sizes.width / 2.5,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        displayImage("assets/images/asset_01.png"),
-                        displayImage("assets/images/asset_02.png"),
-                        displayImage("assets/images/asset_03.png"),
-                      ],
-                    ),
-                  )
+                  Padding(
+                    padding: EdgeInsets.only(left: Sizes.padding),
+                    child: FutureBuilder(
+                        future: getPromosAndNovels(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            print("I have promos");
+                            return SizedBox(
+                              height: Sizes.height / 5,
+                              width: double.infinity,
+                              child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: myNovelties
+                                      .map((prom) => promoCard(context, prom))
+                                      .toList()),
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 3 * Sizes.boxSeparation,
+                  ),
                 ],
               ),
               Positioned(
@@ -109,14 +147,14 @@ class _HomePageState extends State<HomePage> {
                                   Radius.circular(Sizes.padding * 2 / 2))),
                           child: Icon(
                             Icons.menu,
-                            size: 1.5*Sizes.padding,
+                            size: 1.5 * Sizes.padding,
                             color: Colors.white,
                           )))),
               Positioned(
                   top: Sizes.padding,
                   left: 2.8 * Sizes.padding,
                   child: Container(
-                      width: 6*Sizes.padding * 1.6,
+                      width: 6 * Sizes.padding * 1.6,
                       height: Sizes.padding * 2,
                       decoration: const BoxDecoration(
                           image: DecorationImage(
@@ -125,8 +163,8 @@ class _HomePageState extends State<HomePage> {
               Positioned(
                   top: 6 * Sizes.padding,
                   left: 2 * Sizes.padding,
-                  child: summaryCard(
-                      "Tu saldo", "disponible para compras", "L 40,000.00",
+                  child: summaryCard("Tu saldo", "disponible para compras",
+                      currencyFormatter.format(saldo),
                       scale: 0.8)),
               Positioned(
                   top: 6.5 * Sizes.padding + Sizes.height / 6.2,
@@ -135,8 +173,8 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       customLaunchUrl("https://www.diunsa.hn/credidiunsa");
                     },
-                    child: summaryCard(
-                        "Tu cuota", "mensual para pagar", "L 35,000.00",
+                    child: summaryCard("Tu cuota", "mensual para pagar",
+                        currencyFormatter.format(cuota),
                         myColor: const Color(0xffFF6A1B), scale: 0.8),
                   ))
             ],
@@ -148,7 +186,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget displayImage(String assetName) {
     return Container(
-      margin: EdgeInsets.only(right:1.5*Sizes.boxSeparation),
+      margin: EdgeInsets.only(right: 1.5 * Sizes.boxSeparation),
       width: Sizes.width / 2.5,
       height: Sizes.width / 2.5,
       decoration: BoxDecoration(

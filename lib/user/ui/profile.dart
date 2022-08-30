@@ -38,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
     phoneController.text = currentUser.phone;
     myTimer = Timer.periodic(Duration(seconds: 3), (timer) { 
       imageCache.clear();
-      print("Click with pic url ${currentUser.pictureUrl}");
+      // print("Click with pic url ${currentUser.pictureUrl}");
       myControl.sink.add(currentUser.pictureUrl);
       setState(() {
         
@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    print("Building with pic url ${currentUser.pictureUrl}");
+    // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
       drawer: MyDrawer(),
       appBar: myAppBar(context),
@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               Radius.circular(Sizes.height / 16)),
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  url??currentUser.pictureUrl,),
+                                                  url,),
                                               fit: BoxFit.cover)),
                                     ),
                                   );

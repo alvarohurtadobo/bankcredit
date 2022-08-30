@@ -31,10 +31,16 @@ class BackendResponse {
 }
 
 Map<String, String> getHeader() {
-  if (jwt == "") {
-    return {"Content-Type": "application/json"};
+  if (jwt != "") {
+    return {"Authorization": "Bearer $jwt", "Content-Type": "application/json"};
   }
-  return {"Authorization": "Bearer $jwt", "Content-Type": "application/json"};
+  if (auxJwt != "") {
+    return {
+      "Authorization": "Bearer $auxJwt",
+      "Content-Type": "application/json"
+    };
+  }
+  return {"Content-Type": "application/json"};
 }
 
 class API {
@@ -148,9 +154,9 @@ class API {
     Map<String, dynamic> myBody = {};
     if (type == 0) {
       myBody["Correo"] = param;
-      myBody["Celular"] = currentUser.phone;
+      myBody["Celular"] = "";
     } else {
-      myBody["Correo"] = currentUser.email;
+      myBody["Correo"] = "";
       myBody["Celular"] = param;
     }
     return await _doPost("usuario/actualizar", myBody, debug: DEBUG);
@@ -262,9 +268,9 @@ class API {
       {int type = 0}) async {
     // type 0 email update
     // type 1 phone update
-    String updateParam = type == 0 ? "Correo" : "Celular";
+    String updateLabel = type == 0 ? "Correo" : "Celular";
     print("Requesting generate OTP for update");
-    return await _doPost("actualizar-datos/generar-otp", {updateParam: param},
+    return await _doPost("actualizar-datos/generar-otp", {updateLabel: param},
         debug: DEBUG);
   }
 

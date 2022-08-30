@@ -1,4 +1,5 @@
 import 'package:credidiunsa_app/bank/model/video.dart';
+import 'package:credidiunsa_app/bank/ui/components/promoCards.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -242,23 +243,6 @@ class _PromotionsPageState extends State<PromotionsPage> {
           ),
         )
       ]),
-    );
-  }
-
-  Widget promoCard(BuildContext context, Promo myPromo) {
-    print("Displaying image ${myPromo.image}");
-    return GestureDetector(
-      onTap: () {
-        customLaunchUrl(myPromo.link);
-      },
-      child: Container(
-        margin: EdgeInsets.only(right: Sizes.boxSeparation),
-        height: Sizes.height / 5,
-        width: myPromo.idType == 1 ? Sizes.width / 1.4 : Sizes.width / 2.8,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(myPromo.image), fit: BoxFit.cover)),
-      ),
     );
   }
 }

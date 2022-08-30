@@ -1,7 +1,5 @@
-import 'dart:io';
-import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import '../bloc/updateUserProfilePic.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/user/model/user.dart';

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
 // import 'package:open_file/open_file.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 
@@ -13,7 +14,7 @@ void displayFile(BackendResponse myResponse) async {
     File file = File("$dir/${DateTime.now().millisecondsSinceEpoch}.pdf");
     print("PDF file is ${file.path}");
     await file.writeAsBytes(bytes);
-    // await OpenFile.open(file.path);
-    file.openRead();
+    await OpenFile.open(file.path);
+    // file.openRead();
   }
 }

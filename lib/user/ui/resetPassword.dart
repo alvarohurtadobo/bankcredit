@@ -18,14 +18,15 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   String newPassword = "";
   String confirmPassword = "";
+  bool obscure1 = true;
+  bool obscure2 = true;
   bool min8charactersWarning = true;
   bool oneCapitalWarning = true;
   bool oneDigitWarning = true;
   bool differentPasswordsWarning = false;
   bool canContinue = false;
   bool loading = false;
-  bool obscure1 = true;
-  bool obscure2 = true;
+  
 
   @override
   Widget build(BuildContext context) {

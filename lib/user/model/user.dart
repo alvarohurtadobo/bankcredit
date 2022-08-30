@@ -10,10 +10,29 @@ class User {
   int? idIdentification;
   String identification = "";
 
-  String pictureUrl = "";
+  String pictureUrl =
+      "https://diunsadesamterializacion.blob.core.windows.net/archivo/APPFotoPerfil/predefinida.jpeg";
 
-  User.empty(){
-    idIdentification =1;
+  reset() {
+    id = 0;
+    firstName = "";
+    secondName = "";
+    firstSurname = "";
+    secondSurname = "";
+    email = "";
+    phone = "";
+    password = "";
+    idIdentification;
+    identification = "";
+
+    pictureUrl =
+        "https://diunsadesamterializacion.blob.core.windows.net/archivo/APPFotoPerfil/predefinida.jpeg";
+  }
+
+  User.empty() {
+    idIdentification = 1;
+    pictureUrl =
+        "https://diunsadesamterializacion.blob.core.windows.net/archivo/APPFotoPerfil/predefinida.jpeg";
   }
 
   User(
@@ -41,6 +60,7 @@ class User {
       "SegundoApellido": secondSurname,
       "Correo": email,
       "Celular": phone,
+      "Clave": password,
       "IdPerfil": 1
     };
   }
@@ -54,7 +74,8 @@ class User {
     phone = backendResponse["Celular"] ?? "";
     idIdentification = backendResponse["IdIdentificacion"] ?? 1;
     identification = backendResponse["Identificacion"] ?? 1;
-    pictureUrl = backendResponse["FotoPerfil"] ?? "";
+    pictureUrl = backendResponse["FotoPerfil"] ??
+        "https://diunsadesamterializacion.blob.core.windows.net/archivo/APPFotoPerfil/predefinida.jpeg";
   }
 
   String getName() {
@@ -95,3 +116,4 @@ User currentUser = User.empty();
 String filePathTemporal = "";
 String notLoggedDocument = "";
 String updateParam = "";
+String constantParam = "";

@@ -1,4 +1,3 @@
-import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -6,7 +5,7 @@ import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/common/model/regEx.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
-import 'package:credidiunsa_app/common/widgets/toasts.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 
 class UpdateProfilePage extends StatefulWidget {
   final int type;
@@ -153,6 +152,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         child: TextFormField(
                           controller: emailController,
                           onChanged: (text) {
+                            updateParam = text;
                             setState(() {
                               changed = text != currentUser.email;
                             });
@@ -181,6 +181,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         child: TextFormField(
                           controller: phoneController,
                           onChanged: (text) {
+                            updateParam = text;
+                            print("updated update param to $updateParam");
                             setState(() {
                               changed = text != currentUser.phone;
                             });
@@ -235,17 +237,17 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               if (isLoading) {
                                 return;
                               }
-                              setState(() {
-                                isLoading = true;
-                              });
-                              updateParam = widget.type == 0
-                                  ? emailController.text
-                                  : phoneController.text;
 
                               if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                constantParam = widget.type == 1
+                                    ? emailController.text
+                                    : phoneController.text;
                                 API
-                                    .generateOTPForUpdate(updateParam,
-                                        type: widget.type)
+                                    .generateOTPForUpdate(constantParam,
+                                        type: (widget.type+1)%2)
                                     .then((res) {
                                   setState(() {
                                     isLoading = false;
@@ -258,8 +260,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                       Navigator.of(context)
                                           .pushNamed("/validatePhoneUpdate");
                                     }
-                                  }else{
-                                    simpleAlertDialog(context, "¡Lo sentimos!", res.message);
+                                  } else {
+                                    simpleAlertDialog(
+                                        context, "¡Lo sentimos!", res.message);
                                   }
                                 });
                               }

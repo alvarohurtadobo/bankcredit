@@ -16,6 +16,7 @@ class DocumentsPage extends StatefulWidget {
 }
 
 class _DocumentsPageState extends State<DocumentsPage> {
+  TextEditingController titleControl = TextEditingController();
   int currentType = -1;
   String instituteName = "";
   int? cityId;
@@ -176,6 +177,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
           height: Sizes.boxSeparation,
         ),
         TextFormField(
+          controller: titleControl,
           validator: (value) {
             if (value!.isEmpty) {
               return "Este campo es obligatorio";

@@ -304,17 +304,23 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                               if (res.idError == 0) {
                                 final secondRes = await API.singleUpdate(
                                     updateParam, widget.type);
+                                if (widget.type == 0) {
+                                  currentUser.email = updateParam;
+                                } else {
+                                  currentUser.phone = updateParam;
+                                }
                                 if (secondRes.idError == 0) {
                                   await simpleAlertDialog(
                                       context,
                                       "Felicitaciones",
-                                      "Tus datos personales han sido modificados con éxito");
+                                      secondRes.message);
                                 } else {
                                   await simpleAlertDialog(
                                       context,
                                       "¡Lo sentimos!",
                                       "Nuestro sistema está experimentando una falla técnica. Inténtalo de nuevo");
                                 }
+                                Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                               } else {

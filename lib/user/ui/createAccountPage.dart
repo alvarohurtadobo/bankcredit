@@ -1,15 +1,14 @@
 // Language: dart
+import 'package:credidiunsa_app/common/model/sesion.dart';
 
+import '../../common/ui/sizes.dart';
+import '../../common/widgets/warningLabel.dart';
+import '../model/documentType.dart';
+import 'package:flutter/material.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/model/regEx.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
-import 'package:credidiunsa_app/common/widgets/toasts.dart';
-import 'package:credidiunsa_app/user/model/user.dart';
-
-import '../../common/ui/sizes.dart';
-import 'package:flutter/material.dart';
-
-import '../model/documentType.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({Key? key}) : super(key: key);
@@ -21,6 +20,16 @@ class CreateAccountPage extends StatefulWidget {
 class _CreateAccountPageState extends State<CreateAccountPage> {
   bool acceptTerms = false;
   bool loading = false;
+  bool canContinue = false;
+  String newPassword = "";
+  String confirmPassword = "";
+  bool obscure1 = true;
+  bool obscure2 = true;
+
+  bool min8charactersWarning = true;
+  bool oneCapitalWarning = true;
+  bool oneDigitWarning = true;
+  bool differentPasswordsWarning = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -30,7 +39,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     double _height = MediaQuery.of(context).size.height;
 
     Sizes.setSizes(_width, _height);
-    print("Types length are ${myDocumentTypes.length}");
+    // print("Types length are ${myDocumentTypes.length}");
 
     return Scaffold(
       body: Form(
@@ -317,7 +326,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     return null;
                   },
                   onChanged: (value) {
-                    currentUser.email = value;
+                    currentUser.phone = value;
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -329,61 +338,140 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       focusedBorder: null,
                       disabledBorder: null),
                 ),
-                // SizedBox(
-                //   height: 1.5 * Sizes.boxSeparation,
-                // ),
-                // const Text("Contraseña",
-                //     style: TextStyle(color: Color(0xff0077cd))),
-                // SizedBox(
-                //   height: Sizes.boxSeparation,
-                // ),
-                // TextFormField(
-                //   obscureText: true,
-                //   validator: (value) {
-                //     if (value!.isEmpty) {
-                //       return "Este campo es obligatorio";
-                //     }
-                //     return null;
-                //   },
-                //   onChanged: (value) {
-                //     currentUser.email = value;
-                //   },
-                //   decoration: InputDecoration(
-                //       filled: true,
-                //       fillColor: Colors.white,
-                //       border: InputBorder.none,
-                //       hintText: "",
-                //       contentPadding:
-                //           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                //       focusedBorder: null,
-                //       disabledBorder: null),
-                // ),
-                // SizedBox(
-                //   height: 1.5 * Sizes.boxSeparation,
-                // ),
-                // const Text("Confirmar contraseña",
-                //     style: TextStyle(color: Color(0xff0077cd))),
-                // SizedBox(
-                //   height: Sizes.boxSeparation,
-                // ),
-                // TextFormField(
-                //   obscureText: true,
-                //   validator: (value) {
-                //     if (value!.isEmpty) {
-                //       return "Este campo es obligatorio";
-                //     }
-                //     return null;
-                //   },
-                //   decoration: InputDecoration(
-                //       filled: true,
-                //       fillColor: Colors.white,
-                //       border: InputBorder.none,
-                //       hintText: "",
-                //       contentPadding:
-                //           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                //       focusedBorder: null,
-                //       disabledBorder: null),
-                // ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
+                ),
+                const Text("Contraseña",
+                    style: TextStyle(color: Color(0xff0077cd))),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                TextFormField(
+                  obscureText: obscure1,
+                  onChanged: (value) {
+                    newPassword = value;
+                    setState(() {
+                      min8charactersWarning = newPassword.length < 8;
+                      oneCapitalWarning =
+                          newPassword == newPassword.toUpperCase() ||
+                              newPassword == newPassword.toLowerCase();
+                      oneDigitWarning = newPassword ==
+                          newPassword
+                              .replaceAll("0", "")
+                              .replaceAll("1", "")
+                              .replaceAll("2", "")
+                              .replaceAll("3", "")
+                              .replaceAll("4", "")
+                              .replaceAll("5", "")
+                              .replaceAll("6", "")
+                              .replaceAll("7", "")
+                              .replaceAll("8", "")
+                              .replaceAll("9", "");
+                      differentPasswordsWarning =
+                          newPassword != confirmPassword;
+                      canContinue = !differentPasswordsWarning &&
+                          !min8charactersWarning &&
+                          !oneCapitalWarning &&
+                          !oneDigitWarning;
+                    });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: InputDecoration(
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            obscure1 = !obscure1;
+                          });
+                          print("Toggle $obscure1");
+                        },
+                        child: obscure1
+                            ? Image.asset("assets/icons/obscured.png")
+                            : const Icon(
+                                Icons.remove_red_eye,
+                                color: Color(0xff0077CD),
+                              ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
+                ),
+                const Text("Confirmar contraseña",
+                    style: TextStyle(color: Color(0xff0077cd))),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                TextFormField(
+                  obscureText: obscure2,
+                  onChanged: (value) {
+                    confirmPassword = value;
+                    if (newPassword == confirmPassword) {
+                      FocusScope.of(context).unfocus();
+                    }
+                    setState(() {
+                      differentPasswordsWarning =
+                          newPassword != confirmPassword;
+                      canContinue = !differentPasswordsWarning &&
+                          !min8charactersWarning &&
+                          !oneCapitalWarning &&
+                          !oneDigitWarning;
+                    });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: InputDecoration(
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            obscure2 = !obscure2;
+                          });
+                        },
+                        child: obscure2
+                            ? Image.asset("assets/icons/obscured.png")
+                            : const Icon(
+                                Icons.remove_red_eye,
+                                color: Color(0xff0077CD),
+                              ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                warningLabel("8 carácteres", min8charactersWarning),
+                warningLabel("1 mayúscula", oneCapitalWarning),
+                warningLabel("1 dígito", oneDigitWarning),
+                warningLabel(
+                    "Contraseñas no coinciden", differentPasswordsWarning,
+                    disappearWarning: true),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -440,7 +528,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               if (loading) {
                                 return;
                               }
-                              if (_formKey.currentState!.validate()) {
+                              if (_formKey.currentState!.validate() &&
+                                  canContinue) {
+                                currentUser.password = newPassword;
+                                print(
+                                    "Create with pass: ${currentUser.password}");
                                 setState(() {
                                   loading = true;
                                 });
@@ -450,16 +542,34 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   });
                                   try {
                                     if (response.idError == 0) {
-                                      simpleAlertDialog(context, "Exito",
-                                              "Usuario creado exitósamente")
-                                          .then((value) {
+                                      simpleAlertDialog(context,
+                                          "¡Felicitaciones!", response.message,
+                                          buttonLabel: "Siguiente", action: () {
+                                        // Navigator.of(context).pop();
+                                        print("Login");
+                                        API
+                                            .login(currentUser.identification,
+                                                currentUser.password)
+                                            .then((res) {
+                                          print("After login");
+                                          if (res.idError == 0) {
+                                            auxJwt = res.myBody["JWT"] ?? "";
+                                            print("Aux JWT is $auxJwt");
+                                          }
+                                        });
+                                      }).then((value) {
                                         Navigator.of(context).pop();
+                                        print("Moving to pic $auxJwt");
+                                        currentUser.reset();
+                                        if (auxJwt != "") {
+                                          Navigator.of(context).pushNamed(
+                                              "/updateProfilePicture");
+                                        }
                                       });
                                     } else {
-                                      simpleAlertDialog(context, "Error",
-                                              response.message)
-                                          .then((value) {
-                                      });
+                                      simpleAlertDialog(context,
+                                              "¡Lo sentimos!", response.message)
+                                          .then((value) {});
                                     }
                                   } catch (err) {
                                     // showToast("Bad format from backend",

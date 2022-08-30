@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
@@ -100,18 +101,26 @@ class _ConfirmProfilePicturePageState extends State<ConfirmProfilePicturePage> {
                               setState(() {
                                 loading = true;
                               });
-                              uploadImage().then((success) async{
+                              uploadImage().then((success) async {
                                 setState(() {
                                   loading = false;
                                 });
                                 if (success) {
-                                  print("Clear cache");
-                                  imageCache.clear();
-                                  // await simpleAlertDialog(context, "Gracias", "La aplicación se cerrará para refrescar el cache");
-                                  // exit(0);
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
-                                  // Navigator.of(context).pop();
+                                  if (auxJwt == "") {
+                                    // Ruta de actualización normal
+                                    print("Clear cache");
+                                    imageCache.clear();
+                                    // await simpleAlertDialog(context, "Gracias", "La aplicación se cerrará para refrescar el cache");
+                                    // exit(0);
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  } else {
+                                    // Ruta de creación de cuenta
+                                    auxJwt = "";
+                                    print("Clear aux JWT");
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  }
                                 }
                               });
                             },
