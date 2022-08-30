@@ -6,22 +6,21 @@ import 'package:credidiunsa_app/common/ui/sizes.dart';
 Widget extendedSummaryCard(CuotaMensual cuotaMensual,
     {Color myColor = const Color(0xff0F62A4), double scale = 1}) {
   return Container(
+    padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
     width: Sizes.width * scale,
     // height: Sizes.height / 6.2,
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(2 * Sizes.boxSeparation),
-        topRight: Radius.circular(2 * Sizes.boxSeparation),
-        bottomLeft: Radius.circular(scale != 1 ? 2 * Sizes.boxSeparation : 0),
-        bottomRight: Radius.circular(scale != 1 ? 2 * Sizes.boxSeparation : 0),
-      ),
+      borderRadius: BorderRadius.all(Radius.circular(2 * Sizes.boxSeparation)),
     ),
     child: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(
+            height: Sizes.padding,
+          ),
           Text(
             "Tu cuota",
             style: TextStyle(

@@ -34,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
               Navigator.of(context).pushReplacementNamed('/home');
             });
           } else {
-            Fluttertoast.showToast(msg: "Problem with login");
+            // Fluttertoast.showToast(msg: "Problem with login");
             Timer(const Duration(seconds: 2), () {
               Navigator.of(context).pushReplacementNamed('/login');
             });

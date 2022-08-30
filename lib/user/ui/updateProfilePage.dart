@@ -1,3 +1,4 @@
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -149,7 +150,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     ? Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: Sizes.boxSeparation),
-                        
                         child: TextFormField(
                           controller: emailController,
                           onChanged: (text) {
@@ -232,9 +232,36 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               if (!changed) {
                                 return;
                               }
+                              if (isLoading) {
+                                return;
+                              }
+                              setState(() {
+                                isLoading = true;
+                              });
+                              updateParam = widget.type == 0
+                                  ? emailController.text
+                                  : phoneController.text;
+
                               if (formKey.currentState!.validate()) {
-                                Navigator.of(context)
-                                    .pushNamed("/validateProfileUpdate");
+                                API
+                                    .generateOTPForUpdate(updateParam,
+                                        type: widget.type)
+                                    .then((res) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  if (res.idError == 0) {
+                                    if (widget.type == 0) {
+                                      Navigator.of(context)
+                                          .pushNamed("/validateEmailUpdate");
+                                    } else {
+                                      Navigator.of(context)
+                                          .pushNamed("/validatePhoneUpdate");
+                                    }
+                                  }else{
+                                    simpleAlertDialog(context, "¡Lo sentimos!", res.message);
+                                  }
+                                });
                               }
                             },
                             child: const Text(

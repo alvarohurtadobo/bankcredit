@@ -4,7 +4,7 @@ import 'package:credidiunsa_app/common/ui/sizes.dart';
 Future<bool> genericConfirmationDialog(
     BuildContext context, String finalLabel) async {
   double dialogWidth = Sizes.width * 0.8;
-  double dialogHeight = dialogWidth / 1.6;
+  double dialogHeight = dialogWidth / 1.2;
 
   return await showDialog(
           context: context,
@@ -15,90 +15,95 @@ Future<bool> genericConfirmationDialog(
               content: Container(
                   height: dialogHeight,
                   width: dialogWidth,
+                  padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                        BorderRadius.all(Radius.circular(dialogHeight * 0.07)),
+                        BorderRadius.all(Radius.circular(dialogHeight * 0.03)),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: dialogHeight * 0.10,
+                        height: Sizes.padding,
                       ),
                       Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(bottom: dialogHeight / 16),
-                          height: dialogHeight * 0.12,
-                          width: double.infinity,
-                          color: const Color(0xffc4c4c4),
-                          child: Text(
-                            "¿ESTÁ SEGURO?",
-                            style: TextStyle(
+                        width: double.infinity,
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                              width: 1.6 * Sizes.padding,
+                              height: 1.6 * Sizes.padding,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff0077CD),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(0.8 * Sizes.padding))),
+                              child: const Icon(
+                                Icons.close,
                                 color: Colors.white,
-                                fontSize: Sizes.font8,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.none),
-                          )),
+                              )),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Sizes.boxSeparation,
+                      ),
                       Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: dialogWidth * 0.1),
                         child: Text(
-                          finalLabel,
+                          "¿Estás seguro de cerrar sesión?",
                           style: TextStyle(
-                              color: const Color(0xff858585),
+                              color: const Color(0xff0F62A4),
                               decoration: TextDecoration.none,
                               fontWeight: FontWeight.normal,
-                              fontSize: Sizes.font10),
+                              fontSize: Sizes.font8),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: dialogWidth * 0.1),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                                height: Sizes.tileHeightMedium,
-                                width: dialogWidth * 0.35,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFF6A1B),
-                                    border: Border.all(
-                                        color: const Color(0xffFF6A1B)),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                            Sizes.tileHeightMedium / 8))),
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(false);
-                                  },
-                                  child: const Text("NO",
-                                      style: TextStyle(color: Colors.white)),
-                                )),
-                            Container(
-                                height: Sizes.tileHeightMedium,
-                                width: dialogWidth * 0.35,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff0077CD),
-                                    border: Border.all(
-                                        color: const Color(0xff0077CD)),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                            Sizes.tileHeightMedium / 8))),
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(true);
-                                  },
-                                  child: const Text("YES",
-                                      style: TextStyle(color: Colors.white)),
-                                )),
-                          ],
-                        ),
-                      ),
                       SizedBox(
-                        height: dialogHeight * 0.10,
+                        height: 5 * Sizes.boxSeparation,
+                      ),
+                      Container(
+                          height: Sizes.tileHeightMedium,
+                          width: dialogWidth-2*Sizes.padding,
+                          decoration: BoxDecoration(
+                              color: const Color(0xff0077CD),
+                              border:
+                                  Border.all(color: const Color(0xff0077CD)),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(Sizes.tileHeightMedium / 8))),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            child: const Text("Si, quiero salir",
+                                style: TextStyle(color: Colors.white)),
+                          )),
+                      SizedBox(
+                        height: Sizes.boxSeparation,
+                      ),
+                      Container(
+                          height: Sizes.tileHeightMedium ,
+                          width: dialogWidth-2*Sizes.padding,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border:
+                                  Border.all(color: const Color(0xff0077CD)),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(Sizes.tileHeightMedium / 8))),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(false);
+                            },
+                            child: const Text("Volver",
+                                style: TextStyle(color: Color(0xff0077CD))),
+                          )),
+                      SizedBox(
+                        height: 2*Sizes.boxSeparation,
                       ),
                     ],
                   )),

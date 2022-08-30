@@ -1,6 +1,7 @@
 // Language: dart
 
 import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:credidiunsa_app/user/model/restauration.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 
@@ -162,6 +163,8 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                                   Restauration.fromBackendResponse(res))
                               .toList();
                           Navigator.of(context).pushNamed("/resetPassword01");
+                        }else{
+                          simpleAlertDialog(context, "Error", "No se encontró el documento introducido");
                         }
                       });
                     },

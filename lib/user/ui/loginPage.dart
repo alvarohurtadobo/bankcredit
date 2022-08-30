@@ -1,5 +1,6 @@
 import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:credidiunsa_app/common/widgets/biometricAuthDialog.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:local_auth/error_codes.dart' as local_auth_error;
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   String password = "";
   bool rememberMe = false;
   bool localEnabled = false;
-
+  bool canContinue = false;
   bool isLoading = false;
 
   final _localAuthentication = LocalAuthentication();
@@ -101,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
               image: DecorationImage(
                   image: AssetImage("assets/images/image_01.png"),
                   fit: BoxFit.cover)),
-          child: Column( children: [
+          child: Column(children: [
             SizedBox(
               height: 3 * Sizes.padding,
             ),
@@ -165,6 +166,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextFormField(
                           onChanged: (value) {
                             documentId = value;
+                            setState(() {
+                              canContinue = documentId != "";
+                            });
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -200,6 +204,9 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: true,
                           onChanged: (value) {
                             password = value;
+                            setState(() {
+                              canContinue = password!= "";
+                            });
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -264,7 +271,9 @@ class _LoginPageState extends State<LoginPage> {
                                   horizontal: Sizes.padding),
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: const Color(0xff7b8084),
+                                color: canContinue
+                                    ? const Color(0xff0077cd)
+                                    : const Color(0xff7b8084),
                                 borderRadius:
                                     BorderRadius.circular(Sizes.border),
                               ),
@@ -339,8 +348,7 @@ class _LoginPageState extends State<LoginPage> {
                                                 .pushNamed("/home");
                                           }
                                         } else {
-                                          showToast("Credenciales incorrectas",
-                                              type: 1);
+                                          simpleAlertDialog(context, "Error", "Credenciales incorrectas");
                                         }
                                       });
                                     }
@@ -348,7 +356,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: const Text(
                                     "Ingresar",
                                     style: TextStyle(
-                                        color: Color(0xffb8b8b8), fontSize: 18),
+                                        color: Colors.white, fontSize: 18),
                                   )))
                     ]),
               ),

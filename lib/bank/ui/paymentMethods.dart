@@ -22,10 +22,13 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
   @override
   void initState() {
     API.getPaymentMethods().then((resp) {
-      if(resp.status==200){
-        myPayments = resp.myBody["Lista"].map<PaymentMethod>((elem)=>PaymentMethod.fromBackendResponse(elem)).toList();
+      if (resp.status == 200) {
+        myPayments = resp.myBody["Lista"]
+            .map<PaymentMethod>(
+                (elem) => PaymentMethod.fromBackendResponse(elem))
+            .toList();
         setState(() {
-          payNow= myPayments.firstWhere((element) => element.id==1);
+          payNow = myPayments.firstWhere((element) => element.id == 1);
           myPayments.remove(payNow);
           print("Length is ${myPayments.length}");
         });
@@ -33,6 +36,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,17 +67,21 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
               height: 3 * Sizes.boxSeparation,
             ),
             FutureBuilder<BackendResponse>(
-              future: API.getCuota(),
-              builder: (context, snapshot){
-              if(snapshot.hasData){
-                BackendResponse? myRes = snapshot.data;
-                print("myRes is $myRes");
-                double cuota = CuotaMensual.fromBackendResponse(myRes!.myBody).cuota;
-                print("Couta is $cuota");
-                return summaryCard("Tu cuota", "mensual actual es", currencyFormatter.format(cuota));
-              }
-              return const Center(child: CircularProgressIndicator(),);
-            }),
+                future: API.getCuota(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    BackendResponse? myRes = snapshot.data;
+                    print("myRes is $myRes");
+                    double cuota =
+                        CuotaMensual.fromBackendResponse(myRes!.myBody).cuota;
+                    print("Couta is $cuota");
+                    return summaryCard("Tu cuota", "mensual actual es",
+                        currencyFormatter.format(cuota));
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
             Container(
               height: Sizes.height / 3.2 / 5,
               decoration: BoxDecoration(
@@ -81,12 +89,22 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(2 * Sizes.boxSeparation),
                       bottomRight: Radius.circular(2 * Sizes.boxSeparation))),
-              child: Center(
-                  child: Text("Quiero Pagar ahora",
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white,
-                          fontSize: Sizes.font8))),
+              child: GestureDetector(
+                onTap: () {
+                  try {
+                    print("Launch ${payNow.link}");
+                    customLaunchUrl(payNow.link);
+                  } catch (err) {
+                    print("TOO FAST");
+                  }
+                },
+                child: Center(
+                    child: Text("Quiero Pagar ahora",
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                            fontSize: Sizes.font8))),
+              ),
             ),
             SizedBox(
               height: 5 * Sizes.boxSeparation,
@@ -96,45 +114,55 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             SizedBox(
               height: 5 * Sizes.boxSeparation,
             ),
-            myPayments.length==0?Container():Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    paymentButton(context, myPayments[0]),
-                    paymentButton(context, myPayments[1]),
-                  ],
-                )
-              ],
-            ),
+            myPayments.length == 0
+                ? Container()
+                : Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          paymentButton(context, myPayments[0]),
+                          paymentButton(context, myPayments[1]),
+                        ],
+                      )
+                    ],
+                  ),
             SizedBox(
               height: Sizes.boxSeparation,
             ),
-            myPayments.length==0?Container():Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    paymentButton(context, myPayments[2]),
-                    paymentButton(context,  myPayments[3]),
-                  ],
-                )
-              ],
-            ),
+            myPayments.length == 0
+                ? Container()
+                : Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          paymentButton(context, myPayments[2]),
+                          paymentButton(context, myPayments[3]),
+                        ],
+                      )
+                    ],
+                  ),
             SizedBox(
               height: 2 * Sizes.boxSeparation,
             ),
             Row(
-              children: const [
-                Icon(
-                  Icons.warning,
-                  color: Color(0xffE07117),
+              children: [
+                SizedBox(
+                  width: (Sizes.width-2*Sizes.padding)*0.1,
+                  child: const Icon(
+                    Icons.warning,
+                    color: Color(0xffE07117),
+                  ),
                 ),
                 SizedBox(
-                  width: 10,
+                  width: (Sizes.width-2*Sizes.padding)*0.05,
                 ),
-                Text("Paga a tiempo y evita recargas en tus cuotas.",
-                    style: TextStyle(fontSize: 15)),
+                SizedBox(
+                  width: (Sizes.width-2*Sizes.padding)*0.85,
+                  child: Text("Paga a tiempo y evita recargas en tus cuotas.",
+                      maxLines: 2, style: TextStyle(fontSize: Sizes.font10)),
+                ),
               ],
             )
           ],
@@ -145,14 +173,14 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
 
   Widget paymentButton(BuildContext context, PaymentMethod payment) {
     String name = payment.name.toLowerCase();
-    if(name.contains(" ")){
+    if (name.contains(" ")) {
       List<String> arrayName = name.split(" ");
-      name =arrayName [arrayName.length-1];
+      name = arrayName[arrayName.length - 1];
     }
-    name="assets/images/$name.png";
+    name = "assets/images/$name.png";
     print("Prepared card for $name");
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         customLaunchUrl(payment.link);
       },
       child: Container(

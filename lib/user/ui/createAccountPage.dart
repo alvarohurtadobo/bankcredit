@@ -2,6 +2,7 @@
 
 import 'package:credidiunsa_app/common/model/regEx.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:credidiunsa_app/common/widgets/toasts.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 
@@ -99,7 +100,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             fit: BoxFit.cover)),
                   ),
                 ),
-                const Text("Apellidos",
+                const Text("Primer Apellido",
                     style: TextStyle(color: Color(0xff0077cd))),
                 SizedBox(
                   height: Sizes.boxSeparation,
@@ -112,7 +113,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     return null;
                   },
                   onChanged: (newName) {
-                    currentUser.setLastNames(newName);
+                    // currentUser.setLastNames(newName);
+                    currentUser.firstSurname = newName;
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -127,7 +129,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 SizedBox(
                   height: 1.5 * Sizes.boxSeparation,
                 ),
-                const Text("Nombres",
+                const Text("Segundo Apellido",
                     style: TextStyle(color: Color(0xff0077cd))),
                 SizedBox(
                   height: Sizes.boxSeparation,
@@ -140,7 +142,65 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     return null;
                   },
                   onChanged: (newName) {
-                    currentUser.setNames(newName);
+                    currentUser.secondSurname = newName;
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
+                ),
+                const Text("Primer nombre",
+                    style: TextStyle(color: Color(0xff0077cd))),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  onChanged: (newName) {
+                    // currentUser.setNames(newName);
+                    currentUser.firstName = newName;
+                  },
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      hintText: "",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      focusedBorder: null,
+                      disabledBorder: null),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
+                ),
+                const Text("Segundo nombre",
+                    style: TextStyle(color: Color(0xff0077cd))),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Este campo es obligatorio";
+                    }
+                    return null;
+                  },
+                  onChanged: (newName) {
+                    // currentUser.setNames(newName);
+                    currentUser.secondName = newName;
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -269,61 +329,61 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       focusedBorder: null,
                       disabledBorder: null),
                 ),
-                SizedBox(
-                  height: 1.5 * Sizes.boxSeparation,
-                ),
-                const Text("Contraseña",
-                    style: TextStyle(color: Color(0xff0077cd))),
-                SizedBox(
-                  height: Sizes.boxSeparation,
-                ),
-                TextFormField(
-                  obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Este campo es obligatorio";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    currentUser.email = value;
-                  },
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                      hintText: "",
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
-                      disabledBorder: null),
-                ),
-                SizedBox(
-                  height: 1.5 * Sizes.boxSeparation,
-                ),
-                const Text("Confirmar contraseña",
-                    style: TextStyle(color: Color(0xff0077cd))),
-                SizedBox(
-                  height: Sizes.boxSeparation,
-                ),
-                TextFormField(
-                  obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Este campo es obligatorio";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                      hintText: "",
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
-                      disabledBorder: null),
-                ),
+                // SizedBox(
+                //   height: 1.5 * Sizes.boxSeparation,
+                // ),
+                // const Text("Contraseña",
+                //     style: TextStyle(color: Color(0xff0077cd))),
+                // SizedBox(
+                //   height: Sizes.boxSeparation,
+                // ),
+                // TextFormField(
+                //   obscureText: true,
+                //   validator: (value) {
+                //     if (value!.isEmpty) {
+                //       return "Este campo es obligatorio";
+                //     }
+                //     return null;
+                //   },
+                //   onChanged: (value) {
+                //     currentUser.email = value;
+                //   },
+                //   decoration: InputDecoration(
+                //       filled: true,
+                //       fillColor: Colors.white,
+                //       border: InputBorder.none,
+                //       hintText: "",
+                //       contentPadding:
+                //           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                //       focusedBorder: null,
+                //       disabledBorder: null),
+                // ),
+                // SizedBox(
+                //   height: 1.5 * Sizes.boxSeparation,
+                // ),
+                // const Text("Confirmar contraseña",
+                //     style: TextStyle(color: Color(0xff0077cd))),
+                // SizedBox(
+                //   height: Sizes.boxSeparation,
+                // ),
+                // TextFormField(
+                //   obscureText: true,
+                //   validator: (value) {
+                //     if (value!.isEmpty) {
+                //       return "Este campo es obligatorio";
+                //     }
+                //     return null;
+                //   },
+                //   decoration: InputDecoration(
+                //       filled: true,
+                //       fillColor: Colors.white,
+                //       border: InputBorder.none,
+                //       hintText: "",
+                //       contentPadding:
+                //           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                //       focusedBorder: null,
+                //       disabledBorder: null),
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -373,8 +433,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         child: TextButton(
                             onPressed: () {
                               if (!acceptTerms) {
-                                showToast("Debe aceptar las condiciones de uso",
-                                    type: 1);
+                                // showToast("Debe aceptar las condiciones de uso",
+                                //     type: 1);
                                 return;
                               }
                               if (loading) {
@@ -390,17 +450,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   });
                                   try {
                                     if (response.idError == 0) {
-                                      showToast("Usuario creado exitosamente",
-                                          type: 0);
-                                      Navigator.of(context).pop();
+                                      simpleAlertDialog(context, "Exito",
+                                              "Usuario creado exitósamente")
+                                          .then((value) {
+                                        Navigator.of(context).pop();
+                                      });
                                     } else {
-                                      showToast(
-                                          "No se pudo crear por: ${response.myBody['Mensaje']}",
-                                          type: 1);
+                                      simpleAlertDialog(context, "Error",
+                                              response.message)
+                                          .then((value) {
+                                      });
                                     }
                                   } catch (err) {
-                                    showToast("Bad format from backend",
-                                        type: 2);
+                                    // showToast("Bad format from backend",
+                                    //     type: 2);
                                   }
                                 });
                               }

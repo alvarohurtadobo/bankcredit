@@ -1,5 +1,6 @@
 import 'package:credidiunsa_app/bank/bloc/receiveFiles.dart';
 import 'package:credidiunsa_app/common/model/cuotaMensual.dart';
+import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
 import 'package:credidiunsa_app/common/widgets/extendedSummaryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
@@ -87,6 +88,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                         },
                         child: Text(
                           "Histórico movimientos",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               color: historicMovementActive
                                   ? Colors.white
@@ -114,6 +116,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                         },
                         child: Text(
                           "Detalle cuota",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               color: historicMovementActive
                                   ? const Color(0xff7A8084)
@@ -128,7 +131,41 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
             historicMovementActive
                 ? Column(
                     children: [
-                      carousel(),
+                      // carousel(),
+                      Container(
+                          // padding:
+                          //     EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                          width: (Sizes.width - 2 * Sizes.padding),
+                          decoration: BoxDecoration(
+                              color: const Color(0xffFF6A1B),
+                              borderRadius:
+                                  BorderRadius.circular(Sizes.border / 2),
+                              border:
+                                  Border.all(color: const Color(0xffFF6A1B))),
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed("/documents");
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Documentos",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: Sizes.font10),
+                                  ),
+                                  SizedBox(
+                                    width: Sizes.boxSeparation,
+                                  ),
+                                  Image.asset(
+                                    "assets/icons/download.png",
+                                    width: Sizes.padding,
+                                    height: Sizes.padding,
+                                  )
+                                ],
+                              ))),
                       SizedBox(
                         height: Sizes.padding,
                       ),
@@ -175,38 +212,21 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                           })
                     ],
                   )
-                : FutureBuilder<BackendResponse>(future: API.getCuota(), builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    BackendResponse? myRes = snapshot.data ;
-                    CuotaMensual myCuota = CuotaMensual.fromBackendResponse(myRes!.myBody);
-                    return extendedSummaryCard(myCuota);
-                  }
-                  return const Center(child: CircularProgressIndicator(),);
-                })
+                : FutureBuilder<BackendResponse>(
+                    future: API.getCuota(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        BackendResponse? myRes = snapshot.data;
+                        CuotaMensual myCuota =
+                            CuotaMensual.fromBackendResponse(myRes!.myBody);
+                        return extendedSummaryCard(myCuota);
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    })
           ],
         ),
-      ),
-    );
-  }
-
-  Widget paymentButton(BuildContext context, String name) {
-    return Container(
-      margin: EdgeInsets.all(Sizes.padding / 2),
-      height: Sizes.height / 10,
-      width: Sizes.width / 3.2,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          image: DecorationImage(image: AssetImage("assets/demo/$name"))),
-    );
-  }
-
-  Widget carousel() {
-    return SizedBox(
-      height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
-      width: Sizes.width - 2 * Sizes.padding,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [reportButton(0), reportButton(1), reportButton(2)],
       ),
     );
   }
@@ -239,20 +259,20 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.10 * Sizes.width,
+          width: 0.14 * Sizes.width,
           child: Text(movement.idProduct.toString(),
-              style: const TextStyle(
-                  fontSize: 18,
-                  color: Color(0xff0F62A4),
+              style: TextStyle(
+                  fontSize: Sizes.font10,
+                  color: const Color(0xff0F62A4),
                   fontWeight: FontWeight.bold)),
         ),
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.25 * Sizes.width,
+          width: 0.23 * Sizes.width,
           child: Text(movement.type.toString(),
-              style: const TextStyle(
-                  fontSize: 18,
+              style: TextStyle(
+                  fontSize: Sizes.font10,
                   color: Colors.black,
                   fontWeight: FontWeight.normal)),
         ),
@@ -260,10 +280,10 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
           width: 0.08 * Sizes.width,
-          child: const Text("TI:",
+          child: Text("TI:",
               maxLines: 1,
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: Sizes.font10,
                   color: Colors.black,
                   fontWeight: FontWeight.normal)),
         ),
@@ -272,8 +292,8 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
           width: 0.14 * Sizes.width,
           child: Text(movement.tax,
-              style: const TextStyle(
-                  fontSize: 18,
+              style: TextStyle(
+                  fontSize: Sizes.font10,
                   color: Colors.black,
                   fontWeight: FontWeight.normal)),
         ),
@@ -282,93 +302,15 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
             alignment: Alignment.centerRight,
             padding: EdgeInsets.only(right: Sizes.boxSeparation),
             width: 0.2 * Sizes.width,
-            child: Text("L${movement.value}",
+            child: Text(currencyFormatter.format(double.parse(movement.value)),
                 textAlign: TextAlign.end,
-                style: const TextStyle(
-                    fontSize: 18,
+                style: TextStyle(
+                    fontSize: Sizes.font10,
                     color: Colors.black,
                     fontWeight: FontWeight.normal)),
           ),
         )
       ]),
-    );
-  }
-
-  Widget reportButton(int type) {
-    String text = "Descargar histórico";
-    String iconPath = "assets/icons/downloadIcon.png";
-    switch (type) {
-      case 0:
-        text = "Descargar histórico";
-        iconPath = "assets/icons/downloadIcon.png";
-        break;
-      case 1:
-        text = "Constancia saldo cero";
-        iconPath = "assets/icons/paperIcon.png";
-        break;
-      case 2:
-        text = "Referencia comercial";
-        iconPath = "assets/icons/papersIcon.png";
-        break;
-      default:
-        text = "Descargar histórico";
-        iconPath = "assets/icons/downloadIcon.png";
-    }
-    return GestureDetector(
-      onTap: (){
-        switch (type) {
-      case 0:
-        API.getAccountStatus().then((myResponse) {
-          displayFile(myResponse);
-        });
-        break;
-      case 1:
-        API.getConstanciaSaldo().then((myResponse) {
-          displayFile(myResponse);
-        });
-        break;
-      case 2:
-        API.getReferenciaCredito().then((myResponse) {
-          displayFile(myResponse);
-        });
-        break;
-      default:
-        API.getAccountStatus().then((myResponse) {
-          displayFile(myResponse);
-        });
-    }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
-        width: Sizes.width / 3,
-        margin: EdgeInsets.only(right: 2 * Sizes.boxSeparation),
-        padding: EdgeInsets.symmetric(vertical: Sizes.boxSeparation),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(Sizes.boxSeparation),
-            )),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: Sizes.tileHeightSmall,
-                width: Sizes.tileHeightSmall,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(iconPath))),
-              ),
-              Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: const Color(0xffFF6A1B),
-                  fontSize: Sizes.font10,
-                ),
-              )
-            ]),
-      ),
     );
   }
 }

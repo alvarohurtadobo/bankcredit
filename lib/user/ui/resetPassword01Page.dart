@@ -1,6 +1,8 @@
 // Language: dart
 
+import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:credidiunsa_app/user/model/restauration.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 
@@ -90,11 +92,18 @@ class _ResetPassword01PageState extends State<ResetPassword01Page> {
         loading = true;
         chosenRestaurationId = myRest.id;
         API
-            .generarOTPOlvidePass(notLoggedDocument, chosenRestaurationId)
+            .generateOTPOlvidePass(notLoggedDocument, chosenRestaurationId)
             .then((res) {
           loading = false;
           if (res.idError == 0) {
             Navigator.of(context).pushNamed("/resetPassword02");
+          }
+          if (res.idError == 1) {
+            print("SHOW ERROR");
+            simpleAlertDialog(context, "¡Lo sentimos!", res.message,
+                buttonLabel: "Quiero ir al chat", action: () {
+              customLaunchUrl("www.facebook.com");
+            });
           }
         });
       },

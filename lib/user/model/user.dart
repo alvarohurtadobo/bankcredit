@@ -94,3 +94,4 @@ User currentUser = User.empty();
 
 String filePathTemporal = "";
 String notLoggedDocument = "";
+String updateParam = "";

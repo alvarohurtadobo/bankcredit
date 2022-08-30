@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -99,13 +100,18 @@ class _ConfirmProfilePicturePageState extends State<ConfirmProfilePicturePage> {
                               setState(() {
                                 loading = true;
                               });
-                              uploadImage().then((success) {
+                              uploadImage().then((success) async{
                                 setState(() {
                                   loading = false;
                                 });
                                 if (success) {
+                                  print("Clear cache");
+                                  imageCache.clear();
+                                  // await simpleAlertDialog(context, "Gracias", "La aplicación se cerrará para refrescar el cache");
+                                  // exit(0);
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
+                                  // Navigator.of(context).pop();
                                 }
                               });
                             },

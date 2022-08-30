@@ -1,3 +1,5 @@
+import 'package:credidiunsa_app/bank/model/video.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/bank/model/promo.dart';
@@ -6,8 +8,6 @@ import 'package:credidiunsa_app/bank/bloc/getPromos.dart';
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
-
 
 class PromotionsPage extends StatefulWidget {
   const PromotionsPage({Key? key}) : super(key: key);
@@ -38,6 +38,17 @@ class _PromotionsPageState extends State<PromotionsPage> {
       ),
     )..addListener(listener);
     super.initState();
+    API.getVideos().then((res) {
+      if (res.idError == 0) {
+        myVideos = res.myBody["Lista"]
+            .map<Video>((elem) => Video.fromBackendResponse(elem))
+            .toList();
+        youtubeIds = myVideos.map<String>((e) => e.youtubeId).toList();
+        // print("Sending  to youtube (${youtubeIds.length}): ${youtubeIds.first}");
+        // _controller.load(youtubeIds.first);
+        // _controller.reset();
+      }
+    });
   }
 
   @override
@@ -58,122 +69,126 @@ class _PromotionsPageState extends State<PromotionsPage> {
   @override
   Widget build(BuildContext context) {
     return YoutubePlayerBuilder(
-      onExitFullScreen: () {
-        // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
-        // SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-      },
-      player: YoutubePlayer(
-        controller: _controller,
-        showVideoProgressIndicator: true,
-        progressIndicatorColor: Colors.blueAccent,
-        topActions: <Widget>[
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: Text(
-              _controller.metadata.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 25.0,
-            ),
-            onPressed: () {
-              // log('Settings Tapped!');
-            },
-          ),
-        ],
-        onReady: () {
-          _isPlayerReady = true;
+        onExitFullScreen: () {
+          // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
+          // SystemChrome.setPreferredOrientations(DeviceOrientation.values);
         },
-        onEnded: (data) {
-          _controller
-              .load(youtubeIds[(youtubeIds.indexOf(data.videoId) + 1) % youtubeIds.length]);
-          // _showSnackBar('Next Video Started!');
-        },
-      ),
-      builder: (context, player) => Scaffold(
-      drawer: MyDrawer(),
-      appBar: myAppBar(context),
-      body: Container(
-        color: const Color(0xffE8E8E8),
-        padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 3 * Sizes.boxSeparation,
-            ),
-            const Text("Promociones",
-                style: TextStyle(
-                    color: Color(0xff0F62A4),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22)),
-            const Text("y novedades",
-                style: TextStyle(color: Color(0xff0F62A4), fontSize: 20)),
-            SizedBox(
-              height: 3 * Sizes.boxSeparation,
-            ),
-            FutureBuilder(
-                future: getPromosAndNovels(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    print("I have promos");
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: Sizes.height / 5,
-                          width: double.infinity,
-                          child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: myPromos
-                                  .map((prom) => promoCard(context, prom))
-                                  .toList()),
-                        ),
-                        SizedBox(
-                          height: 2 * Sizes.boxSeparation,
-                        ),
-                        SizedBox(
-                          height: Sizes.height / 5,
-                          width: double.infinity,
-                          child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: myNovelties
-                                  .map((prom) => promoCard(context, prom))
-                                  .toList()),
-                        ),
-                      ],
-                    );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }),
-            SizedBox(
-              height: 1 * Sizes.boxSeparation,
-            ),
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.symmetric(
-                  horizontal: Sizes.boxSeparation,
-                  vertical: Sizes.padding * 0.7),
+        player: YoutubePlayer(
+          controller: _controller,
+          showVideoProgressIndicator: true,
+          progressIndicatorColor: Colors.blueAccent,
+          topActions: <Widget>[
+            const SizedBox(width: 8.0),
+            Expanded(
               child: Text(
-                "Latest from DIUNSA",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: Sizes.font10),
+                _controller.metadata.title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
-            player
+            IconButton(
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.white,
+                size: 25.0,
+              ),
+              onPressed: () {
+                // log('Settings Tapped!');
+              },
+            ),
           ],
+          onReady: () {
+            _isPlayerReady = true;
+          },
+          onEnded: (data) {
+            _controller.load(youtubeIds[
+                (youtubeIds.indexOf(data.videoId) + 1) % youtubeIds.length]);
+            // _showSnackBar('Next Video Started!');
+          },
         ),
-      ),
-    ));
+        builder: (context, player) => Scaffold(
+              drawer: MyDrawer(),
+              appBar: myAppBar(context),
+              body: Container(
+                color: const Color(0xffE8E8E8),
+                padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+                child: ListView(
+                  children: [
+                    SizedBox(
+                      height: 3 * Sizes.boxSeparation,
+                    ),
+                    const Text("Promociones",
+                        style: TextStyle(
+                            color: Color(0xff0F62A4),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22)),
+                    const Text("y novedades",
+                        style:
+                            TextStyle(color: Color(0xff0F62A4), fontSize: 20)),
+                    SizedBox(
+                      height: 3 * Sizes.boxSeparation,
+                    ),
+                    FutureBuilder(
+                        future: getPromosAndNovels(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            print("I have promos");
+                            return Column(
+                              children: [
+                                SizedBox(
+                                  height: Sizes.height / 5,
+                                  width: double.infinity,
+                                  child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: myPromos
+                                          .map((prom) =>
+                                              promoCard(context, prom))
+                                          .toList()),
+                                ),
+                                SizedBox(
+                                  height: 2 * Sizes.boxSeparation,
+                                ),
+                                SizedBox(
+                                  height: Sizes.height / 5,
+                                  width: double.infinity,
+                                  child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: myNovelties
+                                          .map((prom) =>
+                                              promoCard(context, prom))
+                                          .toList()),
+                                ),
+                              ],
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }),
+                    SizedBox(
+                      height: 1 * Sizes.boxSeparation,
+                    ),
+                    Container(
+                      color: Colors.white,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Sizes.boxSeparation,
+                          vertical: Sizes.padding * 0.7),
+                      child: Text(
+                        "Latest from DIUNSA",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: Sizes.font10),
+                      ),
+                    ),
+                    player
+                  ],
+                ),
+              ),
+            ));
   }
 
   Widget newsBox(String title, String author, String views, String releaseDate,

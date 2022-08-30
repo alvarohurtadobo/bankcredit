@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -19,7 +22,10 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
+  StreamController myControl = StreamController<String>();
+
   bool isLoading = false;
+  late Timer myTimer;
 
   final formKey = GlobalKey<FormState>();
 
@@ -30,10 +36,26 @@ class _ProfilePageState extends State<ProfilePage> {
     lastNameController.text = currentUser.getLastName();
     emailController.text = currentUser.email;
     phoneController.text = currentUser.phone;
+    myTimer = Timer.periodic(Duration(seconds: 3), (timer) { 
+      imageCache.clear();
+      print("Click with pic url ${currentUser.pictureUrl}");
+      myControl.sink.add(currentUser.pictureUrl);
+      setState(() {
+        
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    myTimer.cancel();
+    myControl.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
       drawer: MyDrawer(),
       appBar: myAppBar(context),
@@ -58,21 +80,32 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Stack(
                             children: [
-                              Container(
-                                padding: EdgeInsets.all(Sizes.boxSeparation),
-                                child: Container(
-                                  height: Sizes.height / 8 -
-                                      2 * Sizes.boxSeparation,
-                                  width: Sizes.height / 8 -
-                                      2 * Sizes.boxSeparation,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(Sizes.height / 16)),
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              currentUser.pictureUrl),
-                                          fit: BoxFit.cover)),
-                                ),
+                              StreamBuilder(
+                                initialData: currentUser.pictureUrl,
+                                stream: myControl.stream,
+                                builder: (context, snapshot) {
+                                  String? url = currentUser.pictureUrl;
+                                  if(snapshot.hasData){
+                                    url = snapshot.data as String;
+                                  }
+                                  return Container(
+                                    key: ValueKey(new Random().nextInt(100)),
+                                    padding: EdgeInsets.all(Sizes.boxSeparation),
+                                    child: Container(
+                                      height: Sizes.height / 8 -
+                                          2 * Sizes.boxSeparation,
+                                      width: Sizes.height / 8 -
+                                          2 * Sizes.boxSeparation,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(Sizes.height / 16)),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  url??currentUser.pictureUrl,),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                  );
+                                }
                               ),
                               Positioned(
                                 right: 0.5 * Sizes.padding,
@@ -298,53 +331,53 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: SizedBox(
                   height: 0,
                 )),
-                isLoading
-                    ? const Center(
-                        child:
-                            CircularProgressIndicator(color: Color(0xff0077CD)),
-                      )
-                    : Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: Sizes.padding),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff0077CD),
-                          borderRadius: BorderRadius.circular(Sizes.border),
-                        ),
-                        child: TextButton(
-                            onPressed: () {
-                              if (isLoading) {
-                                return;
-                              }
-                              if (formKey.currentState!.validate()) {
-                                currentUser.setNames(nameController.text);
-                                currentUser
-                                    .setLastNames(lastNameController.text);
-                                currentUser.phone = phoneController.text;
-                                currentUser.email = emailController.text;
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                API.update(currentUser).then((backendResponse) {
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                  if (backendResponse.status == 200 &&
-                                      backendResponse.idError == 0) {
-                                    showToast(
-                                        "Datos actualizados exitosamente");
-                                    Navigator.of(context).pushNamed("/home");
-                                  } else {
-                                    showToast("No se pudo actualizar");
-                                  }
-                                });
-                              }
-                            },
-                            child: const Text(
-                              "Modificar Información",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            )))
+                // isLoading
+                //     ? const Center(
+                //         child:
+                //             CircularProgressIndicator(color: Color(0xff0077CD)),
+                //       )
+                //     : Container(
+                //         padding:
+                //             EdgeInsets.symmetric(horizontal: Sizes.padding),
+                //         width: double.infinity,
+                //         decoration: BoxDecoration(
+                //           color: const Color(0xff0077CD),
+                //           borderRadius: BorderRadius.circular(Sizes.border),
+                //         ),
+                //         child: TextButton(
+                //             onPressed: () {
+                //               if (isLoading) {
+                //                 return;
+                //               }
+                //               if (formKey.currentState!.validate()) {
+                //                 currentUser.setNames(nameController.text);
+                //                 currentUser
+                //                     .setLastNames(lastNameController.text);
+                //                 currentUser.phone = phoneController.text;
+                //                 currentUser.email = emailController.text;
+                //                 setState(() {
+                //                   isLoading = true;
+                //                 });
+                //                 API.update(currentUser).then((backendResponse) {
+                //                   setState(() {
+                //                     isLoading = false;
+                //                   });
+                //                   if (backendResponse.status == 200 &&
+                //                       backendResponse.idError == 0) {
+                //                     showToast(
+                //                         "Datos actualizados exitosamente");
+                //                     Navigator.of(context).pushNamed("/home");
+                //                   } else {
+                //                     showToast("No se pudo actualizar");
+                //                   }
+                //                 });
+                //               }
+                //             },
+                //             child: const Text(
+                //               "Modificar Información",
+                //               style:
+                //                   TextStyle(color: Colors.white, fontSize: 18),
+                //             )))
               ]),
         ),
       ),

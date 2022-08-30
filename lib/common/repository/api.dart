@@ -71,7 +71,7 @@ class API {
     Response myResponse;
     if (isPost) {
       if (debug) {
-        print("POST: $url");
+        print("POST: $url, Body: $body");
       }
       myResponse = await post(Uri.parse(url),
               body: json.encode(body), headers: getHeader())
@@ -143,10 +143,30 @@ class API {
         debug: DEBUG);
   }
 
+  static Future<BackendResponse> singleUpdate(String param, int type) async {
+    print("Updating single param: $param");
+    Map<String, dynamic> myBody = {};
+    if (type == 0) {
+      myBody["Correo"] = param;
+      myBody["Celular"] = currentUser.phone;
+    } else {
+      myBody["Correo"] = currentUser.email;
+      myBody["Celular"] = param;
+    }
+    return await _doPost("usuario/actualizar", myBody, debug: DEBUG);
+  }
+
   static Future<BackendResponse> updatePassword(
       String oldPassword, String newPassword) async {
     return await _doPost("clave/cambiar-clave/",
         {"ClaveActual": oldPassword, "ClaveNueva": newPassword},
+        debug: DEBUG);
+  }
+
+  static Future<BackendResponse> resetPassword(
+      String userDocument, String newPassword) async {
+    return await _doPost(
+        "clave/restaurar", {"Usuario": userDocument, "Clave": newPassword},
         debug: DEBUG);
   }
 
@@ -159,72 +179,104 @@ class API {
 
   static Future<BackendResponse> getAccountStatus() async {
     print("Requesting estado cuenta");
-    return _doGet("archivo/reporte-estado-cuenta", debug: DEBUG);
+    return await _doGet("archivo/reporte-estado-cuenta", debug: DEBUG);
   }
 
-  static Future<BackendResponse> getConstanciaSaldo() async {
+  static Future<BackendResponse> getCatalog() async {
+    print("Requesting catalog");
+    return await _doGet("catalogo/lista", debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getConstanciaSaldo(
+      String instituteName, int cityId) async {
     print("Requesting constancia saldo");
-    return _doPost(
-        "archivo/reporte-constancia-saldo", {"Institucion": "", "IdCiudad": 1},
+    return await _doPost("archivo/reporte-constancia-saldo",
+        {"Institucion": instituteName, "IdCiudad": cityId},
         debug: DEBUG);
   }
 
-  static Future<BackendResponse> getReferenciaCredito() async {
+  static Future<BackendResponse> getReferenciaCredito(
+      String instituteName, int cityId) async {
     print("Requesting reporte-constancia-referencia-credito");
-    return _doPost("archivo/reporte-constancia-referencia-credito",
-        {"Institucion": "", "IdCiudad": 1},
+    return await _doPost("archivo/reporte-constancia-referencia-credito",
+        {"Institucion": instituteName, "IdCiudad": cityId},
         debug: DEBUG);
   }
 
-  static Future<BackendResponse> getContact() {
+  static Future<BackendResponse> getContact() async {
     print("Requesting contact");
-    return _doGet("contacto/lista", debug: DEBUG);
+    return await _doGet("contacto/lista", debug: DEBUG);
   }
 
-  static Future<BackendResponse> getCuota() {
+  static Future<BackendResponse> getCuota() async {
     print("Requesting cuota");
-    return _doGet("detalle-cuenta/consultar", debug: DEBUG);
+    return await _doGet("detalle-cuenta/consultar", debug: DEBUG);
   }
 
-  static Future<BackendResponse> getTermsOfUse() {
+  static Future<BackendResponse> getTermsOfUse() async {
     print("Requesting terms of use");
-    return _doGet("politica-producto/consulta", debug: DEBUG);
+    return await _doGet("politica-producto/consulta", debug: DEBUG);
   }
 
-  static Future<BackendResponse> getPaymentMethods() {
+  static Future<BackendResponse> getPaymentMethods() async {
     print("Requesting payment methods");
     return _doGet("medio-pago/lista", debug: DEBUG);
   }
 
-  static Future<BackendResponse> getPromos() {
+  static Future<BackendResponse> getPromos() async {
     print("Requesting promos");
-    return _doGet("promocion-noveda/lista", debug: DEBUG);
+    return await _doGet("promocion-noveda/lista", debug: DEBUG);
   }
 
-  static Future<BackendResponse> updateProfilePicture(String base64Image) {
+  static Future<BackendResponse> updateProfilePicture(
+      String base64Image) async {
     print("Requesting update profile pic");
-    return _doPost(
+    return await _doPost(
         "usuario/actualizar-foto-perfil", {"FotoPerfil": base64Image},
         debug: DEBUG);
   }
 
-  static Future<BackendResponse> restaurationMethods(String docId) {
+  static Future<BackendResponse> restaurationMethods(String docId) async {
     print("Requesting restauration methods");
-    return _doPost("olvide-clave/consultar", {"Usuario": docId}, debug: DEBUG);
+    return await _doPost("olvide-clave/consultar", {"Usuario": docId},
+        debug: DEBUG);
   }
 
-  static Future<BackendResponse> generarOTPOlvidePass(
-      String docId, int idMedio) {
+  static Future<BackendResponse> generateOTPOlvidePass(
+      String docId, int idMedio) async {
     print("Requesting generate OTP olvide");
-    return _doPost(
+    return await _doPost(
         "olvide-clave/generar-otp", {"Usuario": docId, "IdMedio": idMedio},
         debug: DEBUG);
   }
 
-  static Future<BackendResponse> validarOTPOlvidePass(
-      String docId, String otp) {
+  static Future<BackendResponse> validateOTPForgotPass(
+      String docId, String otp) async {
     print("Requesting validar OTP olvide");
-    return _doPost("olvide-clave/validar-otp", {"Usuario": docId, "OTP": otp},
+    return await _doPost(
+        "olvide-clave/validar-otp", {"Usuario": docId, "OTP": otp},
         debug: DEBUG);
+  }
+
+  static Future<BackendResponse> generateOTPForUpdate(String param,
+      {int type = 0}) async {
+    // type 0 email update
+    // type 1 phone update
+    String updateParam = type == 0 ? "Correo" : "Celular";
+    print("Requesting generate OTP for update");
+    return await _doPost("actualizar-datos/generar-otp", {updateParam: param},
+        debug: DEBUG);
+  }
+
+  static Future<BackendResponse> validateOTPForUpdate(String otp) async {
+    print("Requesting validate OTP for update");
+    return await _doPost("actualizar-datos/validar-otp", {"OTP": otp},
+        debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getVideos() async {
+    print("Req videos");
+
+    return await _doGet("video/lista", debug: DEBUG);
   }
 }

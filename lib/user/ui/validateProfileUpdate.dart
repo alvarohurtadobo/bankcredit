@@ -1,26 +1,34 @@
+import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
-import 'package:credidiunsa_app/common/model/regEx.dart';
-import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
-import 'package:credidiunsa_app/common/widgets/toasts.dart';
+
+String TEST_CODE = "1234";
 
 class ValidateProfileUpdatePage extends StatefulWidget {
   final int type;
   const ValidateProfileUpdatePage({Key? key, this.type = 0}) : super(key: key);
 
   @override
-  _ValidateProfileUpdatePageState createState() => _ValidateProfileUpdatePageState();
+  _ValidateProfileUpdatePageState createState() =>
+      _ValidateProfileUpdatePageState();
 }
 
 class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
+  String digitA = "";
+  String digitB = "";
+  String digitC = "";
+  String digitD = "";
+  String code = "";
+  bool canContinue = false;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
   bool isLoading = false;
-  bool changed = false;
 
   final formKey = GlobalKey<FormState>();
 
@@ -56,10 +64,10 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                             Container(
                               padding: EdgeInsets.all(Sizes.boxSeparation),
                               child: Container(
-                                height: Sizes.height / 8 -
-                                    2 * Sizes.boxSeparation,
-                                width: Sizes.height / 8 -
-                                    2 * Sizes.boxSeparation,
+                                height:
+                                    Sizes.height / 8 - 2 * Sizes.boxSeparation,
+                                width:
+                                    Sizes.height / 8 - 2 * Sizes.boxSeparation,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(Sizes.height / 16)),
@@ -114,107 +122,149 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                       ]),
                 ),
                 SizedBox(
-                  height: Sizes.boxSeparation,
+                  height: 3 * Sizes.boxSeparation,
                 ),
-                widget.type == 0
-                    ? SizedBox(
-                        width: Sizes.width,
-                        height: Sizes.height / 20,
-                        child: Row(
-                          children: const [
-                            Icon(
-                              Icons.email_outlined,
-                              color: Color(0xff0F62A4),
-                            ),
-                            Text("Correo Electrónico",
-                                style: TextStyle(color: Color(0xff0077cd))),
-                          ],
-                        ),
-                      )
-                    : SizedBox(
-                        width: Sizes.width,
-                        height: Sizes.height / 20,
-                        child: Row(
-                          children: const [
-                            Icon(
-                              Icons.smartphone,
-                              color: Color(0xff0F62A4),
-                            ),
-                            Text("Teléfono",
-                                style: TextStyle(color: Color(0xff0077cd))),
-                          ],
+                const Text(
+                    "Para actualizar tus datos, es necesario que validemos tu identidad. Te hemos enviado un código"),
+                SizedBox(
+                  height: Sizes.height * 0.1,
+                  width: Sizes.height * 0.8,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: Sizes.height * 0.08,
+                        width: Sizes.height * 0.08,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(Sizes.boxSeparation))),
+                        child: TextField(
+                          maxLength: 1,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                              hintMaxLines: 0,
+                              counter: SizedBox(),
+                              // filled: true,
+                              fillColor: Colors.white,
+                              border: InputBorder.none),
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                              digitA = value;
+                            }
+                          },
                         ),
                       ),
-                widget.type == 0
-                    ? Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
+                      SizedBox(
+                        width: 2 * Sizes.boxSeparation,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: Sizes.height * 0.08,
+                        width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(Sizes.border / 2),
-                        ),
-                        child: TextFormField(
-                          controller: emailController,
-                          onChanged: (text){
-                            setState(() {
-                              changed=text!=currentUser.email;
-                            });
-                          },
-                          validator: (value) {
-                            if (!isGoodEmail(value ?? "")) {
-                              return "Introduzca un correo válido";
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(Sizes.boxSeparation))),
+                        child: TextField(
+                          maxLength: 1,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                              hintMaxLines: 0,
+                              counter: SizedBox(),
+                              // filled: true,
+                              fillColor: Colors.white,
+                              border: InputBorder.none),
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                              digitB = value;
                             }
-                            return null;
                           },
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintStyle:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: Sizes.boxSeparation),
-                              focusedBorder: null,
-                              disabledBorder: null),
-                        ),
-                      )
-                    : Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Sizes.boxSeparation),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(Sizes.border / 2),
-                        ),
-                        child: TextFormField(
-                          controller: emailController,
-                          onChanged: (text){
-                            setState(() {
-                              changed=text!=currentUser.phone;
-                            });
-                          },
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Este campo es obligatorio";
-                            }
-                            try {
-                              int.parse(value);
-                            } catch (error) {
-                              return "Introduzca un número válido";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintStyle:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: Sizes.boxSeparation),
-                              focusedBorder: null,
-                              disabledBorder: null),
                         ),
                       ),
-                const Expanded(
-                    child: SizedBox(
-                  height: 0,
-                )),
+                      SizedBox(
+                        width: 2 * Sizes.boxSeparation,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: Sizes.height * 0.08,
+                        width: Sizes.height * 0.08,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(Sizes.boxSeparation))),
+                        child: TextField(
+                          maxLength: 1,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                              hintMaxLines: 0,
+                              counter: SizedBox(),
+                              // filled: true,
+                              fillColor: Colors.white,
+                              border: InputBorder.none),
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                              digitC = value;
+                            }
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 2 * Sizes.boxSeparation,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: Sizes.height * 0.08,
+                        width: Sizes.height * 0.08,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(Sizes.boxSeparation))),
+                        child: TextField(
+                          maxLength: 1,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                              hintMaxLines: 0,
+                              counter: SizedBox(),
+                              // filled: true,
+                              fillColor: Colors.white,
+                              border: InputBorder.none),
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).unfocus();
+                              digitD = value;
+                              if (digitA.length == 1 &&
+                                  digitB.length == 1 &&
+                                  digitC.length == 1 &&
+                                  digitD.length == 1) {
+                                setState(() {
+                                  canContinue = true;
+                                });
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: 1 * Sizes.boxSeparation,
+                  ),
+                ),
                 isLoading
                     ? const Center(
                         child:
@@ -225,20 +275,55 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                             EdgeInsets.symmetric(horizontal: Sizes.padding),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: changed
+                          color: canContinue
                               ? const Color(0xff0077CD)
                               : const Color(0xff7A8084),
                           borderRadius: BorderRadius.circular(Sizes.border),
                         ),
                         child: TextButton(
-                            onPressed: () {
-                              if (!changed) {
+                            onPressed: () async {
+                              if (!canContinue) {
                                 return;
                               }
-                              Navigator.of(context).pushNamed("/validateProfileUpdate");
+                              if (isLoading) {
+                                return;
+                              }
+                              setState(() {
+                                isLoading = true;
+                              });
+
+                              code = "$digitA$digitB$digitC$digitD";
+                              if (code.length != 4) {
+                                return;
+                              }
+                              final res = await API.validateOTPForUpdate(code);
+
+                              setState(() {
+                                isLoading = false;
+                              });
+                              if (res.idError == 0) {
+                                final secondRes = await API.singleUpdate(
+                                    updateParam, widget.type);
+                                if (secondRes.idError == 0) {
+                                  await simpleAlertDialog(
+                                      context,
+                                      "Felicitaciones",
+                                      "Tus datos personales han sido modificados con éxito");
+                                } else {
+                                  await simpleAlertDialog(
+                                      context,
+                                      "¡Lo sentimos!",
+                                      "Nuestro sistema está experimentando una falla técnica. Inténtalo de nuevo");
+                                }
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              } else {
+                                await simpleAlertDialog(
+                                    context, "Error", res.message);
+                              }
                             },
                             child: const Text(
-                              "Modificar Información",
+                              "Validar código",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             )))

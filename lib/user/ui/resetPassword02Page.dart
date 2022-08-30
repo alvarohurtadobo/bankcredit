@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:credidiunsa_app/user/model/restauration.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 
@@ -37,7 +38,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
 
   @override
   void initState() {
-    showToast("For development introduce $TEST_CODE", type: 2);
+    // showToast("For development introduce $TEST_CODE", type: 2);
     myTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (currentTime > 0) {
         currentTime--;
@@ -256,13 +257,13 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                       return GestureDetector(
                         onTap: () {
                           API
-                              .generarOTPOlvidePass(
+                              .generateOTPOlvidePass(
                                   notLoggedDocument, chosenRestaurationId)
                               .then((res) {
                             if (res.idError == 0) {
                               currentTime = AWAIT_TIME;
                               timeController.sink.add(currentTime);
-                              showToast("Se solicitó nuevo SMS");
+                              // showToast("Se solicitó nuevo SMS");
                               setState(() {
                                 canRequestNewCode == false;
                               });
@@ -316,47 +317,62 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
             //   height: Sizes.boxSeparation,
             // ),
             (canContinue)
-                ? Container(
-                    margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
-                    padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff0077CD),
-                      borderRadius: BorderRadius.circular(Sizes.border),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          if (loading) {
-                            return;
-                          }
-                          code = "$digitA$digitB$digitC$digitD";
-                          if (code.length != 4) {
-                            showToast(
-                                "El código debe tener exáctamente 4 dígitos");
-                          }
-                          setState(() {
-                            loading = true;
-                          });
-                          if (code == TEST_CODE) {
-                            Navigator.of(context).pushNamed("/resetPassword");
-                          } else {
-                            API
-                                .validarOTPOlvidePass(notLoggedDocument, code)
-                                .then((res) {
-                              if (res.idError == 0) {
+                ? loading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(
+                        margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizes.padding),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xff0077CD),
+                          borderRadius: BorderRadius.circular(Sizes.border),
+                        ),
+                        child: TextButton(
+                            onPressed: () {
+                              if (loading) {
+                                return;
+                              }
+                              code = "$digitA$digitB$digitC$digitD";
+                              print("Code is $code");
+                              if (code.length != 4) {
+                                showToast(
+                                    "El código debe tener exáctamente 4 dígitos");
+                              }
+                              setState(() {
+                                loading = true;
+                              });
+                              if (code == TEST_CODE) {
+                                Navigator.of(context)
+                                    .pushNamed("/resetPassword");
                                 setState(() {
                                   loading = false;
                                 });
-                                Navigator.of(context)
-                                    .pushNamed("/resetPassword");
+                              } else {
+                                API
+                                    .validateOTPForgotPass(
+                                        notLoggedDocument, code)
+                                    .then((res) {
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                  if (res.idError == 0) {
+                                    Navigator.of(context)
+                                        .pushNamed("/resetPassword");
+                                  } else {
+                                    simpleAlertDialog(
+                                        context, "Incorrecto", res.message);
+                                  }
+                                });
                               }
-                            });
-                          }
-                        },
-                        child: const Text(
-                          "Validar código",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        )))
+                            },
+                            child: const Text(
+                              "Validar código",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            )))
                 : Container(),
             SizedBox(
               height: 3 * Sizes.boxSeparation,

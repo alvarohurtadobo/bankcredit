@@ -4,4 +4,5 @@ Future<void> customLaunchUrl(String url) async {
   if (!await canLaunchUrl(Uri.parse(url))) {
     throw 'Could not launch $url';
   }
+  launchUrl(Uri.parse(url));
 }

@@ -14,6 +14,7 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
+  String whatsappLink = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,31 +60,41 @@ class _ContactPageState extends State<ContactPage> {
                       image: AssetImage("assets/demo/image_01.png"),
                       fit: BoxFit.cover)),
             ),
-            Container(
-              height: Sizes.height / 3.2 / 5,
-              decoration: BoxDecoration(
-                  color: const Color(0xff0077CD),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(2 * Sizes.boxSeparation),
-                      bottomRight: Radius.circular(2 * Sizes.boxSeparation))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                      width: Sizes.height / 3.2 / 5 * 0.8,
-                      height: Sizes.height / 3.2 / 5 * 0.8,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/images/whatsapp.png"),
-                              fit: BoxFit.cover))),
-                  const Text(
-                    "WhatsApp",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                ],
+            GestureDetector(
+              onTap: () {
+                try {
+                  print("Launchuing $whatsappLink");
+                  customLaunchUrl(whatsappLink);
+                } catch (err) {
+                  print("TOO FAST");
+                }
+              },
+              child: Container(
+                height: Sizes.height / 3.2 / 5,
+                decoration: BoxDecoration(
+                    color: const Color(0xff0077CD),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(2 * Sizes.boxSeparation),
+                        bottomRight: Radius.circular(2 * Sizes.boxSeparation))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                        width: Sizes.height / 3.2 / 5 * 0.8,
+                        height: Sizes.height / 3.2 / 5 * 0.8,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("assets/images/whatsapp.png"),
+                                fit: BoxFit.cover))),
+                    const Text(
+                      "WhatsApp",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -99,8 +110,14 @@ class _ContactPageState extends State<ContactPage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<SocialMedia> myMedia = snapshot.data?.myBody["Lista"]
-                        .map<SocialMedia>((elem) => SocialMedia.fromBackendResponse(elem))
+                        .map<SocialMedia>(
+                            (elem) => SocialMedia.fromBackendResponse(elem))
                         .toList();
+                    SocialMedia myWhatsappMedia = myMedia
+                        .lastWhere((element) => element.name == "Whatsapp");
+                    whatsappLink = myWhatsappMedia.link;
+                    myMedia
+                        .removeWhere((element) => element.name == "Whatsapp");
                     return SizedBox(
                       height: Sizes.width / 4 * 1.2,
                       width: Sizes.width,
@@ -126,7 +143,7 @@ class _ContactPageState extends State<ContactPage> {
     String label = myMedia.user;
     String url = myMedia.link;
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         customLaunchUrl(url);
       },
       child: Container(
@@ -143,8 +160,8 @@ class _ContactPageState extends State<ContactPage> {
               width: Sizes.width / 4,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image:
-                          AssetImage("assets/images/${name.toLowerCase()}.png"))),
+                      image: AssetImage(
+                          "assets/images/${name.toLowerCase()}.png"))),
             ),
             Text(label,
                 style: const TextStyle(

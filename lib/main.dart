@@ -1,3 +1,4 @@
+import 'package:credidiunsa_app/bank/ui/documentsPage.dart';
 import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
 import 'package:credidiunsa_app/user/ui/confirmProfilePicturePage.dart';
 import 'package:credidiunsa_app/user/ui/resetPassword00Page.dart';
@@ -62,7 +63,9 @@ class MyApp extends StatelessWidget {
           '/confirmProfilePicture': (context)=> const ConfirmProfilePicturePage(),
           '/updateEmail': (context)=> const UpdateProfilePage(type:0),
           '/updatePhone': (context)=> const UpdateProfilePage(type:1),
-          '/validateProfileUpdate': (context)=> const ValidateProfileUpdatePage(type:1),
+          '/validateEmailUpdate': (context)=> const ValidateProfileUpdatePage(type:0),
+          '/validatePhoneUpdate': (context)=> const ValidateProfileUpdatePage(type:1),
+          '/documents':(context)=> const DocumentsPage(),
         });
   }
 }
