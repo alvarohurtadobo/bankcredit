@@ -52,12 +52,16 @@ class MyDrawer extends StatelessWidget {
                                 fontSize: 22,
                                 color: Colors.white),
                           ),
-                          Text(
-                            currentUser.getFullName(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 18,
-                                color: Colors.white),
+                          SizedBox(
+                            width: Sizes.width*0.5,
+                            child: Text(
+                              currentUser.getFullName(),
+                              maxLines: 3,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            ),
                           ),
                           // const Text(
                           //   "Última sesión 01/15/2022",

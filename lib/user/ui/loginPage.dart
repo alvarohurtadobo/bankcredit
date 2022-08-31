@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: Sizes.width * 0.72,
               child: const Text(
-                  "Aqui podrás gestionar todos tus tramites de tu cuenta Credidiunsa",
+                  "Aquí podrás realizar todos tus trámites de tu cuenta CrediDiunsa",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 16)),
             ),
@@ -252,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.of(context)
                                   .pushNamed("/resetPassword00");
                             },
-                            child: const Text("Olvidé mi contraseña",
+                            child: const Text("Olvide mi contraseña",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,

@@ -109,6 +109,16 @@ class User {
       secondSurname = surnames.split(" ").sublist(1).join(" ");
     }
   }
+
+  bool canCreate() {
+    return firstName != "" &&
+        firstSurname != "" &&
+        idIdentification != 0 &&
+        identification != "" &&
+        email != "" &&
+        phone != "" &&
+        password != "";
+  }
 }
 
 User currentUser = User.empty();

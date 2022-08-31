@@ -20,7 +20,7 @@ class CreateAccountPage extends StatefulWidget {
 class _CreateAccountPageState extends State<CreateAccountPage> {
   bool acceptTerms = false;
   bool loading = false;
-  bool canContinue = false;
+  bool passwordsCorrect = false;
   String newPassword = "";
   String confirmPassword = "";
   bool obscure1 = true;
@@ -30,6 +30,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   bool oneCapitalWarning = true;
   bool oneDigitWarning = true;
   bool differentPasswordsWarning = false;
+
+  bool showAcceptTermsWarning = false;
+  String usedDocumentLabel = "";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -122,8 +125,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     return null;
                   },
                   onChanged: (newName) {
-                    // currentUser.setLastNames(newName);
-                    currentUser.firstSurname = newName;
+                    setState(() {
+                      currentUser.firstSurname = newName;
+                    });
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -145,13 +149,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Este campo es obligatorio";
-                    }
                     return null;
                   },
                   onChanged: (newName) {
-                    currentUser.secondSurname = newName;
+                    setState(() {
+                      currentUser.secondSurname = newName;
+                    });
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -179,8 +182,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     return null;
                   },
                   onChanged: (newName) {
-                    // currentUser.setNames(newName);
-                    currentUser.firstName = newName;
+                    setState(() {
+                      currentUser.firstName = newName;
+                    });
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -202,14 +206,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Este campo es obligatorio";
-                    }
                     return null;
                   },
                   onChanged: (newName) {
-                    // currentUser.setNames(newName);
-                    currentUser.secondName = newName;
+                    setState(() {
+                      currentUser.secondName = newName;
+                    });
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -266,10 +268,17 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     if (value!.isEmpty) {
                       return "Este campo es obligatorio";
                     }
+                    // if (value!.length != 13) {
+                    //   return "El número de identificación debe contener al menos 13 dígitos";
+                    // }
                     return null;
                   },
+                  // maxLength: 13,
+                  keyboardType: TextInputType.number,
                   onChanged: (value) {
-                    currentUser.identification = value;
+                    setState(() {
+                      currentUser.identification = value;
+                    });
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -281,6 +290,41 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       focusedBorder: null,
                       disabledBorder: null),
                 ),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                const Text(
+                  "El número de cédula, será tu usuario",
+                  style: TextStyle(color: Color(0xff7A8084)),
+                ),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                usedDocumentLabel != ""
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.warning_amber,
+                              color: Color(0xffB70909)),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.of(context).pushNamed("/resetPassword01");
+                            },
+                            child: Text(usedDocumentLabel,
+                                style: const TextStyle(
+                                    color: Color(0xffB70909), fontSize: 14)),
+                          )
+                        ],
+                      )
+                    : Container(),
+                usedDocumentLabel != ""
+                    ? SizedBox(
+                        height: Sizes.boxSeparation,
+                      )
+                    : Container(),
                 SizedBox(
                   height: 1.5 * Sizes.boxSeparation,
                 ),
@@ -297,7 +341,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     return null;
                   },
                   onChanged: (value) {
-                    currentUser.email = value;
+                    setState(() {
+                      currentUser.email = value;
+                    });
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -319,14 +365,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
+                  maxLength: 10,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Este campo es obligatorio";
                     }
+                    if (value!.length < 8) {
+                      return "Este campo debe tener al menos 8 dígitos";
+                    }
                     return null;
                   },
                   onChanged: (value) {
-                    currentUser.phone = value;
+                    setState(() {
+                      currentUser.phone = value;
+                    });
                   },
                   decoration: InputDecoration(
                       filled: true,
@@ -350,6 +402,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   obscureText: obscure1,
                   onChanged: (value) {
                     newPassword = value;
+                    currentUser.password = newPassword;
                     setState(() {
                       min8charactersWarning = newPassword.length < 8;
                       oneCapitalWarning =
@@ -369,7 +422,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               .replaceAll("9", "");
                       differentPasswordsWarning =
                           newPassword != confirmPassword;
-                      canContinue = !differentPasswordsWarning &&
+                      passwordsCorrect = !differentPasswordsWarning &&
                           !min8charactersWarning &&
                           !oneCapitalWarning &&
                           !oneDigitWarning;
@@ -418,13 +471,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   obscureText: obscure2,
                   onChanged: (value) {
                     confirmPassword = value;
+
                     if (newPassword == confirmPassword) {
                       FocusScope.of(context).unfocus();
                     }
                     setState(() {
                       differentPasswordsWarning =
                           newPassword != confirmPassword;
-                      canContinue = !differentPasswordsWarning &&
+                      passwordsCorrect = !differentPasswordsWarning &&
                           !min8charactersWarning &&
                           !oneCapitalWarning &&
                           !oneDigitWarning;
@@ -501,8 +555,33 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     )
                   ],
                 ),
+                showAcceptTermsWarning
+                    ? SizedBox(
+                        height: Sizes.boxSeparation,
+                      )
+                    : Container(),
+                showAcceptTermsWarning
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.warning_amber,
+                              color: Color(0xffB70909)),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.of(context).pushNamed("/resetPassword01");
+                            },
+                            child: const Text("¡Este campo es obligatorio!",
+                                style: TextStyle(
+                                    color: Color(0xffB70909), fontSize: 14)),
+                          )
+                        ],
+                      )
+                    : Container(),
                 SizedBox(
-                  height: Sizes.boxSeparation,
+                  height: Sizes.padding,
                 ),
                 loading
                     ? const Center(
@@ -515,22 +594,32 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             EdgeInsets.symmetric(horizontal: Sizes.padding),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: const Color(0xff7b8084),
+                          color: (currentUser.canCreate() &&
+                                  passwordsCorrect &&
+                                  acceptTerms)
+                              ? const Color(0xff0077CD)
+                              : const Color(0xff7b8084),
                           borderRadius: BorderRadius.circular(Sizes.border),
                         ),
                         child: TextButton(
                             onPressed: () {
+                              setState(() {
+                                usedDocumentLabel = "";
+                              });
                               if (!acceptTerms) {
-                                // showToast("Debe aceptar las condiciones de uso",
-                                //     type: 1);
+                                if (loading) {
+                                  return;
+                                }
+                                setState(() {
+                                  showAcceptTermsWarning = true;
+                                });
                                 return;
                               }
-                              if (loading) {
+                              if (!currentUser.canCreate()) {
                                 return;
                               }
                               if (_formKey.currentState!.validate() &&
-                                  canContinue) {
-                                currentUser.password = newPassword;
+                                  passwordsCorrect) {
                                 print(
                                     "Create with pass: ${currentUser.password}");
                                 setState(() {
@@ -544,7 +633,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     if (response.idError == 0) {
                                       simpleAlertDialog(context,
                                           "¡Felicitaciones!", response.message,
-                                          buttonLabel: "Siguiente", action: () {
+                                          buttonLabel: "Ingresar", action: () {
                                         // Navigator.of(context).pop();
                                         print("Login");
                                         API
@@ -567,9 +656,17 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                         }
                                       });
                                     } else {
-                                      simpleAlertDialog(context,
-                                              "¡Lo sentimos!", response.message)
-                                          .then((value) {});
+                                      if (response.idError == 3) {
+                                        setState(() {
+                                          usedDocumentLabel = response.message;
+                                        });
+                                      } else {
+                                        simpleAlertDialog(
+                                                context,
+                                                "¡Lo sentimos!",
+                                                response.message)
+                                            .then((value) {});
+                                      }
                                     }
                                   } catch (err) {
                                     // showToast("Bad format from backend",
@@ -579,9 +676,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               }
                             },
                             child: const Text(
-                              "Crear cuenta",
-                              style: TextStyle(
-                                  color: Color(0xffb8b8b8), fontSize: 18),
+                              "Siguiente",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
                             ))),
                 SizedBox(
                   height: 3 * Sizes.boxSeparation,
