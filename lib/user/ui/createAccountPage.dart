@@ -130,14 +130,19 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     });
                   },
                   decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                      hintText: "",
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
-                      disabledBorder: null),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    hintText: "",
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(width: 1, color: Color(0xff0077CD)),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    disabledBorder: null,
+                  ),
                 ),
                 SizedBox(
                   height: 1.5 * Sizes.boxSeparation,
@@ -163,7 +168,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       disabledBorder: null),
                 ),
                 SizedBox(
@@ -193,7 +202,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       disabledBorder: null),
                 ),
                 SizedBox(
@@ -220,7 +233,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       disabledBorder: null),
                 ),
                 SizedBox(
@@ -288,7 +305,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       disabledBorder: null),
                 ),
                 SizedBox(
@@ -353,7 +374,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       disabledBorder: null),
                 ),
                 SizedBox(
@@ -389,7 +414,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       disabledBorder: null),
                 ),
                 SizedBox(
@@ -458,7 +487,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       disabledBorder: null),
                 ),
                 SizedBox(
@@ -513,7 +546,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       disabledBorder: null),
                 ),
                 SizedBox(

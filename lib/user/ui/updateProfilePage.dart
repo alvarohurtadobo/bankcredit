@@ -172,7 +172,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                   const TextStyle(fontWeight: FontWeight.bold),
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: Sizes.boxSeparation),
-                              focusedBorder: null,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 2, color: Color(0xff0077CD)),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                               disabledBorder: null),
                         ),
                       )
@@ -207,7 +211,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                   const TextStyle(fontWeight: FontWeight.bold),
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: Sizes.boxSeparation),
-                              focusedBorder: null,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 2, color: Color(0xff0077CD)),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                               disabledBorder: null),
                         ),
                       ),

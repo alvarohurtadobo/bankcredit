@@ -135,13 +135,22 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       // counter: Container(),
-                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 2, color: Color(0xff0077CD)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 2, color: Colors.white),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       fillColor: Colors.white,
+                      filled: true,
                       border: InputBorder.none,
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-                      focusedBorder: null,
                       disabledBorder: null),
                 ),
               ],
@@ -179,6 +188,9 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                             // TODO REMOVE ON PRODUCTION
                             if (notLoggedDocument == "ppppppppppppp") {
                               notLoggedDocument = "0828199100005";
+                            }
+                            if (notLoggedDocument == "mmmmmmmmmmmmm") {
+                              notLoggedDocument = "3067891";
                             }
                             API
                                 .restaurationMethods(notLoggedDocument)

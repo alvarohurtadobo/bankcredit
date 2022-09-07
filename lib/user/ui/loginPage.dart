@@ -108,18 +108,22 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 3 * Sizes.padding,
-                  ),
-                  Container(
-                    width: Sizes.width * 0.8,
-                    height: 90,
-                    decoration: const BoxDecoration(
-                        // color: Colors.yellow,
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/logo.png"),
-                            fit: BoxFit.contain)),
-                  ),
+                  MediaQuery.of(context).viewInsets.bottom != 0
+                      ? Container()
+                      : SizedBox(
+                          height: 3 * Sizes.padding,
+                        ),
+                  MediaQuery.of(context).viewInsets.bottom != 0
+                      ? Container()
+                      : Container(
+                          width: Sizes.width * 0.8,
+                          height: 90,
+                          decoration: const BoxDecoration(
+                              // color: Colors.yellow,
+                              image: DecorationImage(
+                                  image: AssetImage("assets/images/logo.png"),
+                                  fit: BoxFit.contain)),
+                        ),
                   MediaQuery.of(context).viewInsets.bottom == 0
                       ? SizedBox(
                           height: Sizes.height * 0.4 -
@@ -180,57 +184,60 @@ class _LoginPageState extends State<LoginPage> {
                                     SizedBox(
                                       height: Sizes.boxSeparation,
                                     ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: Sizes.boxSeparation),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(
-                                            Sizes.border / 2),
-                                      ),
-                                      child: TextFormField(
-                                        obscureText: obscure1,
-                                        onChanged: (value) {
-                                          documentId = value;
-                                          setState(() {
-                                            canContinue = documentId != "" &&
-                                                password != "";
-                                          });
-                                        },
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "Este campo es obligatorio";
-                                          }
-                                          return null;
-                                        },
-                                        keyboardType: TextInputType.number,
-                                        textAlignVertical:
-                                            TextAlignVertical.center,
-                                        decoration: InputDecoration(
-                                            suffixIcon: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  obscure1 = !obscure1;
-                                                });
-                                                print("Toggle $obscure1");
-                                              },
-                                              child: obscure1
-                                                  ? Image.asset(
-                                                      "assets/icons/obscured.png")
-                                                  : const Icon(
-                                                      Icons.remove_red_eye,
-                                                      color: Color(0xff7A8084),
-                                                    ),
-                                            ),
-                                            border: InputBorder.none,
-                                            hintText: "Escribe",
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        Sizes.boxSeparation),
-                                            focusedBorder: null,
-                                            disabledBorder: null),
-                                      ),
+                                    TextFormField(
+                                      obscureText: obscure1,
+                                      onChanged: (value) {
+                                        documentId = value;
+                                        setState(() {
+                                          canContinue = documentId != "" &&
+                                              password != "";
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Este campo es obligatorio";
+                                        }
+                                        return null;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      decoration: InputDecoration(
+                                          suffixIcon: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                obscure1 = !obscure1;
+                                              });
+                                              print("Toggle $obscure1");
+                                            },
+                                            child: obscure1
+                                                ? Image.asset(
+                                                    "assets/icons/obscured.png")
+                                                : const Icon(
+                                                    Icons.remove_red_eye,
+                                                    color: Color(0xff7A8084),
+                                                  ),
+                                          ),
+                                          border: InputBorder.none,
+                                          hintText: "Escribe",
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: Sizes.boxSeparation),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 2,
+                                                color: Color(0xff0077CD)),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 2, color: Colors.white),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                          disabledBorder: null),
                                     ),
                                     SizedBox(
                                       height: Sizes.padding,
@@ -240,56 +247,59 @@ class _LoginPageState extends State<LoginPage> {
                                     SizedBox(
                                       height: Sizes.boxSeparation,
                                     ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: Sizes.boxSeparation),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(
-                                            Sizes.border / 2),
-                                      ),
-                                      child: TextFormField(
-                                        obscureText: obscure2,
-                                        onChanged: (value) {
-                                          password = value;
-                                          setState(() {
-                                            canContinue = documentId != "" &&
-                                                password != "";
-                                          });
-                                        },
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "Este campo es obligatorio";
-                                          }
-                                          return null;
-                                        },
-                                        textAlignVertical:
-                                            TextAlignVertical.center,
-                                        decoration: InputDecoration(
-                                            suffixIcon: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  obscure2 = !obscure2;
-                                                });
-                                                print("Toggle $obscure2");
-                                              },
-                                              child: obscure2
-                                                  ? Image.asset(
-                                                      "assets/icons/obscured.png")
-                                                  : const Icon(
-                                                      Icons.remove_red_eye,
-                                                      color: Color(0xff7A8084),
-                                                    ),
-                                            ),
-                                            border: InputBorder.none,
-                                            hintText: "Escribe",
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        Sizes.boxSeparation),
-                                            focusedBorder: null,
-                                            disabledBorder: null),
-                                      ),
+                                    TextFormField(
+                                      obscureText: obscure2,
+                                      onChanged: (value) {
+                                        password = value;
+                                        setState(() {
+                                          canContinue = documentId != "" &&
+                                              password != "";
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Este campo es obligatorio";
+                                        }
+                                        return null;
+                                      },
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      decoration: InputDecoration(
+                                          suffixIcon: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                obscure2 = !obscure2;
+                                              });
+                                              print("Toggle $obscure2");
+                                            },
+                                            child: obscure2
+                                                ? Image.asset(
+                                                    "assets/icons/obscured.png")
+                                                : const Icon(
+                                                    Icons.remove_red_eye,
+                                                    color: Color(0xff7A8084),
+                                                  ),
+                                          ),
+                                          border: InputBorder.none,
+                                          hintText: "Escribe",
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: Sizes.boxSeparation),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 2,
+                                                color: Color(0xff0077CD)),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                width: 2, color: Colors.white),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                          disabledBorder: null),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(
