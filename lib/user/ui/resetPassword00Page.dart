@@ -98,6 +98,9 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                       print("Set value to $value");
                       setState(() {
                         idIdentification = value;
+                        canContinue = notLoggedDocument != "" &&
+                            idIdentification != null &&
+                            idIdentification != 0;
                       });
                     },
                   ),
@@ -115,20 +118,23 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                     if (value!.isEmpty) {
                       return "Este campo es obligatorio";
                     }
-                    if (value!.length != 13) {
+                    if (value.length != 13) {
                       return "El número de identificación debe contener al menos 13 dígitos";
                     }
                     return null;
                   },
-                  // maxLength: 13,
+                  maxLength: 13,
                   onChanged: (value) {
                     notLoggedDocument = value;
                     setState(() {
-                      canContinue = notLoggedDocument != "";
+                      canContinue = notLoggedDocument != "" &&
+                          idIdentification != null &&
+                          idIdentification != 0;
                     });
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
+                      // counter: Container(),
                       filled: true,
                       fillColor: Colors.white,
                       border: InputBorder.none,
@@ -170,10 +176,10 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                             setState(() {
                               loading = true;
                             });
-                            if (notLoggedDocument == "p") {
+                            // TODO REMOVE ON PRODUCTION
+                            if (notLoggedDocument == "ppppppppppppp") {
                               notLoggedDocument = "0828199100005";
                             }
-                            
                             API
                                 .restaurationMethods(notLoggedDocument)
                                 .then((res) {

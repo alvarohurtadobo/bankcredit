@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:credidiunsa_app/common/model/launcher.dart';
+import 'package:credidiunsa_app/common/model/secondsToMinSec.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +11,7 @@ import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 
 String TEST_CODE = "1234";
+int AWAIT_TIME = 300;
 
 class ValidateProfileUpdatePage extends StatefulWidget {
   final int type;
@@ -24,19 +29,43 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
   String digitD = "";
   String code = "";
   bool canContinue = false;
+  int currentTime = AWAIT_TIME;
+
+  StreamController timeController = StreamController<int>();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
+  bool canRequestNewCode = false;
+
   bool isLoading = false;
 
   final formKey = GlobalKey<FormState>();
+  late Timer myTimer;
 
   @override
   void initState() {
     super.initState();
     emailController.text = currentUser.email;
     phoneController.text = currentUser.phone;
+    myTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (currentTime > 0) {
+        currentTime--;
+        timeController.sink.add(currentTime);
+      }
+      if (!canRequestNewCode && currentTime == 0) {
+        setState(() {
+          canRequestNewCode = true;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    timeController.sink.add(currentTime);
+
+    super.dispose();
   }
 
   @override
@@ -51,7 +80,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
           key: formKey,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: Sizes.height / 8,
@@ -260,6 +289,57 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 3 * Sizes.boxSeparation,
+                ),
+                StreamBuilder<dynamic>(
+                    stream: timeController.stream,
+                    builder: (context, snapshop) {
+                      if (snapshop.hasData) {
+                        int newTime = snapshop.data ?? 0;
+                        if (newTime == 0) {
+                          return GestureDetector(
+                            onTap: () {
+                              API
+                                  .generateOTPForUpdate(constantParam)
+                                  .then((res) {
+                                if (res.idError == 0) {
+                                  currentTime = AWAIT_TIME;
+                                  timeController.sink.add(currentTime);
+                                  // showToast("Se solicitó nuevo SMS");
+                                  setState(() {
+                                    canRequestNewCode == false;
+                                  });
+                                } else {
+                                  simpleAlertDialog(
+                                      context, "¡Lo sentimos!", res.message,
+                                      buttonLabel: "Quiero ir al chat",
+                                      action: () {
+                                    customLaunchUrl(
+                                        "http://m.me/CredidiunsaHn");
+                                  });
+                                }
+                              });
+                            },
+                            child: const Text("Reenviar código",
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Color(0xff4AA7EA),
+                                    fontSize: 20)),
+                          );
+                        } else {
+                          return Text("Reenviar en ${convertToSecMin(newTime)}",
+                              style: const TextStyle(
+                                  color: Color(0xffA3A8AC), fontSize: 20));
+                        }
+                      }
+                      return Container();
+                    }),
+                Expanded(
+                  child: SizedBox(
+                    height: 3 * Sizes.boxSeparation,
+                  ),
+                ),
                 Expanded(
                   child: SizedBox(
                     height: 1 * Sizes.boxSeparation,
@@ -310,10 +390,9 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                   currentUser.phone = updateParam;
                                 }
                                 if (secondRes.idError == 0) {
-                                  await simpleAlertDialog(
-                                      context,
-                                      "Felicitaciones",
-                                      secondRes.message);
+                                  await simpleAlertDialog(context,
+                                      "Felicitaciones", secondRes.message,
+                                      buttonLabel: "Ok");
                                 } else {
                                   await simpleAlertDialog(
                                       context,

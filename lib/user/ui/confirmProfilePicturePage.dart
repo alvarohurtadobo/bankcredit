@@ -110,16 +110,24 @@ class _ConfirmProfilePicturePageState extends State<ConfirmProfilePicturePage> {
                                     // Ruta de actualización normal
                                     print("Clear cache");
                                     imageCache.clear();
-                                    // await simpleAlertDialog(context, "Gracias", "La aplicación se cerrará para refrescar el cache");
+                                    simpleAlertDialog(context, "Felicitaciones",
+                                            "Tu foto de perfil ha sido actualizada exitosamente")
+                                        .then((value) {
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    });
                                     // exit(0);
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).pop();
+
                                   } else {
                                     // Ruta de creación de cuenta
                                     auxJwt = "";
                                     print("Clear aux JWT");
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).pop();
+                                    simpleAlertDialog(context, "¡Lo sentimos!",
+                                            "No ha sido posible actualizar tu foto de perfil")
+                                        .then((value) {
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    });
                                   }
                                 }
                               });

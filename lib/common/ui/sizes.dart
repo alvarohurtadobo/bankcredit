@@ -10,6 +10,7 @@ class Sizes {
   static double font6 = 22;
   static double font8 = 20;
   static double font10 = 16;
+  static double font11 = 14;
   static double font12 = 12;
 
   static double tileHeightExpandedCard = 0;

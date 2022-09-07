@@ -1,13 +1,12 @@
-import 'package:credidiunsa_app/bank/model/video.dart';
-import 'package:credidiunsa_app/bank/ui/components/promoCards.dart';
-import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
+import 'package:credidiunsa_app/bank/model/video.dart';
 import 'package:credidiunsa_app/bank/model/promo.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/bank/bloc/getPromos.dart';
-import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/bank/ui/components/promoCards.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PromotionsPage extends StatefulWidget {

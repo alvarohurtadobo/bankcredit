@@ -107,7 +107,7 @@ Future<bool> biometricAuthConfirmationDialog(BuildContext context) async {
                                   onPressed: () {
                                     Navigator.of(context).pop(true);
                                   },
-                                  child: const Text("YES",
+                                  child: const Text("SÍ",
                                       style: TextStyle(color: Colors.white)),
                                 )),
                           ],

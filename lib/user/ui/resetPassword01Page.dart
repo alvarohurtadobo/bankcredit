@@ -102,7 +102,7 @@ class _ResetPassword01PageState extends State<ResetPassword01Page> {
             print("SHOW ERROR");
             simpleAlertDialog(context, "¡Lo sentimos!", res.message,
                 buttonLabel: "Quiero ir al chat", action: () {
-              customLaunchUrl("www.facebook.com");
+              customLaunchUrl("http://m.me/CredidiunsaHn");
             });
           }
         });

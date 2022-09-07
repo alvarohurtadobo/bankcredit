@@ -18,11 +18,11 @@ class MyDrawer extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).popUntil((route) => route.isFirst);
                 Navigator.of(context).pushNamed("/profile");
               },
               child: Container(
-                height: Sizes.height/8,
+                height: Sizes.height/7.2,
                 padding: EdgeInsets.all(Sizes.padding * 0.6),
                 decoration: const BoxDecoration(
                   color: Color(0xff0077cd),
@@ -110,7 +110,7 @@ class MyDrawer extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (route != "/") {
-          Navigator.of(context).pop();
+          Navigator.of(context).popUntil((route) => route.isFirst);
           Navigator.of(context).pushNamed(route);
         }
       },
@@ -167,6 +167,7 @@ class MyDrawer extends StatelessWidget {
               // myPrefs.remove("password");
               myPrefs.remove("expiration");
               Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.of(context).pop();// Para el drawer???
               Navigator.of(context).pop();
               Navigator.of(context).pushNamed("/login");
             });

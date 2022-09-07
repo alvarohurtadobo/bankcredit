@@ -55,7 +55,7 @@ Widget extendedSummaryCard(CuotaMensual cuotaMensual,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Interés de mora",
+                "Intereses de mora",
                 style: TextStyle(fontSize: Sizes.font10),
               ),
               Text(

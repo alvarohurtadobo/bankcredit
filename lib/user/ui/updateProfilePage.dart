@@ -1,3 +1,4 @@
+import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -247,7 +248,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                     : phoneController.text;
                                 API
                                     .generateOTPForUpdate(constantParam,
-                                        type: (widget.type+1)%2)
+                                        type: (widget.type + 1) % 2)
                                     .then((res) {
                                   setState(() {
                                     isLoading = false;
@@ -262,7 +263,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                     }
                                   } else {
                                     simpleAlertDialog(
-                                        context, "¡Lo sentimos!", res.message);
+                                        context, "¡Lo sentimos!", res.message,
+                                        buttonLabel: "Quiero ir al chat",
+                                        action: () {
+                                      customLaunchUrl(
+                                          "http://m.me/CredidiunsaHn");
+                                    });
                                   }
                                 });
                               }

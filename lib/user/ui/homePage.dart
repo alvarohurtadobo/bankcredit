@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
               Positioned(
                   top: 6 * Sizes.padding,
                   left: 2 * Sizes.padding,
-                  child: summaryCard("Tu saldo", "disponible para compras",
+                  child: summaryCard("Cupo", "disponible para compras",
                       currencyFormatter.format(saldo),
                       scale: 0.8)),
               Positioned(

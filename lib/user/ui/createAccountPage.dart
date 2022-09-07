@@ -268,12 +268,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     if (value!.isEmpty) {
                       return "Este campo es obligatorio";
                     }
-                    // if (value!.length != 13) {
-                    //   return "El número de identificación debe contener al menos 13 dígitos";
-                    // }
+                    if (value.length != 13) {
+                      return "El número de identificación debe contener al menos 13 dígitos";
+                    }
                     return null;
                   },
-                  // maxLength: 13,
+                  maxLength: 13,
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
                     setState(() {
@@ -281,6 +281,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     });
                   },
                   decoration: InputDecoration(
+                      // counter: Container(),
                       filled: true,
                       fillColor: Colors.white,
                       border: InputBorder.none,
@@ -370,7 +371,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     if (value!.isEmpty) {
                       return "Este campo es obligatorio";
                     }
-                    if (value!.length < 8) {
+                    if (value.length < 8) {
                       return "Este campo debe tener al menos 8 dígitos";
                     }
                     return null;
@@ -381,6 +382,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     });
                   },
                   decoration: InputDecoration(
+                      // counter: Container(),
                       filled: true,
                       fillColor: Colors.white,
                       border: InputBorder.none,
@@ -529,15 +531,30 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Checkbox(
-                      value: acceptTerms,
-                      onChanged: (value) {
-                        setState(() {
-                          acceptTerms = value ?? false;
-                        });
-                      },
-                      checkColor: Colors.white,
-                      focusColor: Colors.white,
+                    Container(
+                      width: 14,
+                      height: 14,
+                      alignment: Alignment.center,
+                      // decoration: const BoxDecoration(
+                      //   borderRadius:
+                      //       BorderRadius.all(Radius.circular(7)),
+                      //   color: Colors.white,
+                      // ),
+                      color: Colors.white,
+                      child: Checkbox(
+                        value: acceptTerms,
+                        onChanged: (value) {
+                          setState(() {
+                            acceptTerms = value ?? false;
+                          });
+                        },
+                        fillColor: MaterialStateColor.resolveWith((states) {
+                          return const Color(0xff0077cd);
+                        }),
+                        activeColor: const Color(0xff0077cd),
+                        checkColor: Colors.white,
+                        hoverColor: Colors.white,
+                      ),
                     ),
                     const SizedBox(
                       width: 10,

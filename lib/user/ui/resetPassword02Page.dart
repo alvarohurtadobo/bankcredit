@@ -1,18 +1,15 @@
 // Language: dart
 
 import 'dart:async';
-import 'package:credidiunsa_app/common/repository/api.dart';
-import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
-import 'package:credidiunsa_app/user/model/restauration.dart';
-import 'package:credidiunsa_app/user/model/user.dart';
-
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 import '../../common/model/secondsToMinSec.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/widgets/toasts.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:credidiunsa_app/user/model/restauration.dart';
 import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 
-String TEST_CODE = "1234";
 int AWAIT_TIME = 300;
 
 class ResetPassword02Page extends StatefulWidget {
@@ -29,7 +26,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
   String digitD = "";
   String code = "";
   bool loading = false;
-  bool wrongCodeWarning = false;
+  String wrongCodeWarning = "";
   bool canContinue = false;
   StreamController timeController = StreamController<int>();
   int currentTime = AWAIT_TIME;
@@ -38,7 +35,6 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
 
   @override
   void initState() {
-    // showToast("For development introduce $TEST_CODE", type: 2);
     myTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (currentTime > 0) {
         currentTime--;
@@ -58,7 +54,6 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
     timeController.close();
     myTimer.cancel();
     super.dispose();
-    timeController.sink.add(currentTime);
   }
 
   @override
@@ -242,9 +237,12 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
             SizedBox(
               height: 1 * Sizes.boxSeparation,
             ),
-            warningLabel(
-                "¡El código ingresado no es correcto!", wrongCodeWarning,
-                disappearWarning: true),
+            Container(
+              padding: EdgeInsets.all(Sizes.padding),
+              alignment: Alignment.center,
+              child: warningLabel(wrongCodeWarning, wrongCodeWarning != "",
+                  disappearWarning: true, center: true),
+            ),
             SizedBox(
               height: 3 * Sizes.boxSeparation,
             ),
@@ -342,15 +340,11 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                                     "El código debe tener exáctamente 4 dígitos");
                               }
                               setState(() {
+                                wrongCodeWarning = "";
+                              });
+                              setState(() {
                                 loading = true;
                               });
-                              if (code == TEST_CODE) {
-                                Navigator.of(context)
-                                    .pushNamed("/resetPassword");
-                                setState(() {
-                                  loading = false;
-                                });
-                              } else {
                                 API
                                     .validateOTPForgotPass(
                                         notLoggedDocument, code)
@@ -362,11 +356,12 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                                     Navigator.of(context)
                                         .pushNamed("/resetPassword");
                                   } else {
-                                    simpleAlertDialog(
-                                        context, "Incorrecto", res.message);
+                                    setState(() {
+                                      wrongCodeWarning = res.message;
+                                    });
                                   }
                                 });
-                              }
+                              
                             },
                             child: const Text(
                               "Validar código",

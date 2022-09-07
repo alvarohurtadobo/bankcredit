@@ -26,7 +26,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   bool differentPasswordsWarning = false;
   bool canContinue = false;
   bool loading = false;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -241,22 +240,28 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   loading = false;
                                 });
                                 if (res.idError == 0) {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
+                                  simpleAlertDialog(context, "Felicitaciones",
+                                          "Tus credenciales se han restablecidas con éxito.",
+                                          buttonLabel: "Ingresar")
+                                      .then((value) {
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  });
                                   // showToast("Contraseña actualizada correctamente",
                                   //     type: 0);
                                 } else {
                                   // showToast("No se pudo actualizar", type: 1);
-                                  simpleAlertDialog(context, "Error", res.message);
+                                  simpleAlertDialog(
+                                      context, "¡Lo sentimos!", res.message);
                                 }
                               });
                             },
                             child: const Text(
                               "Actualizar contraseña",
-                              style: TextStyle(
-                                  color: Color(0xffb8b8b8), fontSize: 18),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
                             ))),
               ],
             ),
