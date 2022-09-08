@@ -136,7 +136,12 @@ class _DocumentsPageState extends State<DocumentsPage> {
                             switch (currentType) {
                               case 0:
                                 API.getAccountStatus().then((myResponse) {
-                                  displayFile(myResponse);
+                                  if (myResponse.idError == 0) {
+                                    displayFile(myResponse);
+                                  } else {
+                                    simpleAlertDialog(context, "¡Lo sentimos!",
+                                        myResponse.message);
+                                  }
                                   setState(() {
                                     isLoading = false;
                                   });
@@ -146,7 +151,12 @@ class _DocumentsPageState extends State<DocumentsPage> {
                                 API
                                     .getConstanciaSaldo(instituteName, cityId!)
                                     .then((myResponse) {
-                                  displayFile(myResponse);
+                                  if (myResponse.idError == 0) {
+                                    displayFile(myResponse);
+                                  } else {
+                                    simpleAlertDialog(context, "¡Lo sentimos!",
+                                        myResponse.message);
+                                  }
                                   setState(() {
                                     isLoading = false;
                                   });
@@ -157,7 +167,12 @@ class _DocumentsPageState extends State<DocumentsPage> {
                                     .getReferenciaCredito(
                                         instituteName, cityId!)
                                     .then((myResponse) {
-                                  displayFile(myResponse);
+                                  if (myResponse.idError == 0) {
+                                    displayFile(myResponse);
+                                  } else {
+                                    simpleAlertDialog(context, "¡Lo sentimos!",
+                                        myResponse.message);
+                                  }
                                   setState(() {
                                     isLoading = false;
                                   });
@@ -258,8 +273,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
                 print("Set city to $value");
                 setState(() {
                   cityId = value;
-                  ready =
-                      (instituteName != "") && (cityId != null) && (cityId != -1);
+                  ready = (instituteName != "") &&
+                      (cityId != null) &&
+                      (cityId != -1);
                 });
               },
             ),
