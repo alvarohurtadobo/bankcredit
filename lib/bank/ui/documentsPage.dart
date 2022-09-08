@@ -192,92 +192,95 @@ class _DocumentsPageState extends State<DocumentsPage> {
   }
 
   Widget form() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Institución a la que va dirigido",
-            style: TextStyle(color: Color(0xff0077cd))),
-        SizedBox(
-          height: Sizes.boxSeparation,
-        ),
-        TextFormField(
-          controller: titleControl,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return "Este campo es obligatorio";
-            }
-            return null;
-          },
-          onChanged: (newName) {
-            instituteName = newName;
-            print("Set new name to $instituteName");
-            setState(() {
-              ready =
-                  (instituteName != "") && (cityId != null) && (cityId != -1);
-            });
-          },
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              border: InputBorder.none,
-              hintText: "",
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-              focusedBorder: OutlineInputBorder(
-                borderSide:
-                    const BorderSide(width: 2, color: Color(0xff0077CD)),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              disabledBorder: null),
-        ),
-        SizedBox(
-          height: 1.5 * Sizes.boxSeparation,
-        ),
-        const Text("Ciudad", style: TextStyle(color: Color(0xff0077cd))),
-        SizedBox(
-          height: Sizes.boxSeparation,
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(Sizes.border / 2),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("Institución a la que va dirigido",
+              style: TextStyle(color: Color(0xff0077cd))),
+          SizedBox(
+            height: Sizes.boxSeparation,
           ),
-          child: DropdownButton<int>(
-            value: cityId,
-            hint: const Text("Seleccione"),
-            underline: Container(),
-            isExpanded: true,
-            items: myCities
-                .map((city) => DropdownMenuItem<int>(
-                    value: city.id, child: Text(city.description)))
-                .toList(),
-            onChanged: (value) {
-              print("Set city to $value");
+          TextFormField(
+            controller: titleControl,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Este campo es obligatorio";
+              }
+              return null;
+            },
+            onChanged: (newName) {
+              instituteName = newName;
+              print("Set new name to $instituteName");
               setState(() {
-                cityId = value;
                 ready =
                     (instituteName != "") && (cityId != null) && (cityId != -1);
               });
             },
+            decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: InputBorder.none,
+                hintText: "",
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 2, color: Color(0xff0077CD)),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                disabledBorder: null),
           ),
-        ),
-        warningIdDocument
-            ? SizedBox(
-                height: Sizes.boxSeparation,
-              )
-            : const SizedBox(
-                height: 0,
-              ),
-        warningIdDocument
-            ? Text(
-                "Este campo es obligatorio",
-                style: TextStyle(color: Colors.red, fontSize: Sizes.font12),
-              )
-            : const SizedBox(
-                height: 0,
-              ),
-      ],
+          SizedBox(
+            height: 1.5 * Sizes.boxSeparation,
+          ),
+          const Text("Ciudad", style: TextStyle(color: Color(0xff0077cd))),
+          SizedBox(
+            height: Sizes.boxSeparation,
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(Sizes.border / 2),
+            ),
+            child: DropdownButton<int>(
+              value: cityId,
+              hint: const Text("Seleccione"),
+              underline: Container(),
+              isExpanded: true,
+              items: myCities
+                  .map((city) => DropdownMenuItem<int>(
+                      value: city.id, child: Text(city.description)))
+                  .toList(),
+              onChanged: (value) {
+                print("Set city to $value");
+                setState(() {
+                  cityId = value;
+                  ready =
+                      (instituteName != "") && (cityId != null) && (cityId != -1);
+                });
+              },
+            ),
+          ),
+          warningIdDocument
+              ? SizedBox(
+                  height: Sizes.boxSeparation,
+                )
+              : const SizedBox(
+                  height: 0,
+                ),
+          warningIdDocument
+              ? Text(
+                  "Este campo es obligatorio",
+                  style: TextStyle(color: Colors.red, fontSize: Sizes.font12),
+                )
+              : const SizedBox(
+                  height: 0,
+                ),
+        ],
+      ),
     );
   }
 
