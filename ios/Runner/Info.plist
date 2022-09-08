@@ -45,5 +45,20 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>sms</string>
+		<string>tel</string>
+		<string>*/*</string>
+	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>¿Por qué mi aplicación se conecta usando touch id?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Esta aplicación requiere ingresar a tu galería para actualizar tu foto de perfil</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Esta aplicación no necesita usar tu micrófono</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Esta aplicación requiere utilizar tu cámara para actualizar tu foto de perfil</string>
 </dict>
 </plist>

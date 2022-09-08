@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/user/bloc/userLogin.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/ui/sizes.dart';

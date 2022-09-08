@@ -35,7 +35,6 @@ dependencies:
   # sms_autofill: ^2.2.0
   shared_preferences: ^2.0.15
   http: ^0.13.4
-  fluttertoast: ^8.0.9
   url_launcher: ^6.1.5
   local_auth: ^2.1.0
   path_provider: ^2.0.11

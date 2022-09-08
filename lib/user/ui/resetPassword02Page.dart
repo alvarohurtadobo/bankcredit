@@ -336,8 +336,8 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                               code = "$digitA$digitB$digitC$digitD";
                               print("Code is $code");
                               if (code.length != 4) {
-                                showToast(
-                                    "El código debe tener exáctamente 4 dígitos");
+                                // showToast(
+                                //     "El código debe tener exáctamente 4 dígitos");
                               }
                               setState(() {
                                 wrongCodeWarning = "";
