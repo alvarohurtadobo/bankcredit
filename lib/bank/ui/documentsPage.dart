@@ -23,6 +23,8 @@ class _DocumentsPageState extends State<DocumentsPage> {
   bool isLoading = false;
   bool ready = false;
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     getCities().then((value) {
@@ -40,128 +42,134 @@ class _DocumentsPageState extends State<DocumentsPage> {
       body: Container(
         color: const Color(0xffE8E8E8),
         padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 3 * Sizes.boxSeparation,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                width: double.infinity,
-                height: Sizes.padding * 1.2,
-                alignment: Alignment.centerLeft,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 3 * Sizes.boxSeparation,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
                 child: Container(
+                  width: double.infinity,
                   height: Sizes.padding * 1.2,
-                  width: Sizes.padding * 1.2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(0.6 * Sizes.padding)),
-                      color: Colors.white),
-                  child: const Icon(
-                    Icons.arrow_back,
-                    color: Color(0xff0077CD),
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    height: Sizes.padding * 1.2,
+                    width: Sizes.padding * 1.2,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(0.6 * Sizes.padding)),
+                        color: Colors.white),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Color(0xff0077CD),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 3 * Sizes.boxSeparation,
-            ),
-            const Text("Documentos",
-                style: TextStyle(
-                    color: Color(0xff0077CD),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22)),
-            SizedBox(
-              height: Sizes.padding,
-            ),
-            SizedBox(
-              height: Sizes.boxSeparation,
-            ),
-            carousel(),
-            SizedBox(
-              height: 3 * Sizes.boxSeparation,
-            ),
-            currentType >= 1 ? form() : Container(),
-            Expanded(
-              child: SizedBox(
-                height: 5 * Sizes.boxSeparation,
+              SizedBox(
+                height: 3 * Sizes.boxSeparation,
               ),
-            ),
-            isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(color: Color(0xff0077CD)),
-                  )
-                : Container(
-                    padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: ready
-                          ? const Color(0xff0077CD)
-                          : const Color(0xff7A8084),
-                      borderRadius: BorderRadius.circular(Sizes.border),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          if (!ready) {
-                            return;
-                          }
-                          if (isLoading) {
-                            return;
-                          }
-                          setState(() {
-                            isLoading = true;
-                          });
-                          switch (currentType) {
-                            case 0:
-                              API.getAccountStatus().then((myResponse) {
-                                displayFile(myResponse);
-                                setState(() {
-                                  isLoading = false;
+              const Text("Documentos",
+                  style: TextStyle(
+                      color: Color(0xff0077CD),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+              SizedBox(
+                height: Sizes.padding,
+              ),
+              SizedBox(
+                height: Sizes.boxSeparation,
+              ),
+              carousel(),
+              SizedBox(
+                height: 3 * Sizes.boxSeparation,
+              ),
+              currentType >= 1 ? form() : Container(),
+              Expanded(
+                child: SizedBox(
+                  height: 5 * Sizes.boxSeparation,
+                ),
+              ),
+              isLoading
+                  ? const Center(
+                      child:
+                          CircularProgressIndicator(color: Color(0xff0077CD)),
+                    )
+                  : Container(
+                      padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: ready
+                            ? const Color(0xff0077CD)
+                            : const Color(0xff7A8084),
+                        borderRadius: BorderRadius.circular(Sizes.border),
+                      ),
+                      child: TextButton(
+                          onPressed: () {
+                            if (isLoading) {
+                              return;
+                            }
+                            if (!ready) {
+                              _formKey.currentState!.validate();
+                              return;
+                            }
+                            setState(() {
+                              isLoading = true;
+                            });
+                            switch (currentType) {
+                              case 0:
+                                API.getAccountStatus().then((myResponse) {
+                                  displayFile(myResponse);
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                 });
-                              });
-                              break;
-                            case 1:
-                              API
-                                  .getConstanciaSaldo(instituteName, cityId!)
-                                  .then((myResponse) {
-                                displayFile(myResponse);
-                                setState(() {
-                                  isLoading = false;
+                                break;
+                              case 1:
+                                API
+                                    .getConstanciaSaldo(instituteName, cityId!)
+                                    .then((myResponse) {
+                                  displayFile(myResponse);
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                 });
-                              });
-                              break;
-                            case 2:
-                              API
-                                  .getReferenciaCredito(instituteName, cityId!)
-                                  .then((myResponse) {
-                                displayFile(myResponse);
-                                setState(() {
-                                  isLoading = false;
+                                break;
+                              case 2:
+                                API
+                                    .getReferenciaCredito(
+                                        instituteName, cityId!)
+                                    .then((myResponse) {
+                                  displayFile(myResponse);
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                 });
-                              });
-                              break;
-                            default:
-                              API.getAccountStatus().then((myResponse) {
-                                displayFile(myResponse);
-                                setState(() {
-                                  isLoading = false;
+                                break;
+                              default:
+                                API.getAccountStatus().then((myResponse) {
+                                  displayFile(myResponse);
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                 });
-                              });
-                          }
-                        },
-                        child: const Text(
-                          "Generar documento",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ))),
-            SizedBox(
-              height: 3 * Sizes.boxSeparation,
-            ),
-          ],
+                            }
+                          },
+                          child: const Text(
+                            "Generar documento",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ))),
+              SizedBox(
+                height: 3 * Sizes.boxSeparation,
+              ),
+            ],
+          ),
         ),
       ),
     );
