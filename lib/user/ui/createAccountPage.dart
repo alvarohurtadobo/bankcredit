@@ -588,7 +588,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         fillColor: MaterialStateColor.resolveWith((states) {
                           return const Color(0xff0077cd);
                         }),
-                        activeColor: const Color(0xff0077cd),
+                        side: const BorderSide(
+                          color: Color(0xff0077CD),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6)),
+                        activeColor: Colors.white,
                         checkColor: Colors.white,
                         hoverColor: Colors.white,
                       ),

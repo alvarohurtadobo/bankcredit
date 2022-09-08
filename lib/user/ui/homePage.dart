@@ -5,6 +5,7 @@ import 'package:credidiunsa_app/bank/model/promo.dart';
 import 'package:credidiunsa_app/bank/ui/components/promoCards.dart';
 import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
 import 'package:credidiunsa_app/common/model/launcher.dart';
+import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 
 import '../../common/model/cuotaMensual.dart';

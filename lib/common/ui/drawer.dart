@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed("/profile");
               },
               child: Container(
-                height: Sizes.height/7.2,
+                height: Sizes.height / 6,
                 padding: EdgeInsets.all(Sizes.padding * 0.6),
                 decoration: const BoxDecoration(
                   color: Color(0xff0077cd),
@@ -53,7 +53,7 @@ class MyDrawer extends StatelessWidget {
                                 color: Colors.white),
                           ),
                           SizedBox(
-                            width: Sizes.width*0.5,
+                            width: Sizes.width * 0.5,
                             child: Text(
                               currentUser.getFullName(),
                               maxLines: 3,
@@ -109,10 +109,9 @@ class MyDrawer extends StatelessWidget {
       {String route = "/"}) {
     return GestureDetector(
       onTap: () {
-        if (route != "/") {
-          Navigator.of(context).popUntil((route) => route.isFirst);
-          Navigator.of(context).pushNamed(route);
-        }
+        Navigator.of(context).pop();
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pushNamed(route);
       },
       child: Container(
           padding: EdgeInsets.symmetric(vertical: Sizes.padding),
@@ -166,9 +165,9 @@ class MyDrawer extends StatelessWidget {
               // myPrefs.remove("document");
               // myPrefs.remove("password");
               myPrefs.remove("expiration");
-              Navigator.of(context).popUntil((route) => route.isFirst);
-              Navigator.of(context).pop();// Para el drawer???
               Navigator.of(context).pop();
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.of(context).pop(); // Para el drawer???
               Navigator.of(context).pushNamed("/login");
             });
           }

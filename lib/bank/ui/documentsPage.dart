@@ -22,6 +22,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
   int? cityId;
   bool isLoading = false;
   bool ready = false;
+  bool warningIdDocument = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -117,6 +118,10 @@ class _DocumentsPageState extends State<DocumentsPage> {
                             }
                             if (!ready) {
                               _formKey.currentState!.validate();
+                              setState(() {
+                                warningIdDocument =
+                                    cityId == null || cityId == 0;
+                              });
                               return;
                             }
                             setState(() {
@@ -246,6 +251,21 @@ class _DocumentsPageState extends State<DocumentsPage> {
             },
           ),
         ),
+        warningIdDocument
+            ? SizedBox(
+                height: Sizes.boxSeparation,
+              )
+            : const SizedBox(
+                height: 0,
+              ),
+        warningIdDocument
+            ? Text(
+                "Este campo es obligatorio",
+                style: TextStyle(color: Colors.red, fontSize: Sizes.font12),
+              )
+            : const SizedBox(
+                height: 0,
+              ),
       ],
     );
   }
@@ -299,14 +319,18 @@ class _DocumentsPageState extends State<DocumentsPage> {
         switch (type) {
           case 0:
             ready = true;
+            cityId = null;
+            titleControl.text = "";
             break;
           case 1:
-            ready = (instituteName != "") && (cityId != null) && (cityId != -1);
-            ;
+            ready = false;
+            cityId = null;
+            titleControl.text = "";
             break;
           case 2:
-            ready = (instituteName != "") && (cityId != null) && (cityId != -1);
-            ;
+            ready = false;
+            cityId = null;
+            titleControl.text = "";
             break;
           default:
             ready = false;

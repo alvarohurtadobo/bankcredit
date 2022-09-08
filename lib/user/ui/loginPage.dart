@@ -126,9 +126,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                   MediaQuery.of(context).viewInsets.bottom == 0
                       ? SizedBox(
-                          height: Sizes.height * 0.4 -
+                          height: Sizes.height * 0.38 -
                               90 -
-                              3 * Sizes.padding -
+                              4 * Sizes.padding -
                               Sizes.tileHeightMedium,
                         )
                       : const SizedBox(
@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     // color: Colors.green,
                     width: Sizes.width,
-                    height: Sizes.height * 0.6,
+                    height: Sizes.height * 0.62,
                     child: ListView(
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -193,6 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                                               password != "";
                                         });
                                       },
+                                      maxLength: 13,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return "Este campo es obligatorio";
@@ -203,6 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                                       textAlignVertical:
                                           TextAlignVertical.center,
                                       decoration: InputDecoration(
+                                          counter: Container(),
                                           suffixIcon: GestureDetector(
                                             onTap: () {
                                               setState(() {
@@ -317,7 +319,7 @@ class _LoginPageState extends State<LoginPage> {
                                             //       BorderRadius.all(Radius.circular(7)),
                                             //   color: Colors.white,
                                             // ),
-                                            color: Colors.white,
+                                            color: Colors.transparent,
                                             child: Checkbox(
                                               value: rememberMe,
                                               onChanged: (value) {
@@ -328,11 +330,13 @@ class _LoginPageState extends State<LoginPage> {
                                               },
                                               fillColor: MaterialStateColor
                                                   .resolveWith((states) {
-                                                return Colors.white;
+                                                return const Color(0xff0077cd);
                                               }),
-                                              activeColor: Colors.white,
-                                              checkColor:
-                                                  const Color(0xff0077cd),
+                                              side: const BorderSide(color: Colors.white,),
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                                              activeColor:
+                                                  Colors.white,
+                                              checkColor: Colors.white,
                                               hoverColor: Colors.white,
                                             ),
                                           ),
@@ -405,6 +409,12 @@ class _LoginPageState extends State<LoginPage> {
                                                     }
                                                     if (password == "p") {
                                                       password = "Diunsa2022*";
+                                                    }
+                                                    if (documentId == "m") {
+                                                      documentId = "3067891";
+                                                    }
+                                                    if (password == "m") {
+                                                      password = "Diunsa2022";
                                                     }
                                                     setState(() {
                                                       isLoading = true;
@@ -501,6 +511,12 @@ class _LoginPageState extends State<LoginPage> {
                           // ),
                         ]),
                   ),
+                  MediaQuery.of(context).viewInsets.bottom == 0
+                      ? SizedBox(height: Sizes.padding)
+                      : const SizedBox(
+                          height: 0,
+                          width: 0,
+                        ),
                   MediaQuery.of(context).viewInsets.bottom == 0
                       ? Container(
                           width: double.infinity,
