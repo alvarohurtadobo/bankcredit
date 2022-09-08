@@ -43,6 +43,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         initialRoute: "/",
+        locale: Locale('es', 'ES'),
+        // supportedLocales: const [Locale('es', 'ES')],
         routes: {
           '/': (context) => const SplashPage(),
           '/login': (context) => const LoginPage(),
@@ -58,14 +60,19 @@ class MyApp extends StatelessWidget {
           '/payment': (context) => const PaymentMethodsPage(),
           '/accountDetails': (context) => const AccountDetailsPage(),
           '/resetPassword': (context) => const ResetPasswordPage(),
-          '/biometric': (context) => const BiometricAuthentication(appBarTitle: "Ingresar con face/touch id"),
-          '/updateProfilePicture': (context)=> const UpdateProfilePicturePage(),
-          '/confirmProfilePicture': (context)=> const ConfirmProfilePicturePage(),
-          '/updateEmail': (context)=> const UpdateProfilePage(type:0),
-          '/updatePhone': (context)=> const UpdateProfilePage(type:1),
-          '/validateEmailUpdate': (context)=> const ValidateProfileUpdatePage(type:0),
-          '/validatePhoneUpdate': (context)=> const ValidateProfileUpdatePage(type:1),
-          '/documents':(context)=> const DocumentsPage(),
+          '/biometric': (context) => const BiometricAuthentication(
+              appBarTitle: "Ingresar con face/touch id"),
+          '/updateProfilePicture': (context) =>
+              const UpdateProfilePicturePage(),
+          '/confirmProfilePicture': (context) =>
+              const ConfirmProfilePicturePage(),
+          '/updateEmail': (context) => const UpdateProfilePage(type: 0),
+          '/updatePhone': (context) => const UpdateProfilePage(type: 1),
+          '/validateEmailUpdate': (context) =>
+              const ValidateProfileUpdatePage(type: 0),
+          '/validatePhoneUpdate': (context) =>
+              const ValidateProfileUpdatePage(type: 1),
+          '/documents': (context) => const DocumentsPage(),
         });
   }
 }
