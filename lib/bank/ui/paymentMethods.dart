@@ -114,7 +114,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             SizedBox(
               height: 5 * Sizes.boxSeparation,
             ),
-            myPayments.length == 0
+            myPayments.isEmpty
                 ? Container()
                 : Column(
                     children: [
@@ -130,7 +130,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             SizedBox(
               height: Sizes.boxSeparation,
             ),
-            myPayments.length == 0
+            myPayments.isEmpty
                 ? Container()
                 : Column(
                     children: [

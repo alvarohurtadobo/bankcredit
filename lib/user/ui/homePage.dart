@@ -1,18 +1,16 @@
 // Language: dart
 
-import 'package:credidiunsa_app/bank/bloc/getPromos.dart';
-import 'package:credidiunsa_app/bank/model/promo.dart';
-import 'package:credidiunsa_app/bank/ui/components/promoCards.dart';
-import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
-import 'package:credidiunsa_app/common/model/launcher.dart';
-import 'package:credidiunsa_app/common/model/sesion.dart';
-import 'package:credidiunsa_app/common/repository/api.dart';
-
-import '../../common/model/cuotaMensual.dart';
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
+import '../../common/model/cuotaMensual.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
+import 'package:credidiunsa_app/bank/model/promo.dart';
+import 'package:credidiunsa_app/bank/bloc/getPromos.dart';
+import 'package:credidiunsa_app/common/model/launcher.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/summaryCard.dart';
+import 'package:credidiunsa_app/bank/ui/components/promoCards.dart';
+import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

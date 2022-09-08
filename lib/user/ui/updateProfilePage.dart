@@ -35,7 +35,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(),
       appBar: myAppBar(context),
       body: Container(
         color: const Color(0xffF2F2F2),
@@ -275,7 +274,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                         buttonLabel: "Quiero ir al chat",
                                         action: () {
                                       customLaunchUrl(
-                                          "http://m.me/CredidiunsaHn");
+                                          "https://m.me/CredidiunsaHn");
                                     });
                                   }
                                 });

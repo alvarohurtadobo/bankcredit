@@ -1,8 +1,3 @@
-import 'package:credidiunsa_app/bank/bloc/receiveFiles.dart';
-import 'package:credidiunsa_app/common/model/cuotaMensual.dart';
-import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
-import 'package:credidiunsa_app/common/widgets/extendedSummaryCard.dart';
-import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -10,6 +5,10 @@ import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/bank/model/movement.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
+import 'package:credidiunsa_app/common/model/cuotaMensual.dart';
+import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
+import 'package:credidiunsa_app/common/widgets/extendedSummaryCard.dart';
 
 List<String> months = [
   "Enero",

@@ -1,12 +1,9 @@
-import 'package:credidiunsa_app/common/repository/api.dart';
-import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
-import 'package:credidiunsa_app/common/widgets/toasts.dart';
-import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
-import 'package:credidiunsa_app/common/ui/drawer.dart';
-import 'package:credidiunsa_app/common/widgets/appbar.dart';
+import 'package:credidiunsa_app/user/model/user.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);

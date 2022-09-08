@@ -1,16 +1,13 @@
 import 'dart:async';
-
-import 'package:credidiunsa_app/common/model/launcher.dart';
-import 'package:credidiunsa_app/common/model/secondsToMinSec.dart';
-import 'package:credidiunsa_app/common/repository/api.dart';
-import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
-import 'package:credidiunsa_app/common/ui/drawer.dart';
+import 'package:credidiunsa_app/common/model/launcher.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
+import 'package:credidiunsa_app/common/model/secondsToMinSec.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 
-String TEST_CODE = "1234";
 int AWAIT_TIME = 300;
 
 class ValidateProfileUpdatePage extends StatefulWidget {
@@ -71,7 +68,6 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(),
       appBar: myAppBar(context),
       body: Container(
         color: const Color(0xffF2F2F2),
@@ -316,7 +312,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                       buttonLabel: "Quiero ir al chat",
                                       action: () {
                                     customLaunchUrl(
-                                        "http://m.me/CredidiunsaHn");
+                                        "https://m.me/CredidiunsaHn");
                                   });
                                 }
                               });

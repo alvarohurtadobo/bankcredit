@@ -4,10 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
-import 'package:credidiunsa_app/common/ui/drawer.dart';
-import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
-import 'package:credidiunsa_app/common/widgets/toasts.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -55,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
-      drawer: MyDrawer(),
+      // drawer: MyDrawer(),
       appBar: myAppBar(context),
       body: Container(
         color: const Color(0xffF2F2F2),

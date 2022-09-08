@@ -1,4 +1,5 @@
 import 'package:credidiunsa_app/bank/bloc/getCities.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
@@ -42,7 +43,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
       drawer: MyDrawer(),
       body: Container(
         color: const Color(0xffE8E8E8),
-        padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+        // padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
         child: Form(
           key: _formKey,
           child: Column(
@@ -58,6 +59,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                 child: Container(
                   width: double.infinity,
                   height: Sizes.padding * 1.2,
+                  padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: Sizes.padding * 1.2,
@@ -76,11 +78,14 @@ class _DocumentsPageState extends State<DocumentsPage> {
               SizedBox(
                 height: 3 * Sizes.boxSeparation,
               ),
-              const Text("Documentos",
-                  style: TextStyle(
-                      color: Color(0xff0077CD),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22)),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+                child: const Text("Documentos",
+                    style: TextStyle(
+                        color: Color(0xff0077CD),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22)),
+              ),
               SizedBox(
                 height: Sizes.padding,
               ),
@@ -103,6 +108,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                           CircularProgressIndicator(color: Color(0xff0077CD)),
                     )
                   : Container(
+                      margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
                       padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -159,10 +165,15 @@ class _DocumentsPageState extends State<DocumentsPage> {
                                 break;
                               default:
                                 API.getAccountStatus().then((myResponse) {
-                                  displayFile(myResponse);
-                                  setState(() {
-                                    isLoading = false;
-                                  });
+                                  if (myResponse.idError == 0) {
+                                    displayFile(myResponse);
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  } else {
+                                    simpleAlertDialog(context, "¡Lo sentimos!",
+                                        myResponse.message);
+                                  }
                                 });
                             }
                           },
@@ -282,9 +293,10 @@ class _DocumentsPageState extends State<DocumentsPage> {
   }
 
   Widget carousel() {
-    return SizedBox(
+    return Container(
+      padding: EdgeInsets.only(left: Sizes.padding),
       height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
-      width: Sizes.width - 2 * Sizes.padding,
+      width: Sizes.width,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [reportButton(0), reportButton(1), reportButton(2)],

@@ -38,10 +38,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width;
-    double _height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
-    Sizes.setSizes(_width, _height);
+    Sizes.setSizes(width, height);
     // print("Types length are ${myDocumentTypes.length}");
 
     return Scaffold(
