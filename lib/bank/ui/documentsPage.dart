@@ -1,11 +1,11 @@
-import 'package:credidiunsa_app/bank/bloc/getCities.dart';
-import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:credidiunsa_app/bank/bloc/receiveFiles.dart';
+import 'package:credidiunsa_app/bank/bloc/getCities.dart';
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 
 import '../model/city.dart';
 

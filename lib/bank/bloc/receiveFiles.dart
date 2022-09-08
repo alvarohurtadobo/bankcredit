@@ -14,7 +14,9 @@ void displayFile(BackendResponse myResponse) async {
     File file = File("$dir/${DateTime.now().millisecondsSinceEpoch}.pdf");
     print("PDF file is ${file.path}");
     await file.writeAsBytes(bytes);
+    print("Open");
     await OpenFile.open(file.path);
+    print("Opened");
     // file.openRead();
   }
 }
