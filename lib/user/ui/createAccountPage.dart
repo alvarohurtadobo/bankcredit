@@ -762,6 +762,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   });
                                   try {
                                     if (response.idError == 0) {
+                                      currentUser = User.empty();
                                       simpleAlertDialog(context,
                                           "¡Felicitaciones!", response.message,
                                           buttonLabel: "Ingresar", action: () {
