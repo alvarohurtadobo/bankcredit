@@ -1,5 +1,7 @@
 // Language: dart
 
+import 'package:flutter/services.dart';
+
 import '../../common/ui/sizes.dart';
 import '../model/documentType.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +134,8 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                           idIdentification != 0;
                     });
                   },
-                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                      keyboardType: const TextInputType.numberWithOptions(signed: false,decimal: false),
                   decoration: InputDecoration(
                       // counter: Container(),
                       focusedBorder: OutlineInputBorder(

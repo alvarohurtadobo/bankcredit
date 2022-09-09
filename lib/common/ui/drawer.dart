@@ -53,7 +53,7 @@ class MyDrawer extends StatelessWidget {
                                 color: Colors.white),
                           ),
                           SizedBox(
-                            width: Sizes.width * 0.5,
+                            width: Sizes.width * 0.48,
                             child: Text(
                               currentUser.getFullName(),
                               maxLines: 3,

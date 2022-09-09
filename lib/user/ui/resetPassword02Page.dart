@@ -1,6 +1,8 @@
 // Language: dart
 
 import 'dart:async';
+import 'package:flutter/services.dart';
+
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 import '../../common/model/secondsToMinSec.dart';
@@ -117,8 +119,15 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                       maxLength: 1,
                       maxLines: 1,
                       textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: false, decimal: false),
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 1, color: Color(0xff0077CD)),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                           hintMaxLines: 0,
                           counter: SizedBox(),
                           // filled: true,
@@ -147,8 +156,15 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                       maxLength: 1,
                       maxLines: 1,
                       textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: false, decimal: false),
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 1, color: Color(0xff0077CD)),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                           hintMaxLines: 0,
                           counter: SizedBox(),
                           // filled: true,
@@ -177,8 +193,15 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                       maxLength: 1,
                       maxLines: 1,
                       textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: false, decimal: false),
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 1, color: Color(0xff0077CD)),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                           hintMaxLines: 0,
                           counter: SizedBox(),
                           // filled: true,
@@ -207,8 +230,15 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                       maxLength: 1,
                       maxLines: 1,
                       textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: false, decimal: false),
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 1, color: Color(0xff0077CD)),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                           hintMaxLines: 0,
                           counter: SizedBox(),
                           // filled: true,
@@ -335,8 +365,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                               code = "$digitA$digitB$digitC$digitD";
                               print("Code is $code");
                               if (code.length != 4) {
-                                // showToast(
-                                //     "El código debe tener exáctamente 4 dígitos");
+                                return;
                               }
                               setState(() {
                                 wrongCodeWarning = "";
@@ -344,23 +373,22 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                               setState(() {
                                 loading = true;
                               });
-                                API
-                                    .validateOTPForgotPass(
-                                        notLoggedDocument, code)
-                                    .then((res) {
-                                  setState(() {
-                                    loading = false;
-                                  });
-                                  if (res.idError == 0) {
-                                    Navigator.of(context)
-                                        .pushNamed("/resetPassword");
-                                  } else {
-                                    setState(() {
-                                      wrongCodeWarning = res.message;
-                                    });
-                                  }
+                              API
+                                  .validateOTPForgotPass(
+                                      notLoggedDocument, code)
+                                  .then((res) {
+                                setState(() {
+                                  loading = false;
                                 });
-                              
+                                if (res.idError == 0) {
+                                  Navigator.of(context)
+                                      .pushNamed("/resetPassword");
+                                } else {
+                                  setState(() {
+                                    wrongCodeWarning = res.message;
+                                  });
+                                }
+                              });
                             },
                             child: const Text(
                               "Validar código",

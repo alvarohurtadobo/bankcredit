@@ -312,13 +312,18 @@ class _DocumentsPageState extends State<DocumentsPage> {
   }
 
   Widget carousel() {
-    return Container(
-      padding: EdgeInsets.only(left: Sizes.padding),
+    return SizedBox(
       height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
       width: Sizes.width,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: [reportButton(0), reportButton(1), reportButton(2)],
+        children: [
+          SizedBox(width: Sizes.padding),
+          reportButton(0),
+          reportButton(1),
+          reportButton(2),
+          SizedBox(width: Sizes.padding),
+        ],
       ),
     );
   }

@@ -129,7 +129,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         border: InputBorder.none,
                         hintText: "Escribe",
-                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                        // hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: Sizes.boxSeparation),
                         focusedBorder: OutlineInputBorder(
@@ -188,7 +188,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         border: InputBorder.none,
                         hintText: "Escribe",
-                        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                        // hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: Sizes.boxSeparation),
                         focusedBorder: OutlineInputBorder(
@@ -245,8 +245,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   loading = false;
                                 });
                                 if (res.idError == 0) {
-                                  simpleAlertDialog(context, "Felicitaciones",
-                                          "Tus credenciales se han restablecidas con éxito.",
+                                  simpleAlertDialog(context, "¡Felicitaciones!",
+                                          "Tus credenciales se han restablecido con éxito.",
                                           buttonLabel: "Ingresar")
                                       .then((value) {
                                     Navigator.of(context).pop();

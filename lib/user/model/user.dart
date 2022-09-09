@@ -30,7 +30,7 @@ class User {
   }
 
   User.empty() {
-    idIdentification = 1;
+    // idIdentification = 1;
     pictureUrl =
         "https://diunsadesamterializacion.blob.core.windows.net/archivo/APPFotoPerfil/predefinida.jpeg";
   }
@@ -113,6 +113,7 @@ class User {
   bool canCreate() {
     return firstName != "" &&
         firstSurname != "" &&
+        idIdentification != null &&
         idIdentification != 0 &&
         identification != "" &&
         email != "" &&

@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../../common/ui/sizes.dart';
 
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -200,7 +201,8 @@ class _LoginPageState extends State<LoginPage> {
                                         }
                                         return null;
                                       },
-                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                      keyboardType: const TextInputType.numberWithOptions(signed: false,decimal: false),
                                       textAlignVertical:
                                           TextAlignVertical.center,
                                       decoration: InputDecoration(

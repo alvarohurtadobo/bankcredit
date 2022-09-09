@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -7,6 +8,7 @@ import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:credidiunsa_app/common/model/secondsToMinSec.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
+import 'package:flutter/services.dart';
 
 int AWAIT_TIME = 300;
 
@@ -24,6 +26,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
   String digitB = "";
   String digitC = "";
   String digitD = "";
+  String wrongCodeWarning = "";
   String code = "";
   bool canContinue = false;
   int currentTime = AWAIT_TIME;
@@ -169,7 +172,11 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           maxLength: 1,
                           maxLines: 1,
                           textAlign: TextAlign.center,
-                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: false),
                           decoration: const InputDecoration(
                               hintMaxLines: 0,
                               counter: SizedBox(),
@@ -199,7 +206,11 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           maxLength: 1,
                           maxLines: 1,
                           textAlign: TextAlign.center,
-                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: false),
                           decoration: const InputDecoration(
                               hintMaxLines: 0,
                               counter: SizedBox(),
@@ -229,7 +240,11 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           maxLength: 1,
                           maxLines: 1,
                           textAlign: TextAlign.center,
-                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: false),
                           decoration: const InputDecoration(
                               hintMaxLines: 0,
                               counter: SizedBox(),
@@ -259,7 +274,11 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           maxLength: 1,
                           maxLines: 1,
                           textAlign: TextAlign.center,
-                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: false),
                           decoration: const InputDecoration(
                               hintMaxLines: 0,
                               counter: SizedBox(),
@@ -284,6 +303,15 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 1 * Sizes.boxSeparation,
+                ),
+                Container(
+                  padding: EdgeInsets.all(Sizes.padding),
+                  alignment: Alignment.center,
+                  child: warningLabel(wrongCodeWarning, wrongCodeWarning != "",
+                      disappearWarning: true, center: true),
                 ),
                 SizedBox(
                   height: 3 * Sizes.boxSeparation,
@@ -372,6 +400,9 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                               if (code.length != 4) {
                                 return;
                               }
+                              setState(() {
+                                wrongCodeWarning = "";
+                              });
                               final res = await API.validateOTPForUpdate(code);
 
                               setState(() {
@@ -387,7 +418,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                 }
                                 if (secondRes.idError == 0) {
                                   await simpleAlertDialog(context,
-                                      "Felicitaciones", secondRes.message,
+                                      "¡Felicitaciones!", secondRes.message,
                                       buttonLabel: "Ok");
                                 } else {
                                   await simpleAlertDialog(
@@ -399,8 +430,9 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                               } else {
-                                await simpleAlertDialog(
-                                    context, "Error", res.message);
+                                setState(() {
+                                  wrongCodeWarning = res.message;
+                                });
                               }
                             },
                             child: const Text(

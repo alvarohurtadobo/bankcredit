@@ -110,7 +110,7 @@ class _ConfirmProfilePicturePageState extends State<ConfirmProfilePicturePage> {
                                     // Ruta de actualización normal
                                     print("Clear cache");
                                     imageCache.clear();
-                                    simpleAlertDialog(context, "Felicitaciones",
+                                    simpleAlertDialog(context, "¡Felicitaciones!",
                                             "Tu foto de perfil ha sido actualizada exitosamente")
                                         .then((value) {
                                       Navigator.of(context).pop();

@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                   left: 2 * Sizes.padding,
                   child: GestureDetector(
                     onTap: () {
-                      customLaunchUrl("https://www.diunsa.hn/credidiunsa");
+                      customLaunchUrl("https://pagos.credidiunsa.com/");
                     },
                     child: summaryCard("Tu cuota", "mensual para pagar",
                         currencyFormatter.format(cuota),

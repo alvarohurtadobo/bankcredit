@@ -1,10 +1,3 @@
-import 'package:credidiunsa_app/bank/ui/documentsPage.dart';
-import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
-import 'package:credidiunsa_app/user/ui/confirmProfilePicturePage.dart';
-import 'package:credidiunsa_app/user/ui/resetPassword00Page.dart';
-import 'package:credidiunsa_app/user/ui/updateProfilePage.dart';
-import 'package:credidiunsa_app/user/ui/updateProfilePicturePage.dart';
-import 'package:credidiunsa_app/user/ui/validateProfileUpdate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:credidiunsa_app/user/ui/splash.dart';
@@ -14,12 +7,19 @@ import 'package:credidiunsa_app/bank/ui/politics.dart';
 import 'package:credidiunsa_app/user/ui/homePage.dart';
 import 'package:credidiunsa_app/user/ui/loginPage.dart';
 import 'package:credidiunsa_app/bank/ui/promotions.dart';
+import 'package:credidiunsa_app/bank/ui/documentsPage.dart';
 import 'package:credidiunsa_app/user/ui/resetPassword.dart';
 import 'package:credidiunsa_app/bank/ui/accountDetails.dart';
 import 'package:credidiunsa_app/bank/ui/paymentMethods.dart';
 import 'package:credidiunsa_app/user/ui/createAccountPage.dart';
+import 'package:credidiunsa_app/user/ui/updateProfilePage.dart';
 import 'package:credidiunsa_app/user/ui/resetPassword01Page.dart';
+import 'package:credidiunsa_app/user/ui/resetPassword00Page.dart';
 import 'package:credidiunsa_app/user/ui/resetPassword02Page.dart';
+import 'package:credidiunsa_app/user/ui/validateProfileUpdate.dart';
+import 'package:credidiunsa_app/user/ui/updateProfilePicturePage.dart';
+import 'package:credidiunsa_app/user/ui/confirmProfilePicturePage.dart';
+import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         initialRoute: "/",
-        locale: Locale('es', 'ES'),
+        // locale: Locale('es', 'ES'),
         // supportedLocales: const [Locale('es', 'ES')],
         routes: {
           '/': (context) => const SplashPage(),

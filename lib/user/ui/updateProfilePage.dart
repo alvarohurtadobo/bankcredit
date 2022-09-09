@@ -164,8 +164,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             return null;
                           },
                           decoration: InputDecoration(
-                              border: InputBorder.none,
-                              fillColor: Colors.grey[300],
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Color(0xffB3B3B3)),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              fillColor: Colors.white,
                               filled: true,
                               hintStyle:
                                   const TextStyle(fontWeight: FontWeight.bold),
@@ -174,7 +178,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     width: 2, color: Color(0xff0077CD)),
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(8),
                               ),
                               disabledBorder: null),
                         ),
@@ -203,8 +207,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             return null;
                           },
                           decoration: InputDecoration(
-                              border: InputBorder.none,
-                              fillColor: Colors.grey[300],
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Color(0xffB3B3B3)),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              fillColor: Colors.white,
                               filled: true,
                               hintStyle:
                                   const TextStyle(fontWeight: FontWeight.bold),
@@ -213,7 +221,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     width: 2, color: Color(0xff0077CD)),
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(8),
                               ),
                               disabledBorder: null),
                         ),

@@ -1,5 +1,7 @@
 // Language: dart
+import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/model/sesion.dart';
+import 'package:flutter/services.dart';
 
 import '../../common/ui/sizes.dart';
 import '../../common/widgets/warningLabel.dart';
@@ -33,6 +35,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   bool showAcceptTermsWarning = false;
   String usedDocumentLabel = "";
+  bool identificationIdWarning = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -136,10 +139,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     hintText: "",
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(width: 1, color: Colors.white),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
                           const BorderSide(width: 1, color: Color(0xff0077CD)),
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     disabledBorder: null,
                   ),
@@ -168,10 +176,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             width: 1, color: Color(0xff0077CD)),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       disabledBorder: null),
                 ),
@@ -202,10 +215,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             width: 1, color: Color(0xff0077CD)),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       disabledBorder: null),
                 ),
@@ -233,10 +251,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             width: 1, color: Color(0xff0077CD)),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       disabledBorder: null),
                 ),
@@ -272,6 +295,18 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     },
                   ),
                 ),
+                !identificationIdWarning
+                    ? Container()
+                    : SizedBox(
+                        height: 1.5 * Sizes.boxSeparation,
+                      ),
+                !identificationIdWarning
+                    ? Container()
+                    : Text(
+                        "Este campo es obligatorio ",
+                        style: TextStyle(
+                            color: Colors.red, fontSize: Sizes.font12),
+                      ),
                 SizedBox(
                   height: 1.5 * Sizes.boxSeparation,
                 ),
@@ -291,7 +326,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     return null;
                   },
                   maxLength: 13,
-                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  keyboardType: const TextInputType.numberWithOptions(
+                      signed: false, decimal: false),
                   onChanged: (value) {
                     setState(() {
                       currentUser.identification = value;
@@ -305,10 +342,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             width: 1, color: Color(0xff0077CD)),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       disabledBorder: null),
                 ),
@@ -374,10 +416,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             width: 1, color: Color(0xff0077CD)),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       disabledBorder: null),
                 ),
@@ -414,10 +461,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             width: 1, color: Color(0xff0077CD)),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       disabledBorder: null),
                 ),
@@ -487,10 +539,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             width: 1, color: Color(0xff0077CD)),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       disabledBorder: null),
                 ),
@@ -546,10 +603,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       hintText: "",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             width: 1, color: Color(0xff0077CD)),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       disabledBorder: null),
                 ),
@@ -603,7 +665,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // Navigator.of(context).pushNamed("/resetPassword01");
+                        customLaunchUrl(
+                            "https://www.diunsa.hn/politica-de-privacidad");
                       },
                       child: const Text(
                           "Acepto condiciones y políticas de privacidad",
@@ -674,9 +737,18 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 });
                                 return;
                               }
+                              print("1");
+                              if (currentUser.idIdentification == null) {
+                                setState(() {
+                                  identificationIdWarning = true;
+                                });
+                              }
+                              print("2");
                               if (!currentUser.canCreate()) {
+                                _formKey.currentState!.validate();
                                 return;
                               }
+                              print("3");
                               if (_formKey.currentState!.validate() &&
                                   passwordsCorrect) {
                                 print(
