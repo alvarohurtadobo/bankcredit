@@ -80,7 +80,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   padding:
                       EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(Sizes.border / 2),
                   ),
                   child: TextField(
@@ -152,7 +152,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   padding:
                       EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(Sizes.border / 2),
                   ),
                   child: TextField(

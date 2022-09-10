@@ -6,19 +6,19 @@ PreferredSizeWidget myAppBar(BuildContext context) {
   return AppBar(
       backgroundColor: Colors.transparent,
       flexibleSpace: Container(
-        padding: EdgeInsets.only(top: 8 * Sizes.padding),
-        alignment: Alignment.bottomCenter,
-        decoration: BoxDecoration(
-            image: const DecorationImage(
-                image: AssetImage(
-                  "assets/images/logo_04.png",
-                ),
-                fit: BoxFit.none),
-            color: const Color(0xff0077CD),
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(Sizes.padding),
-                bottomRight: Radius.circular(Sizes.padding))),
-      ),
+          padding: EdgeInsets.only(top: 8 * Sizes.padding),
+          alignment: Alignment.bottomCenter,
+          decoration: BoxDecoration(
+              image: const DecorationImage(
+                  image: AssetImage(
+                    "assets/images/logo_04.png",
+                  ),
+                  fit: BoxFit.none),
+              color: const Color(0xff0077CD),
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(Sizes.padding),
+                  bottomRight: Radius.circular(Sizes.padding))),
+                  ),
       toolbarHeight: Sizes.height / 12,
       actions: [
         GestureDetector(
@@ -32,7 +32,7 @@ PreferredSizeWidget myAppBar(BuildContext context) {
                   },
                   child: Icon(
                     Icons.home_outlined,
-                    size:  1.5*Sizes.padding,
+                    size: 1.5 * Sizes.padding,
                   ))),
         )
       ],

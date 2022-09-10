@@ -122,12 +122,18 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         height: Sizes.height / 20,
                         child: Row(
                           children: const [
+                            SizedBox(
+                              width: 4.5,
+                            ),
                             Icon(
                               Icons.email_outlined,
                               color: Color(0xff0F62A4),
                             ),
                             Text("Correo Electrónico",
-                                style: TextStyle(color: Color(0xff0077cd))),
+                                style: TextStyle(
+                                  color: Color(0xff0077cd),
+                                  fontSize: 16,
+                                )),
                           ],
                         ),
                       )
@@ -136,12 +142,18 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         height: Sizes.height / 20,
                         child: Row(
                           children: const [
+                            SizedBox(
+                              width: 2,
+                            ),
                             Icon(
                               Icons.smartphone,
                               color: Color(0xff0F62A4),
                             ),
                             Text("Teléfono",
-                                style: TextStyle(color: Color(0xff0077cd))),
+                                style: TextStyle(
+                                  color: Color(0xff0077cd),
+                                  fontSize: 16,
+                                )),
                           ],
                         ),
                       ),

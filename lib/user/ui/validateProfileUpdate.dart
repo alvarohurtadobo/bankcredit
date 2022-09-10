@@ -17,6 +17,7 @@ class ValidateProfileUpdatePage extends StatefulWidget {
   const ValidateProfileUpdatePage({Key? key, this.type = 0}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ValidateProfileUpdatePageState createState() =>
       _ValidateProfileUpdatePageState();
 }
@@ -30,14 +31,10 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
   String code = "";
   bool canContinue = false;
   int currentTime = AWAIT_TIME;
-
   StreamController timeController = StreamController<int>();
-
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-
   bool canRequestNewCode = false;
-
   bool isLoading = false;
 
   final formKey = GlobalKey<FormState>();
@@ -70,6 +67,17 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
 
   @override
   Widget build(BuildContext context) {
+    String stringNumber = "$phoneController";
+    int sizeCelNumber = stringNumber.length;
+    String firsNumber = stringNumber[sizeCelNumber - 80];
+    String secondNumber = stringNumber[sizeCelNumber - 81];
+    String thirdNumber = stringNumber[sizeCelNumber - 82];
+    String encryptedNumber = "xxxxxxx$thirdNumber$secondNumber$firsNumber";
+    bool checkFirtBox = true;
+    bool checksecondBox = false;
+    bool checkThirdBox = false;
+    bool checkFurBox = false;
+
     return Scaffold(
       appBar: myAppBar(context),
       body: Container(
@@ -152,8 +160,8 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                 SizedBox(
                   height: 3 * Sizes.boxSeparation,
                 ),
-                const Text(
-                    "Para actualizar tus datos, es necesario que validemos tu identidad. Te hemos enviado un código"),
+                Text(
+                    "Para actualizar tus datos, es necesario que validemos tu identidad. Hemos enviado un código al Celular $encryptedNumber"),
                 SizedBox(
                   height: Sizes.height * 0.1,
                   width: Sizes.height * 0.8,
@@ -165,10 +173,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                         height: Sizes.height * 0.08,
                         width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff0077cd)),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Sizes.boxSeparation))),
                         child: TextField(
+                          style: const TextStyle(
+                            color: Color(0xff0077cd),
+                          ),
                           maxLength: 1,
                           maxLines: 1,
                           textAlign: TextAlign.center,
@@ -187,6 +199,9 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
                               digitA = value;
+                              setState(() {
+                                checkFirtBox = false;
+                              });
                             }
                           },
                         ),
@@ -199,10 +214,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                         height: Sizes.height * 0.08,
                         width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff0077cd)),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Sizes.boxSeparation))),
                         child: TextField(
+                          style: const TextStyle(
+                            color: Color(0xff0077cd),
+                          ),
                           maxLength: 1,
                           maxLines: 1,
                           textAlign: TextAlign.center,
@@ -233,10 +252,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                         height: Sizes.height * 0.08,
                         width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff0077cd)),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Sizes.boxSeparation))),
                         child: TextField(
+                          style: const TextStyle(
+                            color: Color(0xff0077cd),
+                          ),
                           maxLength: 1,
                           maxLines: 1,
                           textAlign: TextAlign.center,
@@ -267,10 +290,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                         height: Sizes.height * 0.08,
                         width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff0077cd)),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Sizes.boxSeparation))),
                         child: TextField(
+                          style: const TextStyle(
+                            color: Color(0xff0077cd),
+                          ),
                           maxLength: 1,
                           maxLines: 1,
                           textAlign: TextAlign.center,

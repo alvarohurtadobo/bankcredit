@@ -27,12 +27,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   String confirmPassword = "";
   bool obscure1 = true;
   bool obscure2 = true;
-
   bool min8charactersWarning = true;
   bool oneCapitalWarning = true;
   bool oneDigitWarning = true;
   bool differentPasswordsWarning = false;
-
   bool showAcceptTermsWarning = false;
   String usedDocumentLabel = "";
   bool identificationIdWarning = false;
@@ -279,6 +277,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     borderRadius: BorderRadius.circular(Sizes.border / 2),
                   ),
                   child: DropdownButton<int>(
+                    iconEnabledColor: const Color(0xff0077cd),
                     value: currentUser.idIdentification,
                     hint: const Text("Seleccione"),
                     underline: Container(),
@@ -631,7 +630,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      width: 14,
+                      width: 22,
                       height: 14,
                       alignment: Alignment.center,
                       // decoration: const BoxDecoration(

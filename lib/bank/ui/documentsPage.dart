@@ -261,8 +261,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
               borderRadius: BorderRadius.circular(Sizes.border / 2),
             ),
             child: DropdownButton<int>(
+              iconEnabledColor: const Color(0xff0077cd),
               value: cityId,
-              hint: const Text("Seleccione"),
+              hint: const Text(""),
               underline: Container(),
               isExpanded: true,
               items: myCities
