@@ -10,8 +10,6 @@ import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/user/model/restauration.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 
-
-
 class ResetPassword00Page extends StatefulWidget {
   const ResetPassword00Page({Key? key}) : super(key: key);
 
@@ -68,6 +66,31 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: Sizes.padding * 1.2,
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      height: Sizes.padding * 1.2,
+                      width: Sizes.padding * 1.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(0.6 * Sizes.padding)),
+                          color: const Color(0xff0077CD)),
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 1.5 * Sizes.boxSeparation,
+                ),
                 Text("Ingresa la información",
                     style: TextStyle(
                       fontSize: Sizes.font8,
@@ -135,7 +158,8 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                     });
                   },
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                      keyboardType: const TextInputType.numberWithOptions(signed: false,decimal: false),
+                  keyboardType: const TextInputType.numberWithOptions(
+                      signed: false, decimal: false),
                   decoration: InputDecoration(
                       // counter: Container(),
                       focusedBorder: OutlineInputBorder(
@@ -189,10 +213,8 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                               loading = true;
                             });
                             // TODO REMOVE ON PRODUCTION
-                            if (notLoggedDocument == "ppppppppppppp") {
-                              notLoggedDocument = "0828199100005";
-                            }
-                            if (notLoggedDocument == "mmmmmmmmmmmmm") {
+
+                            if (notLoggedDocument == "0000000000000") {
                               notLoggedDocument = "3067891";
                             }
                             API

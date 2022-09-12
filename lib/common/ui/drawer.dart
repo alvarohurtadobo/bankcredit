@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
@@ -22,7 +24,7 @@ class MyDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed("/profile");
               },
               child: Container(
-                height: Sizes.height / 6,
+                height: Sizes.height / 5.2,
                 padding: EdgeInsets.all(Sizes.padding * 0.6),
                 decoration: const BoxDecoration(
                   color: Color(0xff0077cd),
@@ -36,20 +38,25 @@ class MyDrawer extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
                               Radius.circular(Sizes.width / 16)),
-                          image: DecorationImage(
-                              image: NetworkImage(currentUser.pictureUrl),
-                              fit: BoxFit.cover)),
+                          image: pathToRecentlyUpdatedImage == ""
+                              ? DecorationImage(
+                                  image: NetworkImage(currentUser.pictureUrl),
+                                  fit: BoxFit.cover)
+                              : DecorationImage(
+                                  image: FileImage(
+                                      File(pathToRecentlyUpdatedImage)),
+                                  fit: BoxFit.cover)),
                     ),
                     SizedBox(width: Sizes.boxSeparation),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             "¡Hola!",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 22,
+                                fontSize: Sizes.font6,
                                 color: Colors.white),
                           ),
                           SizedBox(
@@ -57,19 +64,20 @@ class MyDrawer extends StatelessWidget {
                             child: Text(
                               currentUser.getFullName(),
                               maxLines: 3,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontWeight: FontWeight.normal,
-                                  fontSize: 18,
+                                  fontSize: Sizes.font8,
                                   color: Colors.white),
                             ),
                           ),
-                          // const Text(
-                          //   "Última sesión 01/15/2022",
-                          //   style: TextStyle(
-                          //       fontWeight: FontWeight.normal,
-                          //       fontSize: 14,
-                          //       color: Colors.white),
-                          // ),
+                          Text(
+                            "Última sesión ${ultimaConexion.month}/${ultimaConexion.day}/${ultimaConexion.year}",
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: Sizes.font10,
+                                color: Colors.white),
+                          ),
                         ])
                   ],
                 ),
@@ -160,6 +168,7 @@ class MyDrawer extends StatelessWidget {
             .then((confirmation) {
           if (confirmation) {
             print("Confirm logout, clearing user notification id and token");
+            currentUser = User.empty();
             SharedPreferences.getInstance().then((myPrefs) {
               myPrefs.remove("jwt");
               // myPrefs.remove("document");

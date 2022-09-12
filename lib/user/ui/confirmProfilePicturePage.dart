@@ -108,9 +108,14 @@ class _ConfirmProfilePicturePageState extends State<ConfirmProfilePicturePage> {
                                 if (success) {
                                   if (auxJwt == "") {
                                     // Ruta de actualización normal
-                                    print("Clear cache");
+                                    print(
+                                        "Setting recently uploaded picture to $filePathTemporal");
                                     imageCache.clear();
-                                    simpleAlertDialog(context, "¡Felicitaciones!",
+                                    pathToRecentlyUpdatedImage =
+                                        filePathTemporal;
+                                    simpleAlertDialog(
+                                            context,
+                                            "¡Felicitaciones!",
                                             "Tu foto de perfil ha sido actualizada exitosamente")
                                         .then((value) {
                                       Navigator.of(context).pop();

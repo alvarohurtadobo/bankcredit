@@ -93,10 +93,37 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
               ),
             ),
             SizedBox(
-              height: 3 * Sizes.boxSeparation,
+              height: 4.5 * Sizes.boxSeparation,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                width: double.infinity,
+                height: Sizes.padding * 1.2,
+                padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  height: Sizes.padding * 1.2,
+                  width: Sizes.padding * 1.2,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(0.6 * Sizes.padding)),
+                      color: const Color(0xff0077CD)),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 1 * Sizes.boxSeparation,
             ),
             Padding(
-              padding: EdgeInsets.all(Sizes.padding),
+              padding: EdgeInsets.symmetric(
+                  horizontal: Sizes.padding, vertical: Sizes.boxSeparation),
               child: const Text(
                   "Por favor ingresa el código que enviamos or mensaje de texto"),
             ),
@@ -373,6 +400,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                               setState(() {
                                 loading = true;
                               });
+                              
                               API
                                   .validateOTPForgotPass(
                                       notLoggedDocument, code)

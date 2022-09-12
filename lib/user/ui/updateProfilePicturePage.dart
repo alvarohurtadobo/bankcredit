@@ -1,4 +1,6 @@
+import 'dart:io';
 
+import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -68,9 +70,14 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
                       color: const Color(0xffD9D9D9),
                       borderRadius: BorderRadius.all(
                           Radius.circular(Sizes.boxSeparation)),
-                      image: DecorationImage(
-                          image: NetworkImage(currentUser.pictureUrl),
-                          fit: BoxFit.cover)),
+                      image: pathToRecentlyUpdatedImage == ""
+                          ? DecorationImage(
+                              image: NetworkImage(currentUser.pictureUrl),
+                              fit: BoxFit.cover)
+                          : DecorationImage(
+                              image:
+                                  FileImage(File(pathToRecentlyUpdatedImage)),
+                              fit: BoxFit.cover)),
                 ),
                 Expanded(
                     child: SizedBox(

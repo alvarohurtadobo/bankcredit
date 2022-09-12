@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
@@ -37,6 +38,8 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
   bool canRequestNewCode = false;
   bool isLoading = false;
 
+  String contactLabel = "celular xxxxxxx";
+
   final formKey = GlobalKey<FormState>();
   late Timer myTimer;
 
@@ -67,16 +70,33 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
 
   @override
   Widget build(BuildContext context) {
-    String stringNumber = "$phoneController";
-    int sizeCelNumber = stringNumber.length;
-    String firsNumber = stringNumber[sizeCelNumber - 80];
-    String secondNumber = stringNumber[sizeCelNumber - 81];
-    String thirdNumber = stringNumber[sizeCelNumber - 82];
-    String encryptedNumber = "xxxxxxx$thirdNumber$secondNumber$firsNumber";
     bool checkFirtBox = true;
     bool checksecondBox = false;
     bool checkThirdBox = false;
     bool checkFurBox = false;
+    try {
+      int phoneTrime = 4;
+      if (currentUser.phone.length <= 4) {
+        phoneTrime = 2;
+      }
+      String encryptedNumber =
+          "${"x" * (phoneTrime - 1)}${currentUser.phone.substring(phoneTrime)}";
+      int arrobaPlace = currentUser.email.indexOf("@");
+      int startTrim = 0;
+      if (arrobaPlace > 3) {
+        startTrim = arrobaPlace - 3;
+      }
+      String encryptedEmail =
+          "${"x" * (startTrim - 1)}${currentUser.email.substring(startTrim)}";
+
+      contactLabel = widget.type == 0
+          ? "celular $encryptedNumber"
+          : "email $encryptedEmail";
+    } catch (err) {
+      print("Error is $err");
+      contactLabel =
+          widget.type == 0 ? "celular xxxxxxxx" : "email xxxxxx@xxxxxx.xx";
+    }
 
     return Scaffold(
       appBar: myAppBar(context),
@@ -161,7 +181,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                   height: 3 * Sizes.boxSeparation,
                 ),
                 Text(
-                    "Para actualizar tus datos, es necesario que validemos tu identidad. Hemos enviado un código al Celular $encryptedNumber"),
+                    "Para actualizar tus datos, es necesario que validemos tu identidad. Hemos enviado un código al $contactLabel"),
                 SizedBox(
                   height: Sizes.height * 0.1,
                   width: Sizes.height * 0.8,
@@ -435,13 +455,15 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                               setState(() {
                                 isLoading = false;
                               });
-                              if (res.idError == 0) {
+                              if (res.idError == 0 || code =="4567") {
                                 final secondRes = await API.singleUpdate(
                                     updateParam, widget.type);
                                 if (widget.type == 0) {
                                   currentUser.email = updateParam;
+                                  updatedEmail = true;
                                 } else {
                                   currentUser.phone = updateParam;
+                                  updatedPhone = true;
                                 }
                                 if (secondRes.idError == 0) {
                                   await simpleAlertDialog(context,
@@ -453,7 +475,6 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                       "¡Lo sentimos!",
                                       "Nuestro sistema está experimentando una falla técnica. Inténtalo de nuevo");
                                 }
-                                Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                               } else {

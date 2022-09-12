@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
+import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -22,7 +24,6 @@ class _ProfilePageState extends State<ProfilePage> {
   StreamController myControl = StreamController<String>();
 
   bool isLoading = false;
-  late Timer myTimer;
 
   final formKey = GlobalKey<FormState>();
 
@@ -33,18 +34,13 @@ class _ProfilePageState extends State<ProfilePage> {
     lastNameController.text = currentUser.getLastName();
     emailController.text = currentUser.email;
     phoneController.text = currentUser.phone;
-    myTimer = Timer.periodic(Duration(seconds: 3), (timer) {
-      imageCache.clear();
-      // print("Click with pic url ${currentUser.pictureUrl}");
-      myControl.sink.add(currentUser.pictureUrl);
-      setState(() {});
-    });
   }
 
   @override
   void dispose() {
-    myTimer.cancel();
     myControl.close();
+    updatedEmail = false;
+    updatedPhone = false;
     super.dispose();
   }
 
@@ -65,7 +61,9 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    Navigator.of(context).pushNamed("/updateProfilePicture");
+                    Navigator.of(context)
+                        .pushNamed("/updateProfilePicture")
+                        .then((_) => setState(() {}));
                   },
                   child: SizedBox(
                     height: Sizes.height / 8,
@@ -84,7 +82,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                       url = snapshot.data as String;
                                     }
                                     return Container(
-                                      key: ValueKey(new Random().nextInt(100)),
                                       padding:
                                           EdgeInsets.all(Sizes.boxSeparation),
                                       child: Container(
@@ -96,11 +93,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(
                                                     Sizes.height / 16)),
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                  url,
-                                                ),
-                                                fit: BoxFit.cover)),
+                                            image: pathToRecentlyUpdatedImage ==
+                                                    ""
+                                                ? DecorationImage(
+                                                    image: NetworkImage(url),
+                                                    fit: BoxFit.cover)
+                                                : DecorationImage(
+                                                    image: FileImage(File(
+                                                        pathToRecentlyUpdatedImage)),
+                                                    fit: BoxFit.cover)),
                                       ),
                                     );
                                   }),
@@ -152,14 +153,91 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                newCard(context, type: 0),
-                newCard(context, type: 1),
+                (updatedEmail || updatedPhone)
+                    ? successUpdateTile()
+                    : Container(),
+                (updatedEmail || updatedPhone)
+                    ? SizedBox(
+                        height: 3 * Sizes.boxSeparation,
+                      )
+                    : Container(),
+                ((updatedEmail && !updatedPhone) ||
+                        !updatedEmail && updatedPhone)
+                    ? Text(
+                        "¿Quieres actualizar otro dato de contacto?",
+                        style: TextStyle(
+                            color: const Color(0xff201F1F),
+                            fontSize: Sizes.font10),
+                      )
+                    : Container(),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                updatedEmail ? Container() : newCard(context, type: 0),
+                updatedPhone ? Container() : newCard(context, type: 1),
                 const Expanded(
                     child: SizedBox(
                   height: 0,
                 )),
+                (updatedEmail || updatedPhone)
+                    ? Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizes.padding),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xff0077CD),
+                          borderRadius: BorderRadius.circular(Sizes.border),
+                        ),
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text(
+                              "Volver al inicio",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            )))
+                    : Container(),
               ]),
         ),
+      ),
+    );
+  }
+
+  Widget successUpdateTile() {
+    return Container(
+      height: Sizes.tileHeightLarge,
+      width: Sizes.width - 2 * Sizes.padding,
+      padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(1.5 * Sizes.boxSeparation),
+          ),
+          color: const Color(0xff5BC36C)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: (Sizes.width - 4 * Sizes.padding) * 0.85,
+            child: Text(
+              "Tu dato de contacto ha sido modificado con éxito.",
+              style: TextStyle(color: Colors.white, fontSize: Sizes.font10),
+            ),
+          ),
+          Container(
+              height: 1.6 * Sizes.padding,
+              width: 1.6 * Sizes.padding,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(Sizes.padding * 0.8),
+                  ),
+                  color: Colors.white),
+              child: Icon(
+                Icons.check,
+                size: Sizes.padding,
+                color: const Color(0xff5BC36C),
+              ))
+        ],
       ),
     );
   }
@@ -179,7 +257,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return GestureDetector(
       onTap: () {
         String finalRoute = type == 0 ? "/updateEmail" : "/updatePhone";
-        Navigator.of(context).pushNamed(finalRoute);
+        Navigator.of(context)
+            .pushNamed(finalRoute)
+            .then((value) => {setState(() {})});
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Sizes.boxSeparation),

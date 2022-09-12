@@ -9,6 +9,13 @@ bool setUpUser(Map<String, dynamic> userResponse, {String password = ""}) {
     jwt = userResponse["JWT"] ?? "";
     expiration = userResponse["Expiracion"] ?? 0;
     errorMessage = userResponse["Mensaje"] ?? "";
+    try {
+      ultimaConexion = DateTime.tryParse(userResponse["ultimaConexion"]) ??
+          DateTime.now();
+      print("Last session is $ultimaConexion");
+    } catch (err) {
+      print("Did not received last session");
+    }
     SharedPreferences.getInstance().then((prefs) {
       print("Saving ${currentUser.identification}, $password, $jwt");
       prefs.setString("jwt", jwt);

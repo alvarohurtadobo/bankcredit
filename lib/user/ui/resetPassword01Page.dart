@@ -50,10 +50,36 @@ class _ResetPassword01PageState extends State<ResetPassword01Page> {
           ),
         ),
         SizedBox(
+          height: 4.5 * Sizes.boxSeparation,
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Container(
+            width: double.infinity,
+            height: Sizes.padding * 1.2,
+            padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+            alignment: Alignment.centerLeft,
+            child: Container(
+              height: Sizes.padding * 1.2,
+              width: Sizes.padding * 1.2,
+              decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(0.6 * Sizes.padding)),
+                  color: const Color(0xff0077CD)),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
           height: Sizes.boxSeparation,
         ),
         Padding(
-          padding: EdgeInsets.all(Sizes.padding),
+          padding: EdgeInsets.symmetric(horizontal: Sizes.padding, vertical: Sizes.boxSeparation),
           child: const Text(
               "Enviaremos un código por mensaje de texto al celular que tenemos registrado"),
         ),

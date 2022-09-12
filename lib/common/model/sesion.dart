@@ -3,3 +3,7 @@ String auxJwt = "";
 double expiration = 0;
 String errorMessage = "";
 bool wasLogged = false;
+DateTime ultimaConexion = DateTime.now();
+String pathToRecentlyUpdatedImage = "";
+bool updatedEmail = false;
+bool updatedPhone = false;
