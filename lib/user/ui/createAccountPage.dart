@@ -119,6 +119,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: Sizes.boxSeparation,
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.words,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Este campo es obligatorio";
@@ -159,6 +160,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: Sizes.boxSeparation,
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.words,
                   validator: (value) {
                     return null;
                   },
@@ -195,6 +197,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: Sizes.boxSeparation,
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.words,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Este campo es obligatorio";
@@ -234,6 +237,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: Sizes.boxSeparation,
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.words,
                   validator: (value) {
                     return null;
                   },
@@ -320,7 +324,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       return "Este campo es obligatorio";
                     }
                     if (value.length != 13) {
-                      return "El número de identificación debe contener al menos 13 dígitos";
+                      return "El número de documento debe contener 13 dígitos";
                     }
                     return null;
                   },

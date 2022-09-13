@@ -18,6 +18,7 @@ Future<bool> getCities() async {
           myCities = item["Catalogo"]
               .map<City>((elem) => City.fromBackendResponse(elem))
               .toList();
+          // ignore: avoid_print
           print("Got ${myCities.length} cities, arrived: $arrived");
         }
       }

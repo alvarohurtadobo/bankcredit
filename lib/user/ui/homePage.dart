@@ -1,5 +1,3 @@
-// Language: dart
-
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 import '../../common/model/cuotaMensual.dart';

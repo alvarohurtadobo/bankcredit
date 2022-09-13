@@ -1,10 +1,10 @@
+
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_html/flutter_html.dart';
 
 class PoliticsPage extends StatefulWidget {
   const PoliticsPage({Key? key}) : super(key: key);

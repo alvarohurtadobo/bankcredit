@@ -1,5 +1,4 @@
 
-
 import 'package:credidiunsa_app/bank/model/promo.dart';
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';

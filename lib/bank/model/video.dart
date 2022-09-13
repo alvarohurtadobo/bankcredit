@@ -1,3 +1,4 @@
+
 class Video {
   int id = 0;
   String link = "";

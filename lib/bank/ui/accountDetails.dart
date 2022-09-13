@@ -55,7 +55,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
             // SizedBox(
             //   height: Sizes.boxSeparation,
             // ),
-            const Text("movimientos de compras",
+            const Text("movimientos de compras y pagos",
                 style: TextStyle(
                     color: Color(0xff0077CD),
                     fontWeight: FontWeight.normal,
@@ -79,7 +79,9 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                             ? const Color(0xff0077CD)
                             : const Color(0xffE8E8E8),
                         borderRadius: BorderRadius.circular(Sizes.border / 2),
-                        border: Border.all(color: const Color(0xff7A8084))),
+                        border: historicMovementActive
+                            ? Border.all(color: const Color(0xff0077CD))
+                            : Border.all(color: const Color(0xff7A8084))),
                     child: TextButton(
                         onPressed: () {
                           setState(() {
@@ -87,7 +89,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                           });
                         },
                         child: Text(
-                          "Histórico movimientos",
+                          "Histórico movimientos ",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: historicMovementActive
@@ -107,7 +109,9 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                             ? const Color(0xffE8E8E8)
                             : const Color(0xff0077CD),
                         borderRadius: BorderRadius.circular(Sizes.border / 2),
-                        border: Border.all(color: const Color(0xff7A8084))),
+                        border: historicMovementActive
+                            ? Border.all(color: const Color(0xff7A8084))
+                            : Border.all(color: const Color(0xff0077CD))),
                     child: TextButton(
                         onPressed: () {
                           setState(() {

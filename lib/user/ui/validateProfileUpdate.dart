@@ -444,10 +444,12 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                   currentUser.phone = updateParam;
                                 }
                                 if (secondRes.idError == 0) {
+                                  // ignore: use_build_context_synchronously
                                   await simpleAlertDialog(context,
                                       "¡Felicitaciones!", secondRes.message,
                                       buttonLabel: "Ok");
                                 } else {
+                                  // ignore: use_build_context_synchronously
                                   await simpleAlertDialog(
                                       context,
                                       "¡Lo sentimos!",
