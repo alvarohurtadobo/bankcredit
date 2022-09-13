@@ -73,7 +73,8 @@ class _HomePageState extends State<HomePage> {
                                 fit: BoxFit.fill))),
                   ),
                   SizedBox(
-                    height: Sizes.height * 0.28,
+                    height: Sizes.height * 0.28
+                    ,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -84,7 +85,8 @@ class _HomePageState extends State<HomePage> {
                       height: Sizes.height * 0.3,
                       decoration: const BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage("assets/images/image_04.png"),
+                              image:
+                                  AssetImage("assets/images/image_04_01.png"),
                               fit: BoxFit.cover)),
                     ),
                   ),
