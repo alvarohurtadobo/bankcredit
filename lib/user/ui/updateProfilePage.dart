@@ -199,6 +199,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Sizes.boxSeparation),
                         child: TextFormField(
+                          maxLength: 10,
                           controller: phoneController,
                           onChanged: (text) {
                             updateParam = text;
