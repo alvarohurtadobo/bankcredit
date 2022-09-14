@@ -92,14 +92,42 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 3 * Sizes.boxSeparation,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                    padding: EdgeInsets.all(Sizes.padding),
+                    child: GestureDetector(
+                      onTap: () async {
+                        bool confirm = true;
+                        // print("Appbar back $confirm");
+                        if (confirm) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: Container(
+                        alignment: Alignment.topCenter,
+                        height: 1.5 * Sizes.padding,
+                        width: 1.5 * Sizes.padding,
+                        decoration: BoxDecoration(
+                            color: const Color(0xff0077CD),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(1.5 * Sizes.padding / 2))),
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 1.5 * Sizes.padding,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )),
+                Padding(
+                  padding: EdgeInsets.all(Sizes.padding),
+                  child: const Text(
+                      "Por favor ingresa el código que enviamos por mensaje de texto"),
+                ),
+              ],
             ),
-            Padding(
-              padding: EdgeInsets.all(Sizes.padding),
-              child: const Text(
-                  "Por favor ingresa el código que enviamos or mensaje de texto"),
-            ),
+
             Container(
               margin: EdgeInsets.symmetric(horizontal: 2 * Sizes.padding),
               height: Sizes.height * 0.1,

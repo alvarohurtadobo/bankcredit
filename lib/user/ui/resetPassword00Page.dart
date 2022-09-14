@@ -10,8 +10,6 @@ import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/user/model/restauration.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 
-
-
 class ResetPassword00Page extends StatefulWidget {
   const ResetPassword00Page({Key? key}) : super(key: key);
 
@@ -68,6 +66,32 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                GestureDetector(
+                  onTap: () async {
+                    bool confirm = true;
+                    // print("Appbar back $confirm");
+                    if (confirm) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    height: 1.5 * Sizes.padding,
+                    width: 1.5 * Sizes.padding,
+                    decoration: BoxDecoration(
+                        color: const Color(0xff0077CD),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(1.5 * Sizes.padding / 2))),
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 1.5 * Sizes.padding,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 3 * Sizes.boxSeparation,
+                ),
                 Text("Ingresa la información",
                     style: TextStyle(
                       fontSize: Sizes.font8,
@@ -135,7 +159,8 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                     });
                   },
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                      keyboardType: const TextInputType.numberWithOptions(signed: false,decimal: false),
+                  keyboardType: const TextInputType.numberWithOptions(
+                      signed: false, decimal: false),
                   decoration: InputDecoration(
                       // counter: Container(),
                       focusedBorder: OutlineInputBorder(
