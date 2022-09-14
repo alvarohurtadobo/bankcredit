@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
+import 'package:credidiunsa_app/common/ui/drawer.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
     lastNameController.text = currentUser.getLastName();
     emailController.text = currentUser.email;
     phoneController.text = currentUser.phone;
-    myTimer = Timer.periodic(Duration(seconds: 3), (timer) {
+    myTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
       imageCache.clear();
       // print("Click with pic url ${currentUser.pictureUrl}");
       myControl.sink.add(currentUser.pictureUrl);
@@ -52,8 +53,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
-      // drawer: MyDrawer(),
+      //  drawer: MyDrawer(),
       appBar: myAppBar(context),
+      drawer: MyDrawer(),
       body: Container(
         color: const Color(0xffF2F2F2),
         padding: EdgeInsets.all(Sizes.padding),
