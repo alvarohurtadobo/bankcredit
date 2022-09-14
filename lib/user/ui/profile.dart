@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
+
+import '../../common/widgets/genericCancelationConfirmation.dart';
+import '../../common/widgets/genericConfirmationDialog.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -171,7 +175,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontSize: 18),
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              genericCancelationConfimation(
+                                context,
+                                "¿Estas seguro de cancelar tu cuenta?",
+                              );
+                            },
                             child: const Text(
                               "Haz clic aqui",
                               style: TextStyle(
