@@ -288,6 +288,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                   color: Colors.black,
                   fontWeight: FontWeight.normal)),
         ),
+        /*
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
@@ -309,6 +310,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                   color: Colors.black,
                   fontWeight: FontWeight.normal)),
         ),
+        */
         Expanded(
           child: Container(
             alignment: Alignment.centerRight,
