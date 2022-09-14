@@ -1,4 +1,3 @@
-
 // ignore_for_file: constant_identifier_names, avoid_print
 
 import 'dart:convert';
@@ -212,6 +211,14 @@ class API {
         debug: DEBUG);
   }
 
+  static Future<BackendResponse> getConsolidacionDeuda(
+      String instituteName, int cityId) async {
+    print("Requesting reporte-constancia-consolidacion-deuda");
+    return await _doPost("archivo/reporte-constancia-consolidacion-deuda",
+        {"Institucion": instituteName, "IdCiudad": cityId},
+        debug: DEBUG);
+  }
+
   static Future<BackendResponse> getContact() async {
     print("Requesting contact");
     return await _doGet("contacto/lista", debug: DEBUG);
@@ -243,6 +250,10 @@ class API {
     return await _doPost(
         "usuario/actualizar-foto-perfil", {"FotoPerfil": base64Image},
         debug: DEBUG);
+  }
+
+  static Future<BackendResponse> cancelAcount(String base64Image) async {
+    return await _doPost("usuario/estado", {"IdEstado": false}, debug: DEBUG);
   }
 
   static Future<BackendResponse> restaurationMethods(String docId) async {

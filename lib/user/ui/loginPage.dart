@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:credidiunsa_app/common/widgets/biometricAuthDialog.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:local_auth/error_codes.dart' as local_auth_error;
@@ -207,6 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                                         controller: documentController,
                                         obscureText: obscure1,
                                         onChanged: (value) {
+                                          FocusScope.of(context).unfocus();
                                           documentId = value;
                                           setState(() {
                                             canContinue = documentId != "" &&
@@ -282,6 +285,7 @@ class _LoginPageState extends State<LoginPage> {
                                         controller: passwordController,
                                         obscureText: obscure2,
                                         onChanged: (value) {
+                                          FocusScope.of(context).unfocus();
                                           password = value;
                                           setState(() {
                                             canContinue = documentId != "" &&
@@ -542,7 +546,7 @@ class _LoginPageState extends State<LoginPage> {
                                                           simpleAlertDialog(
                                                               context,
                                                               "Error",
-                                                              "Credenciales incorrectas");
+                                                              "Verifica la informacion");
                                                         }
                                                       });
                                                     }

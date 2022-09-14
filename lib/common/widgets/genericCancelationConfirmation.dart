@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
+import 'package:credidiunsa_app/common/repository/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../user/model/user.dart';
 
 Future<bool> genericCancelationConfimation(
     BuildContext context, String finalLabel) async {
@@ -69,26 +73,20 @@ Future<bool> genericCancelationConfimation(
                       ),
                       Container(
                           height: Sizes.tileHeightMedium,
-                          width: dialogWidth-2*Sizes.padding,
+                          width: dialogWidth - 2 * Sizes.padding,
                           decoration: BoxDecoration(
                               color: const Color(0xff0077CD),
                               border:
                                   Border.all(color: const Color(0xff0077CD)),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(Sizes.tileHeightMedium / 8))),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(true);
-                            },
-                            child: const Text("Si, quiero cancelar",
-                                style: TextStyle(color: Colors.white)),
-                          )),
+                          child: llamada()),
                       SizedBox(
                         height: Sizes.boxSeparation,
                       ),
                       Container(
-                          height: Sizes.tileHeightMedium ,
-                          width: dialogWidth-2*Sizes.padding,
+                          height: Sizes.tileHeightMedium,
+                          width: dialogWidth - 2 * Sizes.padding,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               border:
@@ -103,11 +101,25 @@ Future<bool> genericCancelationConfimation(
                                 style: TextStyle(color: Color(0xff0077CD))),
                           )),
                       SizedBox(
-                        height: 2*Sizes.boxSeparation,
+                        height: 2 * Sizes.boxSeparation,
                       ),
                     ],
                   )),
             );
           }) ==
       true;
+}
+
+class llamada extends StatelessWidget {
+  const llamada({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(onTap: () {
+      API.cancelAcount("true");
+      Navigator.of(context).pushNamed("/login");
+    });
+  }
 }

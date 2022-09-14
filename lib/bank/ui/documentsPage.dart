@@ -182,7 +182,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                                 break;
                               case 3:
                                 API
-                                    .getReferenciaCredito(
+                                    .getConsolidacionDeuda(
                                         instituteName, cityId!)
                                     .then((myResponse) {
                                   if (myResponse.idError == 0) {
