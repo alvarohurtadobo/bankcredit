@@ -8,7 +8,6 @@ import 'package:credidiunsa_app/user/bloc/userLogin.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -24,11 +23,13 @@ class _SplashPageState extends State<SplashPage> {
       String jwt = prefs.getString("jwt") ?? "";
       String document = prefs.getString("document") ?? "";
       String password = prefs.getString("password") ?? "";
-      print("Saved data is $document, $password, $jwt");
+      bool recoverRememberMe = prefs.getBool("remmemberme") ?? false;
+      print("Saved data is $document, $password, $recoverRememberMe,$jwt");
       if (jwt != "" && document != "" && password != "") {
         API.login(document, password).then((BackendResponse backendResponse) {
           if (backendResponse.status == 200) {
-            setUpUser(backendResponse.myBody, password: password);
+            setUpUser(backendResponse.myBody,
+                password: password, rememberMe: recoverRememberMe);
             Timer(const Duration(seconds: 1), () {
               Navigator.of(context).pushReplacementNamed('/home');
             });
@@ -57,15 +58,16 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Center(
         child: Container(
-          width: Sizes.width*0.8,
-          height: Sizes.width*0.8,
+          width: Sizes.width * 0.8,
+          height: Sizes.width * 0.8,
           // margin: EdgeInsets.all(Sizes.padding),
           alignment: Alignment.center,
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(
-            'assets/images/logo.png',
-          ), fit: BoxFit.contain)),
+                    'assets/images/logo.png',
+                  ),
+                  fit: BoxFit.contain)),
         ),
       ),
     );
