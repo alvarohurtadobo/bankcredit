@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:credidiunsa_app/bank/model/city.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 

@@ -186,6 +186,8 @@ class _LoginPageState extends State<LoginPage> {
                                       height: Sizes.boxSeparation,
                                     ),
                                     TextFormField(
+                                      scrollPadding:
+                                          const EdgeInsets.only(bottom: 400.0),
                                       obscureText: obscure1,
                                       onChanged: (value) {
                                         documentId = value;

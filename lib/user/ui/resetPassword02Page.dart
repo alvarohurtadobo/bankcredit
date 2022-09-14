@@ -92,41 +92,42 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 4.5 * Sizes.boxSeparation,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                width: double.infinity,
-                height: Sizes.padding * 1.2,
-                padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  height: Sizes.padding * 1.2,
-                  width: Sizes.padding * 1.2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(0.6 * Sizes.padding)),
-                      color: const Color(0xff0077CD)),
-                  child: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                    padding: EdgeInsets.all(Sizes.padding),
+                    child: GestureDetector(
+                      onTap: () async {
+                        bool confirm = true;
+                        // print("Appbar back $confirm");
+                        if (confirm) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: Container(
+                        alignment: Alignment.topCenter,
+                        height: 1.5 * Sizes.padding,
+                        width: 1.5 * Sizes.padding,
+                        decoration: BoxDecoration(
+                            color: const Color(0xff0077CD),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(1.5 * Sizes.padding / 2))),
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 1.5 * Sizes.padding,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )),
+                Padding(
+                  padding: EdgeInsets.all(Sizes.padding),
+                  child: const Text(
+                      "Por favor ingresa el código que enviamos por mensaje de texto"),
                 ),
-              ),
+              ],
             ),
-            SizedBox(
-              height: 1 * Sizes.boxSeparation,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: Sizes.padding, vertical: Sizes.boxSeparation),
-              child: const Text(
-                  "Por favor ingresa el código que enviamos or mensaje de texto"),
-            ),
+
             Container(
               margin: EdgeInsets.symmetric(horizontal: 2 * Sizes.padding),
               height: Sizes.height * 0.1,
@@ -400,7 +401,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                               setState(() {
                                 loading = true;
                               });
-                              
+
                               API
                                   .validateOTPForgotPass(
                                       notLoggedDocument, code)

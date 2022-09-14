@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -126,15 +125,10 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
                 SizedBox(
                   height: Sizes.boxSeparation,
                 ),
-                Container(
+                SizedBox(
                     // padding: EdgeInsets.symmetric(
                     //     horizontal: Sizes.boxSeparation, vertical: 0),
                     width: (Sizes.width - 3 * Sizes.padding),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(Sizes.border / 2),
-                        border:Border.all(color: Colors.white)
-                            ),
                     child: TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();

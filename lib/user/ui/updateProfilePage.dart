@@ -315,7 +315,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             )))
-              ]),
+              ]
+              ),
         ),
       ),
     );

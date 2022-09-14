@@ -67,29 +67,30 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
+                  onTap: () async {
+                    bool confirm = true;
+                    // print("Appbar back $confirm");
+                    if (confirm) {
+                      Navigator.of(context).pop();
+                    }
                   },
                   child: Container(
-                    width: double.infinity,
-                    height: Sizes.padding * 1.2,
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      height: Sizes.padding * 1.2,
-                      width: Sizes.padding * 1.2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(0.6 * Sizes.padding)),
-                          color: const Color(0xff0077CD)),
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
+                    alignment: Alignment.topCenter,
+                    height: 1.5 * Sizes.padding,
+                    width: 1.5 * Sizes.padding,
+                    decoration: BoxDecoration(
+                        color: const Color(0xff0077CD),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(1.5 * Sizes.padding / 2))),
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 1.5 * Sizes.padding,
+                      color: Colors.white,
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 1.5 * Sizes.boxSeparation,
+                  height: 3 * Sizes.boxSeparation,
                 ),
                 Text("Ingresa la información",
                     style: TextStyle(

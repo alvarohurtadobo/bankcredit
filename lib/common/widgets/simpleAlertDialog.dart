@@ -17,10 +17,7 @@ Future<bool> simpleAlertDialog(
                   onTap: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: const Icon(
-                    Icons.close,
-                    color: Color(0xff0F62A4),
-                  ))
+                  child: Container())
             ],
             actionsAlignment: MainAxisAlignment.end,
             backgroundColor: Colors.transparent,
@@ -59,7 +56,7 @@ Future<bool> simpleAlertDialog(
                   ),
                 ),
                 SizedBox(
-                  height: Sizes.boxSeparation,
+                  height: Sizes.boxSeparation * 5,
                 ),
                 Text(
                   title,
@@ -67,7 +64,7 @@ Future<bool> simpleAlertDialog(
                       const TextStyle(color: Color(0xff0F62A4), fontSize: 22),
                 ),
                 SizedBox(
-                  height: Sizes.boxSeparation,
+                  height: Sizes.boxSeparation * 9,
                 ),
                 Text(
                   message,

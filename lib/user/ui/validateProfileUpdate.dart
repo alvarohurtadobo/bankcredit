@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, file_names, unused_local_variable
+
 import 'dart:async';
 import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
