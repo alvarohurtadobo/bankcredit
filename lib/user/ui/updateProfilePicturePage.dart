@@ -28,6 +28,7 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isIos = Platform.isIOS;
     return Scaffold(
         appBar: myAppBar(context),
         body: Container(
@@ -93,31 +94,10 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
                         border: Border.all(color: const Color(0xff0077CD))),
                     child: TextButton(
                         onPressed: () {
-                          getImageFileName(camera: true);
-                        },
-                        child: Text(
-                          "Tomar foto",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: Sizes.font10 * 0.95),
-                        ))),
-                SizedBox(
-                  height: Sizes.boxSeparation,
-                ),
-                Container(
-                    // padding: EdgeInsets.symmetric(
-                    //     horizontal: Sizes.boxSeparation, vertical: 0),
-                    width: (Sizes.width - 3 * Sizes.padding),
-                    decoration: BoxDecoration(
-                        color: const Color(0xff0077CD),
-                        borderRadius: BorderRadius.circular(Sizes.border / 2),
-                        border: Border.all(color: const Color(0xff0077CD))),
-                    child: TextButton(
-                        onPressed: () {
                           getImageFileName(camera: false);
                         },
                         child: Text(
-                          "Elegir de galería",
+                          isIos ? "Subir foto" : "Elegir de galería",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: Sizes.font10 * 0.95),
@@ -135,13 +115,37 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
                         border: Border.all(color: const Color(0xff0077CD))),
                     child: TextButton(
                         onPressed: () {
+                          getImageFileName(camera: true);
+                        },
+                        child: Text(
+                          "Tomar foto",
+                          style: TextStyle(
+                              color: const Color(0xff0077CD),
+                              fontSize: Sizes.font10 * 0.95),
+                        ))),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                Container(
+                    // padding: EdgeInsets.symmetric(
+                    //     horizontal: Sizes.boxSeparation, vertical: 0),
+                    width: (Sizes.width - 3 * Sizes.padding),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(Sizes.border / 2),
+                        border:Border.all(color: Colors.white)
+                            ),
+                    child: TextButton(
+                        onPressed: () {
                           Navigator.of(context).pop();
                         },
                         child: Text(
                           "Lo haré después",
                           style: TextStyle(
-                              color: const Color(0xff0077CD),
-                              fontSize: Sizes.font10 * 0.95),
+                            color: const Color(0xff0077CD),
+                            fontSize: Sizes.font10 * 0.95,
+                            decoration: TextDecoration.underline
+                          ),
                         ))),
                 SizedBox(
                   height: 3 * Sizes.boxSeparation,

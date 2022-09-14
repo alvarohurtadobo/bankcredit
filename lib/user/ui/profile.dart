@@ -47,7 +47,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
-      //  drawer: MyDrawer(),
       appBar: myAppBar(context),
       drawer: MyDrawer(),
       body: Container(

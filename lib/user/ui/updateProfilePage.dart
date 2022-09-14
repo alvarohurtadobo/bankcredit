@@ -7,6 +7,7 @@ import 'package:credidiunsa_app/common/model/regEx.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
+import 'package:flutter/services.dart';
 
 class UpdateProfilePage extends StatefulWidget {
   final int type;
@@ -201,6 +202,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         child: TextFormField(
                           maxLength: 10,
                           controller: phoneController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: false),
                           onChanged: (text) {
                             updateParam = text;
                             print("updated update param to $updateParam");
@@ -211,6 +217,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Este campo es obligatorio";
+                            }
+                            if (value.length < 8) {
+                              return "Este campo debe tener al menos 8 dígitos";
                             }
                             try {
                               int.parse(value);

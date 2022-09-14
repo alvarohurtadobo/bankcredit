@@ -281,39 +281,39 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.28 * Sizes.width,
+          width: 0.4 * Sizes.width,
           child: Text(movement.type.toString(),
               style: TextStyle(
                   fontSize: Sizes.font10,
                   color: Colors.black,
                   fontWeight: FontWeight.normal)),
         ),
-        Container(
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.06 * Sizes.width,
-          child: Text("TI:",
-              maxLines: 1,
-              style: TextStyle(
-                  fontSize: Sizes.font10,
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal)),
-        ),
-        Container(
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: Sizes.boxSeparation),
-          width: 0.14 * Sizes.width,
-          child: Text(movement.tax,
-              style: TextStyle(
-                  fontSize: Sizes.font10,
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal)),
-        ),
+        // Container(
+        //   alignment: Alignment.centerLeft,
+        //   padding: EdgeInsets.only(right: Sizes.boxSeparation),
+        //   width: 0.06 * Sizes.width,
+        //   child: Text("TI:",
+        //       maxLines: 1,
+        //       style: TextStyle(
+        //           fontSize: Sizes.font10,
+        //           color: Colors.black,
+        //           fontWeight: FontWeight.normal)),
+        // ),
+        // Container(
+        //   alignment: Alignment.centerRight,
+        //   padding: EdgeInsets.only(right: Sizes.boxSeparation),
+        //   width: 0.14 * Sizes.width,
+        //   child: Text(movement.tax,
+        //       style: TextStyle(
+        //           fontSize: Sizes.font10,
+        //           color: Colors.black,
+        //           fontWeight: FontWeight.normal)),
+        // ),
         Expanded(
           child: Container(
             alignment: Alignment.centerRight,
             padding: EdgeInsets.only(right: Sizes.boxSeparation),
-            width: 0.21 * Sizes.width,
+            width: 0.29 * Sizes.width,
             child: Text(currencyFormatter.format(double.parse(movement.value)),
                 textAlign: TextAlign.end,
                 style: TextStyle(

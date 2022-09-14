@@ -49,80 +49,80 @@ Widget extendedSummaryCard(CuotaMensual cuotaMensual,
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
-            height: Sizes.boxSeparation,
+            height: 5*Sizes.boxSeparation,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Intereses de mora",
-                style: TextStyle(fontSize: Sizes.font10),
-              ),
-              Text(
-                currencyFormatter.format(cuotaMensual.debtInterest),
-                style: TextStyle(fontSize: Sizes.font10),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Intereses corrientes",
-                style: TextStyle(fontSize: Sizes.font10),
-              ),
-              Text(
-                currencyFormatter.format(cuotaMensual.normalInterest),
-                style: TextStyle(fontSize: Sizes.font10),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Seguro",
-                style: TextStyle(fontSize: Sizes.font10),
-              ),
-              Text(
-                currencyFormatter.format(cuotaMensual.insurance),
-                style: TextStyle(fontSize: Sizes.font10),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Capital",
-                style: TextStyle(fontSize: Sizes.font10),
-              ),
-              Text(
-                currencyFormatter.format(cuotaMensual.capital),
-                style: TextStyle(fontSize: Sizes.font10),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Total",
-                style: TextStyle(
-                    fontSize: Sizes.font10, color: const Color(0xff0077CD)),
-              ),
-              Text(
-                currencyFormatter.format(cuotaMensual.total),
-                style: TextStyle(
-                    fontSize: Sizes.font10, color: const Color(0xff0077CD)),
-              ),
-            ],
-          ),
-          const Divider(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       "Intereses de mora",
+          //       style: TextStyle(fontSize: Sizes.font10),
+          //     ),
+          //     Text(
+          //       currencyFormatter.format(cuotaMensual.debtInterest),
+          //       style: TextStyle(fontSize: Sizes.font10),
+          //     ),
+          //   ],
+          // ),
+          // const Divider(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       "Intereses corrientes",
+          //       style: TextStyle(fontSize: Sizes.font10),
+          //     ),
+          //     Text(
+          //       currencyFormatter.format(cuotaMensual.normalInterest),
+          //       style: TextStyle(fontSize: Sizes.font10),
+          //     ),
+          //   ],
+          // ),
+          // const Divider(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       "Seguro",
+          //       style: TextStyle(fontSize: Sizes.font10),
+          //     ),
+          //     Text(
+          //       currencyFormatter.format(cuotaMensual.insurance),
+          //       style: TextStyle(fontSize: Sizes.font10),
+          //     ),
+          //   ],
+          // ),
+          // const Divider(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       "Capital",
+          //       style: TextStyle(fontSize: Sizes.font10),
+          //     ),
+          //     Text(
+          //       currencyFormatter.format(cuotaMensual.capital),
+          //       style: TextStyle(fontSize: Sizes.font10),
+          //     ),
+          //   ],
+          // ),
+          // const Divider(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       "Total",
+          //       style: TextStyle(
+          //           fontSize: Sizes.font10, color: const Color(0xff0077CD)),
+          //     ),
+          //     Text(
+          //       currencyFormatter.format(cuotaMensual.total),
+          //       style: TextStyle(
+          //           fontSize: Sizes.font10, color: const Color(0xff0077CD)),
+          //     ),
+          //   ],
+          // ),
+          // const Divider(),
         ],
       ),
     ),

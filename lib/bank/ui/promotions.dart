@@ -75,6 +75,14 @@ class _PromotionsPageState extends State<PromotionsPage> {
         },
         player: YoutubePlayer(
           controller: _controller,
+          bottomActions: [
+            const SizedBox(width: 14.0),
+            CurrentPosition(),
+            const SizedBox(width: 8.0),
+            ProgressBar(isExpanded: true),
+            RemainingDuration(),
+            // const PlaybackSpeedButton(),
+          ],
           showVideoProgressIndicator: true,
           progressIndicatorColor: Colors.blueAccent,
           topActions: <Widget>[
@@ -178,7 +186,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
                           horizontal: Sizes.boxSeparation,
                           vertical: Sizes.padding * 0.7),
                       child: Text(
-                        "",
+                        "Latest from Diunsa",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: Sizes.font10),
