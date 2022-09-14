@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 class Movement {
   int id = 0;
   int idProduct = 0;

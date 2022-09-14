@@ -1,4 +1,6 @@
 
+// ignore_for_file: constant_identifier_names, avoid_print
+
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:credidiunsa_app/user/model/user.dart';

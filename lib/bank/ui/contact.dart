@@ -1,4 +1,6 @@
 
+// ignore_for_file: library_private_types_in_public_api, avoid_print
+
 import 'dart:io';
 
 import 'package:credidiunsa_app/bank/model/socialMedia.dart';

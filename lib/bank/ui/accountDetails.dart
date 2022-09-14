@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -289,6 +291,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                   fontWeight: FontWeight.normal)),
         ),
         /*
+        **************se comenta el codigo a peticion de testers**************
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),

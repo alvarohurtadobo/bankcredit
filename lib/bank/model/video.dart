@@ -1,4 +1,6 @@
 
+// ignore_for_file: avoid_print
+
 class Video {
   int id = 0;
   String link = "";

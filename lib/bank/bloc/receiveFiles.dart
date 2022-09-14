@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_print
+
 import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
