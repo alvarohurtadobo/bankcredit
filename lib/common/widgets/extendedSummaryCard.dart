@@ -51,6 +51,8 @@ Widget extendedSummaryCard(CuotaMensual cuotaMensual,
           SizedBox(
             height: Sizes.boxSeparation,
           ),
+         /*
+      ***************se comenta el codigo a solicitud de testers****************
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -65,6 +67,7 @@ Widget extendedSummaryCard(CuotaMensual cuotaMensual,
             ],
           ),
           const Divider(),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -79,6 +82,7 @@ Widget extendedSummaryCard(CuotaMensual cuotaMensual,
             ],
           ),
           const Divider(),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -123,6 +127,7 @@ Widget extendedSummaryCard(CuotaMensual cuotaMensual,
             ],
           ),
           const Divider(),
+          */
         ],
       ),
     ),
