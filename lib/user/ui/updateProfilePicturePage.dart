@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -86,31 +85,10 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
                         border: Border.all(color: const Color(0xff0077CD))),
                     child: TextButton(
                         onPressed: () {
-                          getImageFileName(camera: true);
-                        },
-                        child: Text(
-                          "Tomar foto",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: Sizes.font10 * 0.95),
-                        ))),
-                SizedBox(
-                  height: Sizes.boxSeparation,
-                ),
-                Container(
-                    // padding: EdgeInsets.symmetric(
-                    //     horizontal: Sizes.boxSeparation, vertical: 0),
-                    width: (Sizes.width - 3 * Sizes.padding),
-                    decoration: BoxDecoration(
-                        color: const Color(0xff0077CD),
-                        borderRadius: BorderRadius.circular(Sizes.border / 2),
-                        border: Border.all(color: const Color(0xff0077CD))),
-                    child: TextButton(
-                        onPressed: () {
                           getImageFileName(camera: false);
                         },
                         child: Text(
-                          "Elegir de galería",
+                          "Subir foto",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: Sizes.font10 * 0.95),
@@ -126,6 +104,23 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(Sizes.border / 2),
                         border: Border.all(color: const Color(0xff0077CD))),
+                    child: TextButton(
+                        onPressed: () {
+                          getImageFileName(camera: true);
+                        },
+                        child: Text(
+                          "Tomar foto",
+                          style: TextStyle(
+                              color: const Color(0xff0077CD),
+                              fontSize: Sizes.font10 * 0.95),
+                        ))),
+                SizedBox(
+                  height: Sizes.boxSeparation,
+                ),
+                SizedBox(
+                    // padding: EdgeInsets.symmetric(
+                    //     horizontal: Sizes.boxSeparation, vertical: 0),
+                    width: (Sizes.width - 3 * Sizes.padding),
                     child: TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();

@@ -323,12 +323,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     if (value!.isEmpty) {
                       return "Este campo es obligatorio";
                     }
-                    if (value.length != 13) {
-                      return "El número de documento debe contener 13 dígitos";
+                    if (value.length > 13) {
+                      return "El número de documento debe contener menos de 13 dígitos";
+                    }
+                    if (value.length < 8) {
+                      return "El número de documento debe contener mas de 8 dígitos";
                     }
                     return null;
                   },
-                  maxLength: 13,
+                  // maxLength: 13,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   keyboardType: const TextInputType.numberWithOptions(
                       signed: false, decimal: false),
