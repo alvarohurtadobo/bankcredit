@@ -64,13 +64,13 @@ class MyDrawer extends StatelessWidget {
                                   color: Colors.white),
                             ),
                           ),
-                          // const Text(
-                          //   "Última sesión 01/15/2022",
-                          //   style: TextStyle(
-                          //       fontWeight: FontWeight.normal,
-                          //       fontSize: 14,
-                          //       color: Colors.white),
-                          // ),
+                          const Text(
+                            "Última sesión 01/15/2022",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                                color: Colors.white),
+                          ),
                         ])
                   ],
                 ),

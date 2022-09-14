@@ -53,7 +53,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
-      //  drawer: MyDrawer(),
       appBar: myAppBar(context),
       drawer: MyDrawer(),
       body: Container(
@@ -160,6 +159,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: SizedBox(
                   height: 0,
                 )),
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+                    width: double.infinity,
+                    child: Column(
+                      children: [
+                        const Text(
+                          "¿Quieres cancelar tu cuenta?",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 129, 129, 129),
+                              fontSize: 18),
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              "Haz clic aqui",
+                              style: TextStyle(
+                                  color: Color(0xff0F62A4), fontSize: 18),
+                            ))
+                      ],
+                    ))
               ]),
         ),
       ),
