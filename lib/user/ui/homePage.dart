@@ -71,12 +71,12 @@ class _HomePageState extends State<HomePage> {
                             height: 60,
                             decoration: const BoxDecoration(
                                 image: DecorationImage(
-                                    image: AssetImage("assets/images/logo_02.png"),
+                                    image:
+                                        AssetImage("assets/images/logo_02.png"),
                                     fit: BoxFit.fill))),
                       ),
                       SizedBox(
-                        height: Sizes.height * 0.28
-                        ,
+                        height: Sizes.height * 0.28,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -87,8 +87,8 @@ class _HomePageState extends State<HomePage> {
                           height: Sizes.height * 0.3,
                           decoration: const BoxDecoration(
                               image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/image_04_01.png"),
+                                  image: AssetImage(
+                                      "assets/images/image_04_01.png"),
                                   fit: BoxFit.cover)),
                         ),
                       ),
@@ -118,7 +118,8 @@ class _HomePageState extends State<HomePage> {
                                   child: ListView(
                                       scrollDirection: Axis.horizontal,
                                       children: myNovelties
-                                          .map((prom) => promoCard(context, prom))
+                                          .map((prom) =>
+                                              promoCard(context, prom))
                                           .toList()),
                                 );
                               }
@@ -159,7 +160,8 @@ class _HomePageState extends State<HomePage> {
                           height: Sizes.padding * 2,
                           decoration: const BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("assets/images/logo_02.png"),
+                                  image:
+                                      AssetImage("assets/images/logo_02.png"),
                                   fit: BoxFit.fitWidth)))),
                   Positioned(
                       top: 6 * Sizes.padding,
