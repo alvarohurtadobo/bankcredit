@@ -178,6 +178,22 @@ class _DocumentsPageState extends State<DocumentsPage> {
                                   });
                                 });
                                 break;
+                              case 3:
+                                API
+                                    .getReferenciaCredito(
+                                        instituteName, cityId!)
+                                    .then((myResponse) {
+                                  if (myResponse.idError == 0) {
+                                    displayFile(myResponse);
+                                  } else {
+                                    simpleAlertDialog(context, "¡Lo sentimos!",
+                                        myResponse.message);
+                                  }
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                });
+                                break;
                               default:
                                 API.getAccountStatus().then((myResponse) {
                                   if (myResponse.idError == 0) {
@@ -323,6 +339,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
           reportButton(0),
           reportButton(1),
           reportButton(2),
+          reportButton(3),
           SizedBox(width: Sizes.padding),
         ],
       ),
@@ -347,6 +364,10 @@ class _DocumentsPageState extends State<DocumentsPage> {
         text = "Referencia comercial";
         iconPath = "assets/icons/papersIcon$extraWord.png";
         break;
+      case 3:
+        text = "Consolidación deuda";
+        iconPath = "assets/icons/paperIcon$extraWord.png";
+        break;
       default:
         text = "Descargar histórico";
         iconPath = "assets/icons/downloadIcon$extraWord.png";
@@ -365,6 +386,11 @@ class _DocumentsPageState extends State<DocumentsPage> {
             titleControl.text = "";
             break;
           case 2:
+            ready = false;
+            cityId = null;
+            titleControl.text = "";
+            break;
+          case 3:
             ready = false;
             cityId = null;
             titleControl.text = "";
