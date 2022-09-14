@@ -144,7 +144,7 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                       return "Este campo es obligatorio";
                     }
                     if (value.length != 13) {
-                      return "El número de identificación debe contener al menos 13 dígitos";
+                      return "El número de documento debe contener 13 dígitos";
                     }
                     return null;
                   },

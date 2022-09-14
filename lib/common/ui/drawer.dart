@@ -60,7 +60,8 @@ class MyDrawer extends StatelessWidget {
                                 color: Colors.white),
                           ),
                           SizedBox(
-                            width: Sizes.width * 0.48,
+                            // medida photo ***************************************
+                            width: Sizes.width * 0.5,
                             child: Text(
                               currentUser.getFullName(),
                               maxLines: 3,

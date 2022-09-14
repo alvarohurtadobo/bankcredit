@@ -1,11 +1,10 @@
-import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-
-import 'package:credidiunsa_app/common/model/sesion.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
+import 'package:credidiunsa_app/common/ui/drawer.dart';
+import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -48,8 +47,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
-      // drawer: MyDrawer(),
+      //  drawer: MyDrawer(),
       appBar: myAppBar(context),
+      drawer: MyDrawer(),
       body: Container(
         color: const Color(0xffF2F2F2),
         padding: EdgeInsets.all(Sizes.padding),

@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../../common/ui/sizes.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -25,9 +24,10 @@ class _LoginPageState extends State<LoginPage> {
   bool localEnabled = false;
   bool canContinue = false;
   bool isLoading = false;
-
   bool obscure1 = true;
   bool obscure2 = true;
+  bool validatorEmpty1 = false;
+  bool validatorEmpty2 = false;
 
   final _localAuthentication = LocalAuthentication();
 
@@ -201,8 +201,12 @@ class _LoginPageState extends State<LoginPage> {
                                         }
                                         return null;
                                       },
-                                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                      keyboardType: const TextInputType.numberWithOptions(signed: false,decimal: false),
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                      keyboardType:
+                                          const TextInputType.numberWithOptions(
+                                              signed: false, decimal: false),
                                       textAlignVertical:
                                           TextAlignVertical.center,
                                       decoration: InputDecoration(
@@ -334,10 +338,13 @@ class _LoginPageState extends State<LoginPage> {
                                                   .resolveWith((states) {
                                                 return const Color(0xff0077cd);
                                               }),
-                                              side: const BorderSide(color: Colors.white,),
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                              activeColor:
-                                                  Colors.white,
+                                              side: const BorderSide(
+                                                color: Colors.white,
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                              activeColor: Colors.white,
                                               checkColor: Colors.white,
                                               hoverColor: Colors.white,
                                             ),
@@ -366,10 +373,13 @@ class _LoginPageState extends State<LoginPage> {
                                             },
                                             child: Text("Olvide mi contraseña",
                                                 style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: Sizes.font11,
-                                                    decoration: TextDecoration
-                                                        .underline)),
+                                                  color: Colors.white,
+                                                  fontSize: Sizes.font11,
+                                                  height: 0.9,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  decorationThickness: 0.8,
+                                                )),
                                           )
                                         ],
                                       ),
