@@ -17,10 +17,7 @@ Future<bool> simpleAlertDialog(
                   onTap: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: const Icon(
-                    Icons.close,
-                    color: Color(0xff0F62A4),
-                  ))
+                  child: Container())
             ],
             actionsAlignment: MainAxisAlignment.end,
             backgroundColor: Colors.transparent,
