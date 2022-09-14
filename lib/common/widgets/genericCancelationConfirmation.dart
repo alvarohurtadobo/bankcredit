@@ -59,7 +59,7 @@ Future<bool> genericCancelationConfimation(
                         padding:
                             EdgeInsets.symmetric(horizontal: dialogWidth * 0.1),
                         child: Text(
-                          "¿Estas seguro de cancelar tu cuenta?",
+                          "¿Estás seguro de cancelar tu cuenta?",
                           style: TextStyle(
                               color: const Color(0xff0F62A4),
                               decoration: TextDecoration.none,
@@ -117,9 +117,16 @@ class llamada extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(onTap: () {
-      API.cancelAcount("true");
-      Navigator.of(context).pushNamed("/login");
-    });
+    return TextButton(
+        onPressed: () {
+          API.cancelAcount("true");
+          Navigator.of(context).pushNamed("/login");
+        },
+        child: Text(
+          "Si, quiero cancelar",
+          style: TextStyle(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              fontSize: Sizes.font10 * 0.95),
+        ));
   }
 }
