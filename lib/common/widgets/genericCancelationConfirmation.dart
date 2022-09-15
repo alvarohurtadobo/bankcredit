@@ -120,7 +120,18 @@ class llamada extends StatelessWidget {
     return TextButton(
         onPressed: () {
           API.cancelAcount("true");
-          Navigator.of(context).pushNamed("/login");
+          print("Confirm logout, clearing user notification id and token");
+          currentUser = User.empty();
+          SharedPreferences.getInstance().then((myPrefs) {
+            myPrefs.remove("jwt");
+            // myPrefs.remove("document");
+            // myPrefs.remove("password");
+            myPrefs.remove("expiration");
+            Navigator.of(context).pop();
+            Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.of(context).pop(); // Para el drawer???
+            Navigator.of(context).pushNamed("/login");
+          });
         },
         child: Text(
           "Si, quiero cancelar",
