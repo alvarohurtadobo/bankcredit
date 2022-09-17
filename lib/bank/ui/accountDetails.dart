@@ -76,6 +76,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                     // padding: EdgeInsets.symmetric(
                     //     horizontal: Sizes.boxSeparation, vertical: 0),
                     width: (Sizes.width - 3 * Sizes.padding) / 2,
+                    // verificacion Bug93 medidas iguales
                     decoration: BoxDecoration(
                         color: historicMovementActive
                             ? const Color(0xff0077CD)
@@ -106,6 +107,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                     // padding:
                     //     EdgeInsets.symmetric(horizontal: Sizes.boxSeparation),
                     width: (Sizes.width - 3 * Sizes.padding) / 2,
+                    // verificacion Bug93 medidas iguales
                     decoration: BoxDecoration(
                         color: historicMovementActive
                             ? const Color(0xffE8E8E8)

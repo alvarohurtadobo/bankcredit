@@ -328,8 +328,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     if (value.length > 13) {
                       return "El número de documento debe contener menos de 13 dígitos";
                     }
-                    if (value.length < 8) {
-                      return "El número de documento debe contener mas de 8 dígitos";
+                    // condicionales para el documento del cliente
+                    if (value.length < 10) {
+                      return "El número de documento debe contener mas de 10 dígitos";
                     }
                     return null;
                   },
@@ -639,7 +640,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      width: 22,
+                      // eran 22
+                      width: 15,
                       height: 14,
                       alignment: Alignment.center,
                       // decoration: const BoxDecoration(

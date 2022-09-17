@@ -100,7 +100,7 @@ class MyDrawer extends StatelessWidget {
             drawerTile(
                 context, "assets/icons/promo.png", "Promociones", "y novedades",
                 route: "/promotions"),
-            drawerTile(context, "assets/icons/whatsapp.png", "Contáctanos", "",
+            drawerTile2(context, "assets/icons/whatsapp.png", "Contáctanos", "",
                 route: "/contact"),
             logoutTile(context),
             Container(
@@ -161,6 +161,54 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
+  Widget drawerTile2(
+      BuildContext context, String assetName, String title, String subtitle,
+      {String route = "/"}) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pop();
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pushNamed(route);
+      },
+      child: Container(
+          padding: EdgeInsets.symmetric(vertical: Sizes.padding + 5.3),
+          margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
+          child: Row(
+            children: [
+              Container(
+                width: Sizes.padding,
+                height: Sizes.padding,
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage(assetName))),
+              ),
+              SizedBox(
+                width: Sizes.padding,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: TextStyle(
+                          color: const Color(0xff4F5051),
+                          fontSize: Sizes.font10,
+                          fontWeight: FontWeight.bold)),
+                  subtitle == ""
+                      ? Container()
+                      : Text(subtitle,
+                          style: TextStyle(
+                              color: const Color(0xff4F5051),
+                              fontSize: Sizes.font10,
+                              fontWeight: FontWeight.normal))
+                ],
+              ),
+            ],
+          )),
+    );
+  }
+
   Widget logoutTile(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -184,7 +232,7 @@ class MyDrawer extends StatelessWidget {
         });
       },
       child: Container(
-          padding: EdgeInsets.symmetric(vertical: Sizes.padding),
+          padding: EdgeInsets.symmetric(vertical: Sizes.padding + 3.5),
           margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
           decoration: const BoxDecoration(
               color: Colors.white,

@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                                         controller: documentController,
                                         obscureText: obscure1,
                                         onChanged: (value) {
-                                        //  FocusScope.of(context).unfocus();
+                                          //  FocusScope.of(context).unfocus();
                                           documentId = value;
                                           setState(() {
                                             canContinue = documentId != "" &&
@@ -243,9 +243,13 @@ class _LoginPageState extends State<LoginPage> {
                                               child: obscure1
                                                   ? Image.asset(
                                                       "assets/icons/obscured.png")
-                                                  : const Icon(
-                                                      Icons.remove_red_eye,
-                                                      color: Color(0xff7A8084),
+                                                  : const SizedBox(
+                                                      width: 60,
+                                                      child: Icon(
+                                                        Icons.remove_red_eye,
+                                                        color:
+                                                            Color(0xff7A8084),
+                                                      ),
                                                     ),
                                             ),
                                             border: InputBorder.none,
@@ -285,7 +289,7 @@ class _LoginPageState extends State<LoginPage> {
                                         controller: passwordController,
                                         obscureText: obscure2,
                                         onChanged: (value) {
-                                         // FocusScope.of(context).unfocus();
+                                          // FocusScope.of(context).unfocus();
                                           password = value;
                                           setState(() {
                                             canContinue = documentId != "" &&
@@ -311,9 +315,13 @@ class _LoginPageState extends State<LoginPage> {
                                               child: obscure2
                                                   ? Image.asset(
                                                       "assets/icons/obscured.png")
-                                                  : const Icon(
-                                                      Icons.remove_red_eye,
-                                                      color: Color(0xff7A8084),
+                                                  : const SizedBox(
+                                                      width: 60,
+                                                      child: Icon(
+                                                        Icons.remove_red_eye,
+                                                        color:
+                                                            Color(0xff7A8084),
+                                                      ),
                                                     ),
                                             ),
                                             border: InputBorder.none,

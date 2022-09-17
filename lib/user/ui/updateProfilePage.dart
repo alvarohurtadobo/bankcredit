@@ -129,6 +129,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             Icon(
                               Icons.email_outlined,
                               color: Color(0xff0F62A4),
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 5,
                             ),
                             Text("Correo Electrónico",
                                 style: TextStyle(
@@ -149,6 +153,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             Icon(
                               Icons.smartphone,
                               color: Color(0xff0F62A4),
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 5,
                             ),
                             Text("Teléfono",
                                 style: TextStyle(
@@ -315,8 +323,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             )))
-              ]
-              ),
+              ]),
         ),
       ),
     );

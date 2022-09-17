@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, library_private_types_in_public_api, avoid_print
+// ignore_for_file: file_names, library_private_types_in_public_api, avoid_print, prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
@@ -239,7 +239,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
             controller: titleControl,
             validator: (value) {
               if (value!.isEmpty) {
-                return "Este campo es obligatorio";
+                return "¡Este campo es obligatorio!";
               }
               return null;
             },
@@ -308,7 +308,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                 ),
           warningIdDocument
               ? Text(
-                  "Este campo es obligatorio",
+                  "¡Este campo es obligatorio!",
                   style: TextStyle(color: Colors.red, fontSize: Sizes.font12),
                 )
               : const SizedBox(
