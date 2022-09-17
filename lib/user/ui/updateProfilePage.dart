@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, unused_import, library_private_types_in_public_api, avoid_print
+
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';

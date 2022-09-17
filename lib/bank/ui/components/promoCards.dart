@@ -1,4 +1,4 @@
-
+// ignore_for_file: file_names, avoid_print
 import 'package:credidiunsa_app/bank/model/promo.dart';
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';

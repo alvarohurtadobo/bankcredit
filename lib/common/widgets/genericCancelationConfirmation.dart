@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_const_constructors, camel_case_types, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';

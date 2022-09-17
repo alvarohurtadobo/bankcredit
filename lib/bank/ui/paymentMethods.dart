@@ -1,5 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_print
-
+// ignore_for_file: library_private_types_in_public_api, avoid_print, file_names
 import 'package:credidiunsa_app/bank/model/paymentMethod.dart';
 import 'package:credidiunsa_app/common/model/cuotaMensual.dart';
 import 'package:credidiunsa_app/common/model/currencyFormatter.dart';

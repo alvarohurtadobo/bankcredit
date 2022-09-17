@@ -1,4 +1,4 @@
-
+// ignore_for_file: unused_import, library_private_types_in_public_api
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';

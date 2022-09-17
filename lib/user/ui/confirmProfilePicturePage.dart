@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, unused_field, avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 

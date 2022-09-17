@@ -1,4 +1,4 @@
-
+// ignore_for_file: file_names
 class SocialMedia {
   int id = 0;
   String name = "";

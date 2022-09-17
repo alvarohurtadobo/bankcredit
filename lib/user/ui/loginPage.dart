@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, file_names, library_private_types_in_public_api, avoid_print
 
 import 'package:credidiunsa_app/common/widgets/biometricAuthDialog.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
