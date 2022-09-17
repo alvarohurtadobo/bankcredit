@@ -1,6 +1,4 @@
-
-// ignore_for_file: library_private_types_in_public_api, avoid_print
-
+// ignore_for_file: library_private_types_in_public_api, avoid_print, file_names
 import 'package:credidiunsa_app/bank/model/paymentMethod.dart';
 import 'package:credidiunsa_app/common/model/cuotaMensual.dart';
 import 'package:credidiunsa_app/common/model/currencyFormatter.dart';
@@ -152,17 +150,17 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             Row(
               children: [
                 SizedBox(
-                  width: (Sizes.width-2*Sizes.padding)*0.1,
+                  width: (Sizes.width - 2 * Sizes.padding) * 0.1,
                   child: const Icon(
-                    Icons.warning,
+                    Icons.warning_amber,
                     color: Color(0xffE07117),
                   ),
                 ),
                 SizedBox(
-                  width: (Sizes.width-2*Sizes.padding)*0.05,
+                  width: (Sizes.width - 2 * Sizes.padding) * 0.05,
                 ),
                 SizedBox(
-                  width: (Sizes.width-2*Sizes.padding)*0.85,
+                  width: (Sizes.width - 2 * Sizes.padding) * 0.85,
                   child: Text("Paga a tiempo y evita recargas en tus cuotas.",
                       maxLines: 2, style: TextStyle(fontSize: Sizes.font10)),
                 ),

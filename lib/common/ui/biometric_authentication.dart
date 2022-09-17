@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';

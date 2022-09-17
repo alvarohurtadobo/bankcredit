@@ -1,11 +1,14 @@
-// ignore_for_file: constant_identifier_names, avoid_print
+// ignore_for_file: constant_identifier_names, avoid_print, unused_element
 
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/model/sesion.dart';
 
+<<<<<<< HEAD
 // const String SERVER_URL = "https://desarrollo.epik.com.co:5025/";
+=======
+>>>>>>> 21c7bc3ab188a1b20666f5ed6cf9659215a526ff
 const String SERVER_URL = "https://credidiunsaapp.azurewebsites.net/";
 const String API_PATH = "api/";
 const bool DEBUG = true;

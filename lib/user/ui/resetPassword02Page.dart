@@ -1,5 +1,7 @@
 // Language: dart
 
+// ignore_for_file: file_names, non_constant_identifier_names, library_private_types_in_public_api, avoid_print
+
 import 'dart:async';
 import 'package:flutter/services.dart';
 
@@ -157,7 +159,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           hintMaxLines: 0,
-                          counter: SizedBox(),
+                          counter: const SizedBox(),
                           // filled: true,
                           fillColor: Colors.white,
                           border: InputBorder.none),
@@ -194,7 +196,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           hintMaxLines: 0,
-                          counter: SizedBox(),
+                          counter: const SizedBox(),
                           // filled: true,
                           fillColor: Colors.white,
                           border: InputBorder.none),
@@ -231,7 +233,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           hintMaxLines: 0,
-                          counter: SizedBox(),
+                          counter: const SizedBox(),
                           // filled: true,
                           fillColor: Colors.white,
                           border: InputBorder.none),
@@ -268,7 +270,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           hintMaxLines: 0,
-                          counter: SizedBox(),
+                          counter: const SizedBox(),
                           // filled: true,
                           fillColor: Colors.white,
                           border: InputBorder.none),
@@ -357,6 +359,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
             //             onPressed: () {
             //               currentTime = AWAIT_TIME;
             //               timeController.sink.add(currentTime);
+            // ignore: todo
             //               // TODO Add API here
             //               showToast("Se solicitó nuevo SMS");
             //               setState(() {

@@ -1,5 +1,7 @@
 // Language: dart
 
+// ignore_for_file: file_names, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers, avoid_print
+
 import 'package:flutter/services.dart';
 
 import '../../common/ui/sizes.dart';
@@ -213,6 +215,7 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                             setState(() {
                               loading = true;
                             });
+                            // ignore: todo
                             // TODO REMOVE ON PRODUCTION
 
                             if (notLoggedDocument == "0000000000000") {

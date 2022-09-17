@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 

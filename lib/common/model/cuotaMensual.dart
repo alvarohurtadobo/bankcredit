@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 class CuotaMensual {
   double cuota = 0.0;
   double debtInterest = 0.0;

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import '../ui/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -5,9 +7,10 @@ void nothing() {}
 
 Future<bool> simpleAlertDialog(
     BuildContext context, String title, String message,
-    {String buttonLabel = "Cerrar", Function action = nothing}) async {
+    {String buttonLabel = "OK", Function action = nothing}) async {
   double dialogWidth = Sizes.width;
-  double dialogHeight = dialogWidth / 1.2;
+  // double dialogHeight = dialogWidth / 1.2; estaba en 1.2
+  double dialogHeight = dialogWidth / 1.38;
   bool? response = await showDialog(
       context: context,
       builder: (context) {
@@ -29,7 +32,7 @@ Future<bool> simpleAlertDialog(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius:
-                    BorderRadius.all(Radius.circular(dialogHeight * 0.07)),
+                    BorderRadius.all(Radius.circular(dialogHeight * 0.04)),
               ),
               child: Column(children: [
                 SizedBox(
@@ -56,15 +59,15 @@ Future<bool> simpleAlertDialog(
                   ),
                 ),
                 SizedBox(
-                  height: Sizes.boxSeparation * 5,
+                  height: Sizes.boxSeparation * 7,
                 ),
                 Text(
                   title,
                   style:
-                      const TextStyle(color: Color(0xff0F62A4), fontSize: 22),
+                      const TextStyle(color: Color(0xff0F62A4), fontSize: 28),
                 ),
                 SizedBox(
-                  height: Sizes.boxSeparation * 9,
+                  height: Sizes.boxSeparation * 6,
                 ),
                 Text(
                   message,
@@ -73,7 +76,7 @@ Future<bool> simpleAlertDialog(
                 ),
                 Expanded(
                   child: SizedBox(
-                    height: 5 * Sizes.boxSeparation,
+                    height: 4 * Sizes.boxSeparation,
                   ),
                 ),
                 Container(

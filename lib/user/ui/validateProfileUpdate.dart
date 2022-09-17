@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, file_names, unused_local_variable
+// ignore_for_file: non_constant_identifier_names, file_names, unused_local_variable, avoid_print, use_build_context_synchronously, duplicate_ignore
 
 import 'dart:async';
 import 'package:credidiunsa_app/common/model/sesion.dart';

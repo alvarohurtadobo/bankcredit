@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, unused_import, library_private_types_in_public_api, avoid_print
+
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
@@ -129,6 +131,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             Icon(
                               Icons.email_outlined,
                               color: Color(0xff0F62A4),
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 5,
                             ),
                             Text("Correo Electrónico",
                                 style: TextStyle(
@@ -149,6 +155,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             Icon(
                               Icons.smartphone,
                               color: Color(0xff0F62A4),
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 5,
                             ),
                             Text("Teléfono",
                                 style: TextStyle(
@@ -315,8 +325,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             )))
-              ]
-              ),
+              ]),
         ),
       ),
     );

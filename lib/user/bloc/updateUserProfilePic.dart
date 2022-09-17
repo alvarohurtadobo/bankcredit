@@ -1,5 +1,6 @@
-import 'dart:async';
+// ignore_for_file: file_names
 
+import 'dart:async';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 

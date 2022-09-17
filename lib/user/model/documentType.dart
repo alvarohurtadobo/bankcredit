@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class DocumentType {
   int id = 0;
   String name = "";
