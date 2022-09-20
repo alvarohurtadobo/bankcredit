@@ -8,7 +8,6 @@ import 'package:credidiunsa_app/common/widgets/appbar.dart';
 import 'package:credidiunsa_app/bank/bloc/receiveFiles.dart';
 import 'package:credidiunsa_app/bank/bloc/getCities.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
-
 import '../model/city.dart';
 
 class DocumentsPage extends StatefulWidget {
