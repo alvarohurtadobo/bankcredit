@@ -202,31 +202,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   TextStyle(color: Colors.white, fontSize: 18),
                             )))
                     : Container(),
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        const Text(
-                          "¿Quieres cancelar tu cuenta?",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 129, 129, 129),
-                              fontSize: 18),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              genericCancelationConfimation(
-                                context,
-                                "¿Estas seguro de cancelar tu cuenta?",
-                              );
-                            },
-                            child: const Text(
-                              "Haz clic aqui",
-                              style: TextStyle(
-                                  color: Color(0xff0F62A4), fontSize: 18),
-                            ))
-                      ],
-                    ))
+                    
+                const CancelButton()
               ]),
         ),
       ),
@@ -369,5 +346,38 @@ class _ProfilePageState extends State<ProfilePage> {
       decoration: BoxDecoration(
           image: DecorationImage(image: AssetImage(name), fit: BoxFit.fill)),
     );
+  }
+}
+
+class CancelButton extends StatelessWidget {
+  const CancelButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
+        width: double.infinity,
+        child: Column(
+          children: [
+            const Text(
+              "¿Quieres cancelar tu cuenta?",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 129, 129, 129), fontSize: 18),
+            ),
+            TextButton(
+                onPressed: () {
+                  genericCancelationConfimation(
+                    context,
+                    "¿Estas seguro de cancelar tu cuenta?",
+                  );
+                },
+                child: const Text(
+                  "Haz clic aqui",
+                  style: TextStyle(color: Color(0xff0F62A4), fontSize: 18),
+                ))
+          ],
+        ));
   }
 }

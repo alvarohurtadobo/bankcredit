@@ -146,6 +146,10 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                         borderRadius: BorderRadius.all(
                             Radius.circular(Sizes.boxSeparation))),
                     child: TextField(
+                      style: const TextStyle(
+                        fontSize: 35,
+                        color: Color(0xff0077cd),
+                      ),
                       maxLength: 1,
                       maxLines: 1,
                       textAlign: TextAlign.center,
@@ -183,6 +187,10 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                         borderRadius: BorderRadius.all(
                             Radius.circular(Sizes.boxSeparation))),
                     child: TextField(
+                      style: const TextStyle(
+                        fontSize: 35,
+                        color: Color(0xff0077cd),
+                      ),
                       maxLength: 1,
                       maxLines: 1,
                       textAlign: TextAlign.center,
@@ -220,6 +228,10 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                         borderRadius: BorderRadius.all(
                             Radius.circular(Sizes.boxSeparation))),
                     child: TextField(
+                      style: const TextStyle(
+                        fontSize: 35,
+                        color: Color(0xff0077cd),
+                      ),
                       maxLength: 1,
                       maxLines: 1,
                       textAlign: TextAlign.center,
@@ -257,6 +269,10 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                         borderRadius: BorderRadius.all(
                             Radius.circular(Sizes.boxSeparation))),
                     child: TextField(
+                      style: const TextStyle(
+                        fontSize: 35,
+                        color: Color(0xff0077cd),
+                      ),
                       maxLength: 1,
                       maxLines: 1,
                       textAlign: TextAlign.center,
