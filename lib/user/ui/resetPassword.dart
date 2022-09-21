@@ -183,7 +183,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(Sizes.border / 2),
                   ),
-                  child: TextField(
+                  child: 
+                  
+                  
+                  
+                  TextField(
                     obscureText: obscure2,
                     onChanged: (value) {
                       confirmPassword = value;
@@ -226,6 +230,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         disabledBorder: null),
                   ),
+
+
+
+
+
+
+
+
+                  
                 ),
                 SizedBox(
                   height: 3 * Sizes.boxSeparation,

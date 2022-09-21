@@ -99,11 +99,10 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
       contactLabel =
           widget.type == 0 ? "celular xxxxxxxx" : "email xxxxxx@xxxxxx.xx";
     }
-
     return Scaffold(
       appBar: myAppBar(context),
       body: Container(
-        color: const Color(0xffF2F2F2),
+        color: const Color.fromARGB(255, 255, 253, 253),
         padding: EdgeInsets.all(Sizes.padding),
         child: Form(
           key: formKey,
@@ -135,23 +134,6 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                         fit: BoxFit.cover)),
                               ),
                             ),
-                            // Positioned(
-                            //   right: 0.5 * Sizes.padding,
-                            //   bottom: 0.5 * Sizes.padding,
-                            //   child: Container(
-                            //     decoration: BoxDecoration(
-                            //         color: Colors.grey,
-                            //         borderRadius: BorderRadius.all(
-                            //             Radius.circular(Sizes.padding / 2))),
-                            //     height: Sizes.padding,
-                            //     width: Sizes.padding,
-                            //     child: Icon(
-                            //       Icons.camera_alt,
-                            //       color: Colors.white,
-                            //       size: Sizes.padding * 0.7,
-                            //     ),
-                            //   ),
-                            // )
                           ],
                         ),
                         SizedBox(
@@ -185,22 +167,22 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                 Text(
                     "Para actualizar tus datos, es necesario que validemos tu identidad. Hemos enviado un código al $contactLabel"),
                 SizedBox(
-                  height: Sizes.height * 0.1,
+                  height: Sizes.height * 0.15,
                   width: Sizes.height * 0.8,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         alignment: Alignment.center,
-                        height: Sizes.height * 0.08,
+                        height: Sizes.height * 0.07,
                         width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xff0077cd)),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Sizes.boxSeparation))),
                         child: TextField(
                           style: const TextStyle(
+                            fontSize: 35,
                             color: Color(0xff0077cd),
                           ),
                           maxLength: 1,
@@ -211,9 +193,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           ],
                           keyboardType: const TextInputType.numberWithOptions(
                               signed: false, decimal: false),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Color(0xff0077CD)),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                               hintMaxLines: 0,
-                              counter: SizedBox(),
+                              counter: const SizedBox(),
                               // filled: true,
                               fillColor: Colors.white,
                               border: InputBorder.none),
@@ -221,9 +208,6 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
                               digitA = value;
-                              setState(() {
-                                checkFirtBox = false;
-                              });
                             }
                           },
                         ),
@@ -233,15 +217,15 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: Sizes.height * 0.08,
+                        height: Sizes.height * 0.07,
                         width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xff0077cd)),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Sizes.boxSeparation))),
                         child: TextField(
                           style: const TextStyle(
+                            fontSize: 35,
                             color: Color(0xff0077cd),
                           ),
                           maxLength: 1,
@@ -252,9 +236,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           ],
                           keyboardType: const TextInputType.numberWithOptions(
                               signed: false, decimal: false),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Color(0xff0077CD)),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                               hintMaxLines: 0,
-                              counter: SizedBox(),
+                              counter: const SizedBox(),
                               // filled: true,
                               fillColor: Colors.white,
                               border: InputBorder.none),
@@ -271,15 +260,15 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: Sizes.height * 0.08,
+                        height: Sizes.height * 0.07,
                         width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xff0077cd)),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Sizes.boxSeparation))),
                         child: TextField(
                           style: const TextStyle(
+                            fontSize: 35,
                             color: Color(0xff0077cd),
                           ),
                           maxLength: 1,
@@ -290,9 +279,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           ],
                           keyboardType: const TextInputType.numberWithOptions(
                               signed: false, decimal: false),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Color(0xff0077CD)),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                               hintMaxLines: 0,
-                              counter: SizedBox(),
+                              counter: const SizedBox(),
                               // filled: true,
                               fillColor: Colors.white,
                               border: InputBorder.none),
@@ -309,15 +303,15 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: Sizes.height * 0.08,
+                        height: Sizes.height * 0.07,
                         width: Sizes.height * 0.08,
                         decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xff0077cd)),
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Sizes.boxSeparation))),
                         child: TextField(
                           style: const TextStyle(
+                            fontSize: 35,
                             color: Color(0xff0077cd),
                           ),
                           maxLength: 1,
@@ -328,9 +322,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           ],
                           keyboardType: const TextInputType.numberWithOptions(
                               signed: false, decimal: false),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Color(0xff0077CD)),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                               hintMaxLines: 0,
-                              counter: SizedBox(),
+                              counter: const SizedBox(),
                               // filled: true,
                               fillColor: Colors.white,
                               border: InputBorder.none),
@@ -457,7 +456,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                               setState(() {
                                 isLoading = false;
                               });
-                              if (res.idError == 0 || code =="4567") {
+                              if (res.idError == 0 || code == "4567") {
                                 final secondRes = await API.singleUpdate(
                                     updateParam, widget.type);
                                 if (widget.type == 0) {

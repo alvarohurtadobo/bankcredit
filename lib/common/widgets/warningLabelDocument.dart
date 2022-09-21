@@ -3,7 +3,9 @@
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 
-Widget warningLabel(String label, bool activeWarning,
+String requirement = "Este campo es obligatorio!";
+
+Widget warningLabelDocument(String requirement, bool activeWarning,
     {bool disappearWarning = false, bool center = false}) {
   return (disappearWarning && !activeWarning)
       ? Container()
@@ -24,7 +26,7 @@ Widget warningLabel(String label, bool activeWarning,
               SizedBox(
                 width: Sizes.boxSeparation,
               ),
-              Text(label,
+              Text(requirement,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color:
