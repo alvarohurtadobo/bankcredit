@@ -5,9 +5,9 @@ import 'package:http/http.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/model/sesion.dart';
 
-// const String SERVER_URL = "https://desarrollo.epik.com.co:5025/";
+const String SERVER_URL = "https://desarrollo.epik.com.co:5025/";
 // const String SERVER_URL = "https://credidiunsaapp.azurewebsites.net/";
-const String SERVER_URL = "https://diunsa.epik.com.co:7013/";
+// const String SERVER_URL = "https://diunsa.epik.com.co:7013/";
 const String API_PATH = "api/";
 const bool DEBUG = true;
 
