@@ -67,7 +67,7 @@ Future<bool> simpleAlertDialog(
                       const TextStyle(color: Color(0xff0F62A4), fontSize: 28),
                 ),
                 SizedBox(
-                  height: Sizes.boxSeparation * 6,
+                  height: Sizes.boxSeparation * 4,
                 ),
                 Text(
                   message,
