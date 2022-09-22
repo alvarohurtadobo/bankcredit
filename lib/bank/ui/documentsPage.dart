@@ -95,7 +95,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
               ),
               carousel(),
               SizedBox(
-                height: 3 * Sizes.boxSeparation,
+                height: 4 * Sizes.boxSeparation,
               ),
               currentType >= 1 ? form() : Container(),
               Expanded(
@@ -339,10 +339,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
         children: [
           SizedBox(width: Sizes.padding),
           reportButton(0),
+          SizedBox(width: Sizes.padding - 10),
           reportButton(1),
+          SizedBox(width: Sizes.padding - 10),
           reportButton(2),
+          SizedBox(width: Sizes.padding - 10),
           reportButton(3),
-          SizedBox(width: Sizes.padding),
+          SizedBox(width: Sizes.padding - 10),
         ],
       ),
     );
@@ -411,6 +414,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
         margin: EdgeInsets.only(right: 2 * Sizes.boxSeparation),
         padding: EdgeInsets.symmetric(vertical: Sizes.boxSeparation),
         decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[850]!.withOpacity(0.1),
+                offset: const Offset(5, 5),
+                blurRadius: 5,
+              )
+            ],
             color: amSelected ? const Color(0xffFF6A1B) : Colors.white,
             borderRadius: BorderRadius.all(
               Radius.circular(Sizes.boxSeparation),
