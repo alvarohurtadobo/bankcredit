@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
     // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
       appBar: myAppBar(context),
-      drawer: MyDrawer(),
+      // drawer: MyDrawer(),
       body: Container(
         color: const Color(0xffF2F2F2),
         padding: EdgeInsets.all(Sizes.padding),
