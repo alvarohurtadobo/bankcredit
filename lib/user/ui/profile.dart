@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:credidiunsa_app/user/ui/resetPassword.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
@@ -202,8 +203,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   TextStyle(color: Colors.white, fontSize: 18),
                             )))
                     : Container(),
-                    
-                const CancelButton()
+                (updatedEmail || updatedPhone)
+                    ? Container()
+                    : const CancelButton()
               ]),
         ),
       ),

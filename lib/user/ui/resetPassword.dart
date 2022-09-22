@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
-import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 
 import '../../common/widgets/grayWarningLabel.dart';

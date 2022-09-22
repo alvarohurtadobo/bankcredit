@@ -39,6 +39,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
   TextEditingController phoneController = TextEditingController();
   bool canRequestNewCode = false;
   bool isLoading = false;
+  bool cancelOption = true;
 
   String contactLabel = "celular xxxxxxx";
 
@@ -469,6 +470,9 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                   await simpleAlertDialog(context,
                                       "¡Felicitaciones!", secondRes.message,
                                       buttonLabel: "Ok");
+                                  setState(() {
+                                    cancelOption = false;
+                                  });
                                 } else {
                                   // ignore: use_build_context_synchronously
                                   await simpleAlertDialog(
@@ -476,6 +480,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                       "¡Lo sentimos!",
                                       "Nuestro sistema está experimentando una falla técnica. Inténtalo de nuevo");
                                 }
+
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                               } else {
