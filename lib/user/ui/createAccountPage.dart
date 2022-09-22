@@ -681,8 +681,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        customLaunchUrl(
-                            "https://www.diunsa.hn/politica-de-privacidad");
+                        Navigator.of(context).pushNamed("/privacy");
                       },
                       child: const Text(
                           "Acepto condiciones y políticas de privacidad",

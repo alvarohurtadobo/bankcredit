@@ -233,6 +233,10 @@ class API {
     print("Requesting terms of use");
     return await _doGet("politica-producto/consulta", debug: DEBUG);
   }
+    static Future<BackendResponse> getPrivacy() async {
+    print("Requesting terms of use");
+    return await _doGet("politica-privacidad/consulta", debug: DEBUG);
+  }
 
   static Future<BackendResponse> getPaymentMethods() async {
     print("Requesting payment methods");
