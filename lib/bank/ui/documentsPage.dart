@@ -278,6 +278,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
               borderRadius: BorderRadius.circular(Sizes.border / 2),
             ),
             child: DropdownButton<int>(
+              icon: Icon(Icons.keyboard_arrow_down_outlined),
               iconEnabledColor: const Color(0xff0077cd),
               value: cityId,
               hint: const Text(""),

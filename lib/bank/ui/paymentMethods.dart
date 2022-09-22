@@ -110,7 +110,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             SizedBox(
               height: 5 * Sizes.boxSeparation,
             ),
-            const Text("También puedes hacer tus pagos de froma presencial en:",
+            const Text("También puedes hacer tus pagos de forma presencial en:",
                 style: TextStyle(fontSize: 15)),
             SizedBox(
               height: 5 * Sizes.boxSeparation,

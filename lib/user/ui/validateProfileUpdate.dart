@@ -72,10 +72,6 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool checkFirtBox = true;
-    bool checksecondBox = false;
-    bool checkThirdBox = false;
-    bool checkFurBox = false;
     try {
       int phoneTrime = 4;
       if (currentUser.phone.length <= 4) {
@@ -102,7 +98,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
     return Scaffold(
       appBar: myAppBar(context),
       body: Container(
-        color: const Color.fromARGB(255, 255, 253, 253),
+        color: const Color.fromARGB(242, 242, 242, 242),
         padding: EdgeInsets.all(Sizes.padding),
         child: Form(
           key: formKey,
@@ -239,7 +235,9 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    width: 1, color: Color(0xff0077CD)),
+                                  width: 1,
+                                  color: Color(0xff0077CD),
+                                ),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               hintMaxLines: 0,

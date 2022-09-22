@@ -285,7 +285,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               if (isLoading) {
                                 return;
                               }
-
                               if (formKey.currentState!.validate()) {
                                 setState(() {
                                   isLoading = true;

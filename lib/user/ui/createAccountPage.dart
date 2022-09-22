@@ -537,9 +537,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         },
                         child: obscure1
                             ? Image.asset("assets/icons/obscured.png")
-                            : const Icon(
-                                Icons.remove_red_eye,
-                                color: Color(0xff0077CD),
+                            : const SizedBox(
+                                width: 60,
+                                child: Icon(
+                                  Icons.remove_red_eye,
+                                  color: Color(0xff7A8084),
+                                ),
                               ),
                       ),
                       filled: true,
@@ -601,9 +604,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         },
                         child: obscure2
                             ? Image.asset("assets/icons/obscured.png")
-                            : const Icon(
-                                Icons.remove_red_eye,
-                                color: Color(0xff0077CD),
+                            : const SizedBox(
+                                width: 60,
+                                child: Icon(
+                                  Icons.remove_red_eye,
+                                  color: Color(0xff7A8084),
+                                ),
                               ),
                       ),
                       filled: true,
