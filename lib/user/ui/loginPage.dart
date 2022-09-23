@@ -106,8 +106,6 @@ class _LoginPageState extends State<LoginPage> {
     // print("Bottom is ${MediaQuery.of(context).viewInsets.bottom}");
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    bool firstspace = false;
-    bool secondspace = false;
 
     Sizes.setSizes(width, height);
 

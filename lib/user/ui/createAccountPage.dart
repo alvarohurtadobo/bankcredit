@@ -1,5 +1,5 @@
 // Language: dart
-// ignore_for_file: library_private_types_in_public_api, file_names, avoid_print
+// ignore_for_file: library_private_types_in_public_api, file_names, avoid_print, unused_import
 
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/model/sesion.dart';
