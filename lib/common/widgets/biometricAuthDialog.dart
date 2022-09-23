@@ -41,7 +41,7 @@ Future<bool> biometricAuthConfirmationDialog(BuildContext context) async {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: const Color(0xff0077CD),
-                                fontSize: Sizes.font8 + 6,
+                                fontSize: Sizes.font8 + 4,
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.none),
                           )),
@@ -54,7 +54,7 @@ Future<bool> biometricAuthConfirmationDialog(BuildContext context) async {
                               color: const Color(0xff858585),
                               decoration: TextDecoration.none,
                               fontWeight: FontWeight.normal,
-                              fontSize: Sizes.font10 + 2),
+                              fontSize: Sizes.font10 + 1),
                           textAlign: TextAlign.center,
                         ),
                       ),
