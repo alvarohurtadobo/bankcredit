@@ -276,7 +276,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: Sizes.boxSeparation),
           width: 0.10 * Sizes.width,
-          child: Text(movement.datetimeProcess.day.toString(),
+          child: Text("  ${movement.datetimeProcess.day}",
               style: TextStyle(
                   fontSize: Sizes.font10,
                   color: const Color(0xff0F62A4),
