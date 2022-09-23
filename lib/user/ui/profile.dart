@@ -229,7 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
           SizedBox(
             width: (Sizes.width - 4 * Sizes.padding) * 0.85,
             child: Text(
-              "Tu dato de contacto ha sido modificado con éxito.",
+              "Tus datos personales han sido modificados con éxito.",
               style: TextStyle(color: Colors.white, fontSize: Sizes.font10),
             ),
           ),

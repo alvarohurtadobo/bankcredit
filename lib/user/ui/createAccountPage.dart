@@ -283,6 +283,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     borderRadius: BorderRadius.circular(Sizes.border / 2),
                   ),
                   child: DropdownButton<int>(
+                    icon: const Icon(Icons.keyboard_arrow_down_outlined),
                     iconEnabledColor: const Color(0xff0077cd),
                     value: currentUser.idIdentification,
                     hint: const Text("Seleccione"),

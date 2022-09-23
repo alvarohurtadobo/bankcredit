@@ -31,14 +31,17 @@ Future<bool> biometricAuthConfirmationDialog(BuildContext context) async {
                       Container(
                           alignment: Alignment.center,
                           margin: EdgeInsets.only(bottom: dialogHeight / 16),
-                          height: dialogHeight * 0.12,
+                          height: dialogHeight * 0.2,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: dialogWidth * 0.1),
                           width: double.infinity,
                           color: const Color(0xffE5E5EA),
                           child: Text(
-                            "¿Usar Face/Touch Id?",
+                            "¿Quieres ingresar con face ID / touch ID?",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: const Color(0xff0077CD),
-                                fontSize: Sizes.font8,
+                                fontSize: Sizes.font8 + 6,
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.none),
                           )),
@@ -46,27 +49,13 @@ Future<bool> biometricAuthConfirmationDialog(BuildContext context) async {
                         padding:
                             EdgeInsets.symmetric(horizontal: dialogWidth * 0.1),
                         child: Text(
-                          "¿Deseas iniciar sesión más rápidamente utilizando Face/Touch Id con tu dispositivo?",
+                          "Si deseas acceder de forma rápida, acepta ingresar con tu dispositivo a través de face ID /Touch ID",
                           style: TextStyle(
                               color: const Color(0xff858585),
                               decoration: TextDecoration.none,
                               fontWeight: FontWeight.normal,
-                              fontSize: Sizes.font10),
+                              fontSize: Sizes.font10 + 2),
                           textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        height: Sizes.padding,
-                      ),
-                      Center(
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: dialogWidth * 0.25,
-                          width: dialogWidth * 0.25,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/footprint.png"))),
                         ),
                       ),
                       SizedBox(
@@ -75,29 +64,12 @@ Future<bool> biometricAuthConfirmationDialog(BuildContext context) async {
                       Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: dialogWidth * 0.1),
-                        child: Row(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
                                 height: Sizes.tileHeightMedium,
-                                width: dialogWidth * 0.35,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFF6A1B),
-                                    border: Border.all(
-                                        color: const Color(0xffFF6A1B)),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                            Sizes.tileHeightMedium / 8))),
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(false);
-                                  },
-                                  child: const Text("NO",
-                                      style: TextStyle(color: Colors.white)),
-                                )),
-                            Container(
-                                height: Sizes.tileHeightMedium,
-                                width: dialogWidth * 0.35,
+                                width: dialogWidth * 0.8,
                                 decoration: BoxDecoration(
                                     color: const Color(0xff0077CD),
                                     border: Border.all(
@@ -109,8 +81,30 @@ Future<bool> biometricAuthConfirmationDialog(BuildContext context) async {
                                   onPressed: () {
                                     Navigator.of(context).pop(true);
                                   },
-                                  child: const Text("SÍ",
+                                  child: const Text("Aceptar",
                                       style: TextStyle(color: Colors.white)),
+                                )),
+                            const SizedBox(
+                              height: 17,
+                            ),
+                            Container(
+                                height: Sizes.tileHeightMedium,
+                                width: dialogWidth * 0.8,
+                                decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
+                                    border: Border.all(
+                                        color: const Color(0xff0077CD)),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            Sizes.tileHeightMedium / 8))),
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(false);
+                                  },
+                                  child: const Text("No, lo haré después",
+                                      style:
+                                          TextStyle(color: Color(0xff0077CD))),
                                 )),
                           ],
                         ),

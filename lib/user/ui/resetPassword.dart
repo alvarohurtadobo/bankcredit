@@ -153,7 +153,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               ? Image.asset("assets/icons/obscured.png")
                               : const Icon(
                                   Icons.remove_red_eye,
-                                  color: Color(0xff0077CD),
+                                  color: Color.fromARGB(255, 138, 138, 138),
                                 ),
                         ),
                         border: InputBorder.none,
@@ -212,7 +212,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               ? Image.asset("assets/icons/obscured.png")
                               : const Icon(
                                   Icons.remove_red_eye,
-                                  color: Color(0xff0077CD),
+                                  color: Color.fromARGB(255, 138, 138, 138),
                                 ),
                         ),
                         border: InputBorder.none,

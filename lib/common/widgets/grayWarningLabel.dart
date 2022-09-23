@@ -18,7 +18,7 @@ Widget grayWarningLabel(String label, bool activeWarning,
               Icon(
                 activeWarning ? Icons.check_circle : Icons.check_circle,
                 color: activeWarning
-                    ? const Color.fromARGB(255, 143, 143, 143)
+                    ? const Color.fromARGB(255, 153, 153, 153)
                     : const Color(0xff4DB21C),
               ),
               SizedBox(
@@ -28,7 +28,7 @@ Widget grayWarningLabel(String label, bool activeWarning,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: activeWarning
-                          ? const Color.fromARGB(255, 143, 143, 143)
+                          ? const Color.fromARGB(255, 153, 153, 153)
                           : const Color(0xff4DB21C),
                       fontSize: Sizes.font10 - 4)),
             ],

@@ -337,13 +337,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          SizedBox(width: Sizes.padding),
+          SizedBox(width: Sizes.padding - 7),
           reportButton(0),
-          SizedBox(width: Sizes.padding - 10),
+          SizedBox(width: Sizes.padding - 20),
           reportButton(1),
-          SizedBox(width: Sizes.padding - 10),
+          SizedBox(width: Sizes.padding - 20),
           reportButton(2),
-          SizedBox(width: Sizes.padding - 10),
+          SizedBox(width: Sizes.padding - 20),
           reportButton(3),
           SizedBox(width: Sizes.padding - 10),
         ],
@@ -407,43 +407,46 @@ class _DocumentsPageState extends State<DocumentsPage> {
           currentType = type;
         });
       },
-      child: Container(
-        alignment: Alignment.center,
-        height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
-        width: Sizes.width / 3,
-        margin: EdgeInsets.only(right: 2 * Sizes.boxSeparation),
-        padding: EdgeInsets.symmetric(vertical: Sizes.boxSeparation),
-        decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey[850]!.withOpacity(0.1),
-                offset: const Offset(5, 5),
-                blurRadius: 5,
-              )
-            ],
-            color: amSelected ? const Color(0xffFF6A1B) : Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(Sizes.boxSeparation),
-            )),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: Sizes.tileHeightSmall,
-                width: Sizes.tileHeightSmall,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(iconPath))),
-              ),
-              Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: amSelected ? Colors.white : const Color(0xffFF6A1B),
-                  fontSize: Sizes.font10,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          alignment: Alignment.center,
+          height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
+          width: Sizes.width / 3,
+          margin: EdgeInsets.only(right: 2 * Sizes.boxSeparation),
+          padding: EdgeInsets.symmetric(vertical: Sizes.boxSeparation),
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey[850]!.withOpacity(0.1),
+                  offset: const Offset(5, 5),
+                  blurRadius: 5,
+                )
+              ],
+              color: amSelected ? const Color(0xffFF6A1B) : Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(Sizes.boxSeparation),
+              )),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: Sizes.tileHeightSmall,
+                  width: Sizes.tileHeightSmall,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage(iconPath))),
                 ),
-              )
-            ]),
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: amSelected ? Colors.white : const Color(0xffFF6A1B),
+                    fontSize: Sizes.font10,
+                  ),
+                )
+              ]),
+        ),
       ),
     );
   }

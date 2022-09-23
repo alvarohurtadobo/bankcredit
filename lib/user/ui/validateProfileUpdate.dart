@@ -467,8 +467,10 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                 }
                                 if (secondRes.idError == 0) {
                                   // ignore: use_build_context_synchronously
-                                  await simpleAlertDialog(context,
-                                      "¡Felicitaciones!", secondRes.message,
+                                  await simpleAlertDialog(
+                                      context,
+                                      "¡Felicitaciones!",
+                                      "Tus datos personales han sido modificados con éxito",
                                       buttonLabel: "Ok");
                                   setState(() {
                                     cancelOption = false;
