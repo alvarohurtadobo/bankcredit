@@ -1,5 +1,5 @@
 // Language: dart
-// ignore_for_file: library_private_types_in_public_api, file_names, avoid_print
+// ignore_for_file: library_private_types_in_public_api, file_names, avoid_print, unused_import
 
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/model/sesion.dart';
@@ -283,6 +283,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     borderRadius: BorderRadius.circular(Sizes.border / 2),
                   ),
                   child: DropdownButton<int>(
+                    icon: const Icon(Icons.keyboard_arrow_down_outlined),
                     iconEnabledColor: const Color(0xff0077cd),
                     value: currentUser.idIdentification,
                     hint: const Text("Seleccione"),
@@ -537,9 +538,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         },
                         child: obscure1
                             ? Image.asset("assets/icons/obscured.png")
-                            : const Icon(
-                                Icons.remove_red_eye,
-                                color: Color(0xff0077CD),
+                            : const SizedBox(
+                                width: 60,
+                                child: Icon(
+                                  Icons.remove_red_eye,
+                                  color: Color(0xff7A8084),
+                                ),
                               ),
                       ),
                       filled: true,
@@ -601,9 +605,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         },
                         child: obscure2
                             ? Image.asset("assets/icons/obscured.png")
-                            : const Icon(
-                                Icons.remove_red_eye,
-                                color: Color(0xff0077CD),
+                            : const SizedBox(
+                                width: 60,
+                                child: Icon(
+                                  Icons.remove_red_eye,
+                                  color: Color(0xff7A8084),
+                                ),
                               ),
                       ),
                       filled: true,
@@ -675,8 +682,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        customLaunchUrl(
-                            "https://www.diunsa.hn/politica-de-privacidad");
+                        Navigator.of(context).pushNamed("/privacy");
                       },
                       child: const Text(
                           "Acepto condiciones y políticas de privacidad",

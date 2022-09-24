@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
-import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
+
+import '../../common/widgets/grayWarningLabel.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -152,7 +153,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               ? Image.asset("assets/icons/obscured.png")
                               : const Icon(
                                   Icons.remove_red_eye,
-                                  color: Color(0xff0077CD),
+                                  color: Color.fromARGB(255, 138, 138, 138),
                                 ),
                         ),
                         border: InputBorder.none,
@@ -183,11 +184,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(Sizes.border / 2),
                   ),
-                  child: 
-                  
-                  
-                  
-                  TextField(
+                  child: TextField(
                     obscureText: obscure2,
                     onChanged: (value) {
                       confirmPassword = value;
@@ -215,7 +212,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               ? Image.asset("assets/icons/obscured.png")
                               : const Icon(
                                   Icons.remove_red_eye,
-                                  color: Color(0xff0077CD),
+                                  color: Color.fromARGB(255, 138, 138, 138),
                                 ),
                         ),
                         border: InputBorder.none,
@@ -230,23 +227,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         disabledBorder: null),
                   ),
-
-
-
-
-
-
-
-
-                  
                 ),
                 SizedBox(
                   height: 3 * Sizes.boxSeparation,
                 ),
-                warningLabel("8 carácteres", min8charactersWarning),
-                warningLabel("1 mayúscula", oneCapitalWarning),
-                warningLabel("1 dígito", oneDigitWarning),
-                warningLabel(
+                grayWarningLabel(
+                  "8 carácteres",
+                  min8charactersWarning,
+                ),
+                grayWarningLabel("1 mayúscula", oneCapitalWarning),
+                grayWarningLabel("1 dígito", oneDigitWarning),
+                grayWarningLabel(
                     "Contraseñas no coinciden", differentPasswordsWarning,
                     disappearWarning: true),
                 Expanded(

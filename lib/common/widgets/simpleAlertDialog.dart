@@ -59,7 +59,7 @@ Future<bool> simpleAlertDialog(
                   ),
                 ),
                 SizedBox(
-                  height: Sizes.boxSeparation * 7,
+                  height: Sizes.boxSeparation * 1.5,
                 ),
                 Text(
                   title,
@@ -67,7 +67,7 @@ Future<bool> simpleAlertDialog(
                       const TextStyle(color: Color(0xff0F62A4), fontSize: 28),
                 ),
                 SizedBox(
-                  height: Sizes.boxSeparation * 6,
+                  height: Sizes.boxSeparation * 7.5,
                 ),
                 Text(
                   message,

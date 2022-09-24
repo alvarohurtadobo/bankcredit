@@ -39,6 +39,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
   TextEditingController phoneController = TextEditingController();
   bool canRequestNewCode = false;
   bool isLoading = false;
+  bool cancelOption = true;
 
   String contactLabel = "celular xxxxxxx";
 
@@ -72,10 +73,6 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool checkFirtBox = true;
-    bool checksecondBox = false;
-    bool checkThirdBox = false;
-    bool checkFurBox = false;
     try {
       int phoneTrime = 4;
       if (currentUser.phone.length <= 4) {
@@ -102,7 +99,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
     return Scaffold(
       appBar: myAppBar(context),
       body: Container(
-        color: const Color.fromARGB(255, 255, 253, 253),
+        color: const Color.fromARGB(242, 242, 242, 242),
         padding: EdgeInsets.all(Sizes.padding),
         child: Form(
           key: formKey,
@@ -239,7 +236,9 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    width: 1, color: Color(0xff0077CD)),
+                                  width: 1,
+                                  color: Color(0xff0077CD),
+                                ),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               hintMaxLines: 0,
@@ -468,9 +467,14 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                 }
                                 if (secondRes.idError == 0) {
                                   // ignore: use_build_context_synchronously
-                                  await simpleAlertDialog(context,
-                                      "¡Felicitaciones!", secondRes.message,
+                                  await simpleAlertDialog(
+                                      context,
+                                      "¡Felicitaciones!",
+                                      "Tus datos personales han sido modificados con éxito",
                                       buttonLabel: "Ok");
+                                  setState(() {
+                                    cancelOption = false;
+                                  });
                                 } else {
                                   // ignore: use_build_context_synchronously
                                   await simpleAlertDialog(
@@ -478,6 +482,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                       "¡Lo sentimos!",
                                       "Nuestro sistema está experimentando una falla técnica. Inténtalo de nuevo");
                                 }
+
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                               } else {

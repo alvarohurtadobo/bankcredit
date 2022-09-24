@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:credidiunsa_app/user/ui/resetPassword.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
@@ -53,7 +54,8 @@ class _ProfilePageState extends State<ProfilePage> {
     // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
       appBar: myAppBar(context),
-      drawer: MyDrawer(),
+      // para dibujas o no la flecha en el appbar
+      // drawer: MyDrawer(),
       body: Container(
         color: const Color(0xffF2F2F2),
         padding: EdgeInsets.all(Sizes.padding),
@@ -202,8 +204,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   TextStyle(color: Colors.white, fontSize: 18),
                             )))
                     : Container(),
-                    
-                const CancelButton()
+                (updatedEmail || updatedPhone)
+                    ? Container()
+                    : const CancelButton()
               ]),
         ),
       ),
@@ -226,7 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
           SizedBox(
             width: (Sizes.width - 4 * Sizes.padding) * 0.85,
             child: Text(
-              "Tu dato de contacto ha sido modificado con éxito.",
+              "Tus datos personales han sido modificados con éxito.",
               style: TextStyle(color: Colors.white, fontSize: Sizes.font10),
             ),
           ),

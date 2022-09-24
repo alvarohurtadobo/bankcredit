@@ -114,6 +114,8 @@ class _ResetPassword00PageState extends State<ResetPassword00Page> {
                     borderRadius: BorderRadius.circular(Sizes.border / 2),
                   ),
                   child: DropdownButton<int>(
+                    icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                    iconEnabledColor: const Color(0xff0077cd),
                     value: idIdentification,
                     hint: const Text("Selecciona"),
                     underline: Container(),

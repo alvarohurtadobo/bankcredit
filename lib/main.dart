@@ -21,6 +21,8 @@ import 'package:credidiunsa_app/user/ui/updateProfilePicturePage.dart';
 import 'package:credidiunsa_app/user/ui/confirmProfilePicturePage.dart';
 import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
 
+import 'bank/ui/privacy.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
@@ -54,6 +56,7 @@ class MyApp extends StatelessWidget {
           '/createAccount': (context) => const CreateAccountPage(),
           '/home': (context) => const HomePage(),
           '/politics': (context) => const PoliticsPage(),
+          '/privacy': (context) => const PrivacyPage(),
           '/contact': (context) => const ContactPage(),
           '/promotions': (context) => const PromotionsPage(),
           '/profile': (context) => const ProfilePage(),

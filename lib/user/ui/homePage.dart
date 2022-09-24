@@ -66,7 +66,8 @@ class _HomePageState extends State<HomePage> {
                                 bottomLeft: Radius.circular(Sizes.border),
                                 bottomRight: Radius.circular(Sizes.border)),
                             image: const DecorationImage(
-                                image: AssetImage("assets/images/image_03.png"),
+                                image:
+                                    AssetImage("assets/images/image_03_01.png"),
                                 fit: BoxFit.cover)),
                         child: Container(
                             width: Sizes.width * 0.5,

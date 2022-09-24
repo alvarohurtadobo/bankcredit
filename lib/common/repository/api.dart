@@ -5,9 +5,10 @@ import 'package:http/http.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/model/sesion.dart';
 
-const String SERVER_URL = "https://desarrollo.epik.com.co:5025/";
+// const String SERVER_URL = "https://desarrollo.epik.com.co:5025/";
 // const String SERVER_URL = "https://credidiunsaapp.azurewebsites.net/";
 // const String SERVER_URL = "https://diunsa.epik.com.co:7013/";
+const String SERVER_URL = "https://diunsa.epik.com.co:7013/";
 const String API_PATH = "api/";
 const bool DEBUG = true;
 
@@ -234,6 +235,11 @@ class API {
   static Future<BackendResponse> getTermsOfUse() async {
     print("Requesting terms of use");
     return await _doGet("politica-producto/consulta", debug: DEBUG);
+  }
+
+  static Future<BackendResponse> getPrivacy() async {
+    print("Requesting terms of use");
+    return await _doGet("politica-privacidad/consulta", debug: DEBUG);
   }
 
   static Future<BackendResponse> getPaymentMethods() async {
