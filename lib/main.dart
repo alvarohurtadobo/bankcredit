@@ -1,3 +1,4 @@
+import 'bank/ui/privacy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:credidiunsa_app/user/ui/splash.dart';
@@ -20,8 +21,6 @@ import 'package:credidiunsa_app/user/ui/validateProfileUpdate.dart';
 import 'package:credidiunsa_app/user/ui/updateProfilePicturePage.dart';
 import 'package:credidiunsa_app/user/ui/confirmProfilePicturePage.dart';
 import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
-
-import 'bank/ui/privacy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

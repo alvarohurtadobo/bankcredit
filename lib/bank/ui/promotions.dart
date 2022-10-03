@@ -187,7 +187,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
                           horizontal: Sizes.boxSeparation,
                           vertical: Sizes.padding * 0.7),
                       child: Text(
-                        "",
+                        "Último de CrediDiunsa",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: Sizes.font10),

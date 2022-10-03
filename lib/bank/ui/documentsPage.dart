@@ -332,7 +332,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
   Widget carousel() {
     return SizedBox(
-      height: Sizes.tileHeightCard + 2 * Sizes.boxSeparation,
+      height: Sizes.tileHeightCard + 3* Sizes.boxSeparation,
       width: Sizes.width,
       child: ListView(
         scrollDirection: Axis.horizontal,
