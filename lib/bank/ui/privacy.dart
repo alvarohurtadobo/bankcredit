@@ -1,10 +1,11 @@
 // ignore_for_file: unused_import, library_private_types_in_public_api
+import 'package:flutter/material.dart';
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/ui/drawer.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/common/widgets/appbar2.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class PrivacyPage extends StatefulWidget {
   const PrivacyPage({Key? key}) : super(key: key);
@@ -54,7 +55,8 @@ class _PoliticsPrivacyPageState extends State<PrivacyPage> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String myText = snapshot.data!.myBody["Texto"];
-                            return Text(myText);
+                            Widget html = Html(data: myText);
+                            return html;
                           }
                           return const Center(
                             child: CircularProgressIndicator(),

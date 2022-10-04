@@ -125,189 +125,210 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                 Padding(
                   padding: EdgeInsets.all(Sizes.padding),
                   child: const Text(
-                      "Por favor ingresa el código que enviamos por mensaje de texto"),
+                      "  Por favor ingresa el código que enviamos por mensaje de texto  "),
                 ),
               ],
             ),
-
             Container(
               margin: EdgeInsets.symmetric(horizontal: 2 * Sizes.padding),
               height: Sizes.height * 0.1,
               width: Sizes.height * 0.8,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    height: Sizes.height * 0.08,
-                    width: Sizes.height * 0.08,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(Sizes.boxSeparation))),
-                    child: TextField(
-                      style: const TextStyle(
-                        fontSize: 35,
-                        color: Color(0xff0077cd),
-                      ),
-                      maxLength: 1,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      keyboardType: const TextInputType.numberWithOptions(
-                          signed: false, decimal: false),
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: Color(0xff0077CD)),
-                            borderRadius: BorderRadius.circular(4),
+              child: Column(children: [
+                Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: Sizes.height * 0.08,
+                          width: Sizes.height * 0.08,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                          child: TextField(
+                            style: const TextStyle(
+                              fontSize: 35,
+                              color: Color(0xff0077cd),
+                            ),
+                            maxLength: 1,
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            keyboardType: const TextInputType.numberWithOptions(
+                                signed: false, decimal: false),
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      width: 1, color: Color(0xff0077cd)),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                hintMaxLines: 0,
+                                counter: const SizedBox(),
+                                // filled: true,
+                                fillColor: Colors.white,
+                                border: InputBorder.none),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                                digitA = value;
+                              }
+                            },
                           ),
-                          hintMaxLines: 0,
-                          counter: const SizedBox(),
-                          // filled: true,
-                          fillColor: Colors.white,
-                          border: InputBorder.none),
-                      onChanged: (value) {
-                        if (value.length == 1) {
-                          FocusScope.of(context).nextFocus();
-                          digitA = value;
-                        }
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2 * Sizes.boxSeparation,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: Sizes.height * 0.08,
-                    width: Sizes.height * 0.08,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(Sizes.boxSeparation))),
-                    child: TextField(
-                      style: const TextStyle(
-                        fontSize: 35,
-                        color: Color(0xff0077cd),
-                      ),
-                      maxLength: 1,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      keyboardType: const TextInputType.numberWithOptions(
-                          signed: false, decimal: false),
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: Color(0xff0077CD)),
-                            borderRadius: BorderRadius.circular(4),
+                        ),
+                        SizedBox(
+                          width: 2 * Sizes.boxSeparation,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: Sizes.height * 0.08,
+                          width: Sizes.height * 0.08,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(Sizes.boxSeparation))),
+                          child: TextField(
+                            style: const TextStyle(
+                              fontSize: 35,
+                              color: Color(0xff0077cd),
+                            ),
+                            maxLength: 1,
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            keyboardType: const TextInputType.numberWithOptions(
+                                signed: false, decimal: false),
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      width: 1, color: Color(0xff0077CD)),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                hintMaxLines: 0,
+                                counter: const SizedBox(),
+                                // filled: true,
+                                fillColor: Colors.white,
+                                border: InputBorder.none),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                                digitB = value;
+                              }
+                            },
                           ),
-                          hintMaxLines: 0,
-                          counter: const SizedBox(),
-                          // filled: true,
-                          fillColor: Colors.white,
-                          border: InputBorder.none),
-                      onChanged: (value) {
-                        if (value.length == 1) {
-                          FocusScope.of(context).nextFocus();
-                          digitB = value;
-                        }
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2 * Sizes.boxSeparation,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: Sizes.height * 0.08,
-                    width: Sizes.height * 0.08,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(Sizes.boxSeparation))),
-                    child: TextField(
-                      style: const TextStyle(
-                        fontSize: 35,
-                        color: Color(0xff0077cd),
-                      ),
-                      maxLength: 1,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      keyboardType: const TextInputType.numberWithOptions(
-                          signed: false, decimal: false),
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: Color(0xff0077CD)),
-                            borderRadius: BorderRadius.circular(4),
+                        ),
+                        SizedBox(
+                          width: 2 * Sizes.boxSeparation,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: Sizes.height * 0.08,
+                          width: Sizes.height * 0.08,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(Sizes.boxSeparation))),
+                          child: TextField(
+                            style: const TextStyle(
+                              fontSize: 35,
+                              color: Color(0xff0077cd),
+                            ),
+                            maxLength: 1,
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            keyboardType: const TextInputType.numberWithOptions(
+                                signed: false, decimal: false),
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      width: 1, color: Color(0xff0077CD)),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                hintMaxLines: 0,
+                                counter: const SizedBox(),
+                                // filled: true,
+                                fillColor: Colors.white,
+                                border: InputBorder.none),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                                digitC = value;
+                              }
+                            },
                           ),
-                          hintMaxLines: 0,
-                          counter: const SizedBox(),
-                          // filled: true,
-                          fillColor: Colors.white,
-                          border: InputBorder.none),
-                      onChanged: (value) {
-                        if (value.length == 1) {
-                          FocusScope.of(context).nextFocus();
-                          digitC = value;
-                        }
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2 * Sizes.boxSeparation,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: Sizes.height * 0.08,
-                    width: Sizes.height * 0.08,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(Sizes.boxSeparation))),
-                    child: TextField(
-                      style: const TextStyle(
-                        fontSize: 35,
-                        color: Color(0xff0077cd),
-                      ),
-                      maxLength: 1,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      keyboardType: const TextInputType.numberWithOptions(
-                          signed: false, decimal: false),
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: Color(0xff0077CD)),
-                            borderRadius: BorderRadius.circular(4),
+                        ),
+                        SizedBox(
+                          width: 2 * Sizes.boxSeparation,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: Sizes.height * 0.08,
+                          width: Sizes.height * 0.08,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(Sizes.boxSeparation))),
+                          child: TextField(
+                            style: const TextStyle(
+                              fontSize: 35,
+                              color: Color(0xff0077cd),
+                            ),
+                            maxLength: 1,
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            keyboardType: const TextInputType.numberWithOptions(
+                                signed: false, decimal: false),
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      width: 1, color: Color(0xff0077CD)),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                hintMaxLines: 0,
+                                counter: const SizedBox(),
+                                // filled: true,
+                                fillColor: Colors.white,
+                                border: InputBorder.none),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).unfocus();
+                                digitD = value;
+                                if (digitA.length == 1 &&
+                                    digitB.length == 1 &&
+                                    digitC.length == 1 &&
+                                    digitD.length == 1) {
+                                  setState(() {
+                                    canContinue = true;
+                                  });
+                                }
+                              }
+                            },
                           ),
-                          hintMaxLines: 0,
-                          counter: const SizedBox(),
-                          // filled: true,
-                          fillColor: Colors.white,
-                          border: InputBorder.none),
-                      onChanged: (value) {
-                        if (value.length == 1) {
-                          FocusScope.of(context).unfocus();
-                          digitD = value;
-                          if (digitA.length == 1 &&
-                              digitB.length == 1 &&
-                              digitC.length == 1 &&
-                              digitD.length == 1) {
-                            setState(() {
-                              canContinue = true;
-                            });
-                          }
-                        }
-                      },
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
+                    Positioned(
+                      top: Sizes.height * 0.08 - 8,
+                      child: Container(
+                          height: Sizes.height * 0.019,
+                          width: Sizes.height,
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 250, 250, 250))),
+                    )
+                  ],
+                ),
+              ]),
             ),
             SizedBox(
               height: 1 * Sizes.boxSeparation,
@@ -420,7 +441,6 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                               setState(() {
                                 loading = true;
                               });
-
                               API
                                   .validateOTPForgotPass(
                                       notLoggedDocument, code)
