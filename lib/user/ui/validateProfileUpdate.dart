@@ -164,190 +164,209 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                 Text(
                     "Para actualizar tus datos, es necesario que validemos tu identidad. Hemos enviado un código al $contactLabel"),
                 SizedBox(
+                  height: 3 * Sizes.boxSeparation,
+                ),
+                SizedBox(
                   height: Sizes.height * 0.15,
                   width: Sizes.height * 0.8,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Stack(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: Sizes.height * 0.07,
-                        width: Sizes.height * 0.08,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(Sizes.boxSeparation))),
-                        child: TextField(
-                          style: const TextStyle(
-                            fontSize: 35,
-                            color: Color(0xff0077cd),
-                          ),
-                          maxLength: 1,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          keyboardType: const TextInputType.numberWithOptions(
-                              signed: false, decimal: false),
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1, color: Color(0xff0077CD)),
-                                borderRadius: BorderRadius.circular(4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: Sizes.height * 0.08,
+                            width: Sizes.height * 0.08,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Sizes.boxSeparation))),
+                            child: TextField(
+                              style: const TextStyle(
+                                fontSize: 35,
+                                color: Color(0xff0077cd),
                               ),
-                              hintMaxLines: 0,
-                              counter: const SizedBox(),
-                              // filled: true,
-                              fillColor: Colors.white,
-                              border: InputBorder.none),
-                          onChanged: (value) {
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                              digitA = value;
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 2 * Sizes.boxSeparation,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: Sizes.height * 0.07,
-                        width: Sizes.height * 0.08,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(Sizes.boxSeparation))),
-                        child: TextField(
-                          style: const TextStyle(
-                            fontSize: 35,
-                            color: Color(0xff0077cd),
+                              maxLength: 1,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: false, decimal: false),
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        width: 1, color: Color(0xff0077CD)),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  hintMaxLines: 0,
+                                  counter: const SizedBox(),
+                                  // filled: true,
+                                  fillColor: Colors.white,
+                                  border: InputBorder.none),
+                              onChanged: (value) {
+                                if (value.length == 1) {
+                                  FocusScope.of(context).nextFocus();
+                                  digitA = value;
+                                }
+                              },
+                            ),
                           ),
-                          maxLength: 1,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          keyboardType: const TextInputType.numberWithOptions(
-                              signed: false, decimal: false),
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Color(0xff0077CD),
-                                ),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              hintMaxLines: 0,
-                              counter: const SizedBox(),
-                              // filled: true,
-                              fillColor: Colors.white,
-                              border: InputBorder.none),
-                          onChanged: (value) {
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                              digitB = value;
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 2 * Sizes.boxSeparation,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: Sizes.height * 0.07,
-                        width: Sizes.height * 0.08,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(Sizes.boxSeparation))),
-                        child: TextField(
-                          style: const TextStyle(
-                            fontSize: 35,
-                            color: Color(0xff0077cd),
+                          SizedBox(
+                            width: 2 * Sizes.boxSeparation,
                           ),
-                          maxLength: 1,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          keyboardType: const TextInputType.numberWithOptions(
-                              signed: false, decimal: false),
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1, color: Color(0xff0077CD)),
-                                borderRadius: BorderRadius.circular(4),
+                          Container(
+                            alignment: Alignment.center,
+                            height: Sizes.height * 0.08,
+                            width: Sizes.height * 0.08,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Sizes.boxSeparation))),
+                            child: TextField(
+                              style: const TextStyle(
+                                fontSize: 35,
+                                color: Color(0xff0077cd),
                               ),
-                              hintMaxLines: 0,
-                              counter: const SizedBox(),
-                              // filled: true,
-                              fillColor: Colors.white,
-                              border: InputBorder.none),
-                          onChanged: (value) {
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                              digitC = value;
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 2 * Sizes.boxSeparation,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: Sizes.height * 0.07,
-                        width: Sizes.height * 0.08,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(Sizes.boxSeparation))),
-                        child: TextField(
-                          style: const TextStyle(
-                            fontSize: 35,
-                            color: Color(0xff0077cd),
+                              maxLength: 1,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: false, decimal: false),
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xff0077CD),
+                                    ),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  hintMaxLines: 0,
+                                  counter: const SizedBox(),
+                                  // filled: true,
+                                  fillColor: Colors.white,
+                                  border: InputBorder.none),
+                              onChanged: (value) {
+                                if (value.length == 1) {
+                                  FocusScope.of(context).nextFocus();
+                                  digitB = value;
+                                }
+                              },
+                            ),
                           ),
-                          maxLength: 1,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          keyboardType: const TextInputType.numberWithOptions(
-                              signed: false, decimal: false),
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1, color: Color(0xff0077CD)),
-                                borderRadius: BorderRadius.circular(4),
+                          SizedBox(
+                            width: 2 * Sizes.boxSeparation,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: Sizes.height * 0.08,
+                            width: Sizes.height * 0.08,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Sizes.boxSeparation))),
+                            child: TextField(
+                              style: const TextStyle(
+                                fontSize: 35,
+                                color: Color(0xff0077cd),
                               ),
-                              hintMaxLines: 0,
-                              counter: const SizedBox(),
-                              // filled: true,
-                              fillColor: Colors.white,
-                              border: InputBorder.none),
-                          onChanged: (value) {
-                            if (value.length == 1) {
-                              FocusScope.of(context).unfocus();
-                              digitD = value;
-                              if (digitA.length == 1 &&
-                                  digitB.length == 1 &&
-                                  digitC.length == 1 &&
-                                  digitD.length == 1) {
-                                setState(() {
-                                  canContinue = true;
-                                });
-                              }
-                            }
-                          },
-                        ),
+                              maxLength: 1,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: false, decimal: false),
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        width: 1, color: Color(0xff0077CD)),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  hintMaxLines: 0,
+                                  counter: const SizedBox(),
+                                  // filled: true,
+                                  fillColor: Colors.white,
+                                  border: InputBorder.none),
+                              onChanged: (value) {
+                                if (value.length == 1) {
+                                  FocusScope.of(context).nextFocus();
+                                  digitC = value;
+                                }
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2 * Sizes.boxSeparation,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: Sizes.height * 0.08,
+                            width: Sizes.height * 0.08,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Sizes.boxSeparation))),
+                            child: TextField(
+                              style: const TextStyle(
+                                fontSize: 35,
+                                color: Color(0xff0077cd),
+                              ),
+                              maxLength: 1,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: false, decimal: false),
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        width: 1, color: Color(0xff0077CD)),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  hintMaxLines: 0,
+                                  counter: const SizedBox(),
+                                  // filled: true,
+                                  fillColor: Colors.white,
+                                  border: InputBorder.none),
+                              onChanged: (value) {
+                                if (value.length == 1) {
+                                  FocusScope.of(context).unfocus();
+                                  digitD = value;
+                                  if (digitA.length == 1 &&
+                                      digitB.length == 1 &&
+                                      digitC.length == 1 &&
+                                      digitD.length == 1) {
+                                    setState(() {
+                                      canContinue = true;
+                                    });
+                                  }
+                                }
+                              },
+                            ),
+                          ),
+                        ],
                       ),
+                      Positioned(
+                          top: Sizes.height * 0.08 - 8,
+                          child: Container(
+                            height: Sizes.height * 0.019,
+                            width: Sizes.height,
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(242, 242, 242, 242)),
+                          ))
                     ],
                   ),
                 ),
