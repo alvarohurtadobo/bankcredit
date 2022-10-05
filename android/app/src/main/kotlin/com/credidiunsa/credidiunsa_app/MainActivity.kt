@@ -1,4 +1,4 @@
-package com.credidiunsa.credidiunsa_app
+package com.credidiunsa2.credidiunsa_app
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 
