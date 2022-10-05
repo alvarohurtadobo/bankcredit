@@ -54,8 +54,10 @@ class _ProfilePageState extends State<ProfilePage> {
     // print("Building with pic url ${currentUser.pictureUrl}");
     return Scaffold(
       appBar: myAppBar(context),
-      // para dibujas o no la flecha en el appbar
-      // drawer: MyDrawer(),
+      // para dibujas o no la flecha en el appbar comentar o no Drawer
+      drawer: ((updatedEmail && !updatedPhone) || !updatedEmail && updatedPhone)
+          ? null
+          : MyDrawer(),
       body: Container(
         color: const Color(0xffF2F2F2),
         padding: EdgeInsets.all(Sizes.padding),
