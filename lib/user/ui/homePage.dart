@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor:  const Color(0xff0077cd),
       drawer: MyDrawer(),
       body: SafeArea(
         child: Container(

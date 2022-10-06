@@ -28,7 +28,8 @@ PreferredSizeWidget myAppBar(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: Sizes.padding),
               child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed("/home");
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    // Navigator.of(context).pushNamed("/home");
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20),

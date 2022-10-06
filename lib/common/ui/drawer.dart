@@ -16,7 +16,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     wasLogged = true;
     return Drawer(
-      backgroundColor: Colors.white,
+      backgroundColor:  const Color(0xff0077cd),
       child: SafeArea(
         child: ListView(
           children: [
@@ -125,8 +125,8 @@ class MyDrawer extends StatelessWidget {
         Navigator.of(context).pushNamed(route);
       },
       child: Container(
-          padding: EdgeInsets.symmetric(vertical: Sizes.padding),
-          margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
+          padding: EdgeInsets.symmetric(vertical: Sizes.padding, horizontal: Sizes.padding),
+          // margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
           decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
@@ -173,8 +173,8 @@ class MyDrawer extends StatelessWidget {
         Navigator.of(context).pushNamed(route);
       },
       child: Container(
-          padding: EdgeInsets.symmetric(vertical: Sizes.padding + 5.3),
-          margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
+          padding: EdgeInsets.symmetric(vertical: Sizes.padding + 5.3,horizontal: Sizes.padding),
+          // margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
           decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
@@ -234,8 +234,8 @@ class MyDrawer extends StatelessWidget {
         });
       },
       child: Container(
-          padding: EdgeInsets.symmetric(vertical: Sizes.padding + 3.5),
-          margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
+          padding: EdgeInsets.symmetric(vertical: Sizes.padding + 3.5, horizontal: Sizes.padding),
+          // margin: EdgeInsets.symmetric(horizontal: Sizes.padding),
           decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(bottom: BorderSide(color: Color(0xffB1B2B3)))),
