@@ -22,7 +22,7 @@ import 'package:credidiunsa_app/user/ui/validateProfileUpdate.dart';
 import 'package:credidiunsa_app/user/ui/updateProfilePicturePage.dart';
 import 'package:credidiunsa_app/user/ui/confirmProfilePicturePage.dart';
 import 'package:credidiunsa_app/common/ui/biometric_authentication.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'bank/ui/privacy.dart';
 
 void main() async {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SharedPreferences.setMockInitialValues({});
+    // SharedPreferences.setMockInitialValues({});
     return MaterialApp(
         title: 'CrediDiunsa App',
         debugShowCheckedModeBanner: false,

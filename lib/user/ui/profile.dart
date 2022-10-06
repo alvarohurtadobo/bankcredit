@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: myAppBar(context),
       // para dibujas o no la flecha en el appbar comentar o no Drawer
-      drawer: ((updatedEmail && !updatedPhone) || !updatedEmail && updatedPhone)
+      drawer: (updatedEmail && !updatedPhone)||(!updatedEmail && updatedPhone)
           ? null
           : MyDrawer(),
       body: Container(
