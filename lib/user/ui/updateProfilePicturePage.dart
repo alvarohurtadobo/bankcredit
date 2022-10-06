@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
@@ -138,10 +139,9 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
                         child: Text(
                           "Lo haré después",
                           style: TextStyle(
-                            color: const Color(0xff0077CD),
-                            fontSize: Sizes.font10 * 0.95,
-                            decoration: TextDecoration.underline
-                          ),
+                              color: const Color(0xff0077CD),
+                              fontSize: Sizes.font10 * 0.95,
+                              decoration: TextDecoration.underline),
                         ))),
                 SizedBox(
                   height: 3 * Sizes.boxSeparation,
@@ -151,13 +151,51 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
   }
 
   void getImageFileName({bool camera = false}) async {
-    image = await _picker.pickImage(
-        source: camera ? ImageSource.camera : ImageSource.gallery);
-    if (image == null) {
-      print("No image selected");
-      return;
-    }
-    filePathTemporal = image!.path;
-    Navigator.of(context).pushNamed("/confirmProfilePicture");
+    image = await _picker
+        .pickImage(source: camera ? ImageSource.camera : ImageSource.gallery)
+        .then((newImage) {
+      image = newImage;
+      if (image == null) {
+        print("No image selected");
+        return;
+      }
+      // filePathTemporal = image!.path;
+      print("Cropping");
+      ImageCropper().cropImage(
+        sourcePath: image!.path,
+        compressFormat: ImageCompressFormat.jpg,
+        compressQuality: 100,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        maxHeight: 512,
+        maxWidth: 512,
+        cropStyle: CropStyle.circle,
+        aspectRatioPresets: [CropAspectRatioPreset.square],
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cortar y rotar',
+              toolbarColor: const Color(0xff0077cd),
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.square,
+              lockAspectRatio: true),
+          IOSUiSettings(title: 'Cortar y rotar', aspectRatioLockEnabled: true),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: const CroppieBoundary(
+              width: 520,
+              height: 520,
+            ),
+            viewPort:
+                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],
+      ).then((croppedFile) {
+        filePathTemporal = croppedFile!.path;
+        Navigator.of(context).pushNamed("/confirmProfilePicture");
+      });
+    });
   }
 }
