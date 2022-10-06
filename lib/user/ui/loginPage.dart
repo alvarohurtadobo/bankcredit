@@ -528,6 +528,15 @@ class _LoginPageState extends State<LoginPage> {
                                                                   // Handle this exception here.
                                                                 }
                                                               }
+                                                            } else {
+                                                              SharedPreferences
+                                                                      .getInstance()
+                                                                  .then(
+                                                                      (prefs) {
+                                                                prefs.setBool(
+                                                                    "localEnabled",
+                                                                    false);
+                                                              });
                                                             }
                                                             print(
                                                                 "Setting use bio to $correctlyEnabledBio");

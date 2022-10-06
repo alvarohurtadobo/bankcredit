@@ -48,6 +48,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     // print("Types length are ${myDocumentTypes.length}");
 
     return Scaffold(
+      backgroundColor: const Color(0xff0077cd),
       body: Form(
         key: _formKey,
         child: ListView(children: [
