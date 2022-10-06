@@ -201,11 +201,9 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                                           element.datetimeProcess.year ==
                                               monthYear.year)
                                       .toList();
-
                                   auxMovements.sort((a, b) =>
                                       a.datetimeProcess.day -
                                       b.datetimeProcess.day);
-
                                   myTiles.addAll(auxMovements.map((mov) {
                                     return movementTile(mov);
                                   }));
@@ -257,7 +255,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         height: Sizes.tileHeightMedium,
         width: Sizes.width - 2 * Sizes.padding,
         child: Text(
-          "${months[month % 12]} de $year",
+          "${months[(month - 1) % 12]} de $year",
           style: const TextStyle(color: Colors.white, fontSize: 18),
         ));
   }
