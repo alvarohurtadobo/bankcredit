@@ -13,7 +13,7 @@ import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/user/model/restauration.dart';
 import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 
-int AWAIT_TIME = 300;
+int AWAIT_TIME = 180;
 
 class ResetPassword02Page extends StatefulWidget {
   const ResetPassword02Page({Key? key}) : super(key: key);
