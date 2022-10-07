@@ -35,18 +35,23 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
   int currentTime = AWAIT_TIME;
   bool canRequestNewCode = false;
   late Timer myTimer;
+  int initialTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  int currentTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
   @override
   void initState() {
+    initialTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     myTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (currentTime > 0) {
-        currentTime--;
+      currentTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      currentTime = AWAIT_TIME - (currentTimestamp - initialTimestamp);
+      if (currentTime >= 0) {
         timeController.sink.add(currentTime);
-      }
-      if (!canRequestNewCode && currentTime == 0) {
-        setState(() {
-          canRequestNewCode = true;
-        });
+      } else {
+        if (!canRequestNewCode) {
+          setState(() {
+            canRequestNewCode = true;
+          });
+        }
       }
     });
     super.initState();
@@ -347,7 +352,8 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                 builder: (context, snapshop) {
                   if (snapshop.hasData) {
                     int newTime = snapshop.data ?? 0;
-                    if (newTime == 0) {
+                    
+                    if (newTime <= 0) {
                       return GestureDetector(
                         onTap: () {
                           API
@@ -355,6 +361,8 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                                   notLoggedDocument, chosenRestaurationId)
                               .then((res) {
                             if (res.idError == 0) {
+                              initialTimestamp =
+                                  DateTime.now().millisecondsSinceEpoch ~/ 1000;
                               currentTime = AWAIT_TIME;
                               timeController.sink.add(currentTime);
                               // showToast("Se solicitó nuevo SMS");
