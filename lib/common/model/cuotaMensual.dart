@@ -6,6 +6,7 @@ class CuotaMensual {
   double insurance = 0.0;
   double capital = 0.0;
   double total = 0.0;
+  double totalEfecti = 0.0;
 
   CuotaMensual.fromBackendResponse(Map<String, dynamic> response){
     cuota = (response["Cuota"]??0.0)*1.0;
@@ -14,5 +15,6 @@ class CuotaMensual {
     insurance = (response["Seguro"]??0.0)*1.0;
     capital = (response["Capital"]??0.0)*1.0;
     total = (response["Total"]??0.0)*1.0;
+    totalEfecti = (response["CupoDisponible"]??0.0)*1.0;
   }
 }

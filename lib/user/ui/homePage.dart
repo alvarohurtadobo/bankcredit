@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     API.getCuota().then((myRes) {
       CuotaMensual object = CuotaMensual.fromBackendResponse(myRes.myBody);
       //---------------------------
-      saldo = object.capital;     // proximo cambio
+      saldo = object.totalEfecti; // proximo cambio
       //---------------------------
       cuota = object.cuota;
       setState(() {});
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor:  const Color(0xff0077cd),
+      backgroundColor: const Color(0xff0077cd),
       drawer: MyDrawer(),
       body: SafeArea(
         child: Container(
