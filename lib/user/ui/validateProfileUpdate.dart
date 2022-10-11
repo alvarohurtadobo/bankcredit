@@ -60,6 +60,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
       if (currentTime >= 0) {
         timeController.sink.add(currentTime);
       } else {
+        timeController.sink.add(0);
         if (!canRequestNewCode) {
           setState(() {
             canRequestNewCode = true;
@@ -400,7 +401,7 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                                   .then((res) {
                                 if (res.idError == 0) {
                                   initialTimestamp =
-                                      DateTime.now().millisecondsSinceEpoch *
+                                      DateTime.now().millisecondsSinceEpoch ~/
                                           1000;
                                   currentTime = AWAIT_TIME;
                                   timeController.sink.add(currentTime);

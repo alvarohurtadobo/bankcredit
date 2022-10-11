@@ -47,6 +47,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
       if (currentTime >= 0) {
         timeController.sink.add(currentTime);
       } else {
+        timeController.sink.add(0);
         if (!canRequestNewCode) {
           setState(() {
             canRequestNewCode = true;
