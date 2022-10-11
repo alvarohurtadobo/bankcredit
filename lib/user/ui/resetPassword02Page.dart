@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 
+import '../../common/model/launcher.dart';
 import '../../common/ui/sizes.dart';
 import 'package:flutter/material.dart';
 import '../../common/model/secondsToMinSec.dart';
@@ -375,7 +376,9 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                             } else {
                               simpleAlertDialog(
                                   context, "¡Lo sentimos!", res.message,
-                                  buttonLabel: "Cerrar");
+                                  buttonLabel: "Quiero ir al chat", action: () {
+                                customLaunchUrl("https://m.me/CredidiunsaHn");
+                              });
                             }
                           });
                         },
