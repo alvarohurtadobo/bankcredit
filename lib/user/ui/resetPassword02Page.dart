@@ -13,6 +13,8 @@ import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/user/model/restauration.dart';
 import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 
+import '../../common/widgets/simpleAlertDialog.dart';
+
 int AWAIT_TIME = 180;
 
 class ResetPassword02Page extends StatefulWidget {
@@ -353,7 +355,7 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                 builder: (context, snapshop) {
                   if (snapshop.hasData) {
                     int newTime = snapshop.data ?? 0;
-                    
+
                     if (newTime <= 0) {
                       return GestureDetector(
                         onTap: () {
@@ -370,6 +372,10 @@ class _ResetPassword02PageState extends State<ResetPassword02Page> {
                               setState(() {
                                 canRequestNewCode == false;
                               });
+                            } else {
+                              simpleAlertDialog(
+                                  context, "¡Lo sentimos!", res.message,
+                                  buttonLabel: "Cerrar");
                             }
                           });
                         },
