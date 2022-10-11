@@ -1,17 +1,17 @@
 // ignore_for_file: non_constant_identifier_names, file_names, unused_local_variable, avoid_print, use_build_context_synchronously, duplicate_ignore
 
 import 'dart:async';
-import 'package:credidiunsa_app/common/model/sesion.dart';
-import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:credidiunsa_app/user/model/user.dart';
 import 'package:credidiunsa_app/common/ui/sizes.dart';
+import 'package:credidiunsa_app/common/model/sesion.dart';
 import 'package:credidiunsa_app/common/model/launcher.dart';
 import 'package:credidiunsa_app/common/repository/api.dart';
 import 'package:credidiunsa_app/common/widgets/appbar.dart';
+import 'package:credidiunsa_app/common/widgets/warningLabel.dart';
 import 'package:credidiunsa_app/common/model/secondsToMinSec.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
-import 'package:flutter/services.dart';
 
 int AWAIT_TIME = 180;
 
@@ -45,29 +45,34 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
 
   final formKey = GlobalKey<FormState>();
   late Timer myTimer;
+  int initialTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  int currentTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
   @override
   void initState() {
     super.initState();
+    initialTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     emailController.text = currentUser.email;
     phoneController.text = currentUser.phone;
     myTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (currentTime > 0) {
-        currentTime--;
+      currentTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      currentTime = AWAIT_TIME - (currentTimestamp - initialTimestamp);
+      if (currentTime >= 0) {
         timeController.sink.add(currentTime);
-      }
-      if (!canRequestNewCode && currentTime == 0) {
-        setState(() {
-          canRequestNewCode = true;
-        });
+      } else {
+        if (!canRequestNewCode) {
+          setState(() {
+            canRequestNewCode = true;
+          });
+        }
       }
     });
   }
 
   @override
   void dispose() {
-    timeController.sink.add(currentTime);
-
+    timeController.close();
+    myTimer.cancel();
     super.dispose();
   }
 
@@ -387,13 +392,16 @@ class _ValidateProfileUpdatePageState extends State<ValidateProfileUpdatePage> {
                     builder: (context, snapshop) {
                       if (snapshop.hasData) {
                         int newTime = snapshop.data ?? 0;
-                        if (newTime == 0) {
+                        if (newTime <= 0) {
                           return GestureDetector(
                             onTap: () {
                               API
                                   .generateOTPForUpdate(constantParam)
                                   .then((res) {
                                 if (res.idError == 0) {
+                                  initialTimestamp =
+                                      DateTime.now().millisecondsSinceEpoch *
+                                          1000;
                                   currentTime = AWAIT_TIME;
                                   timeController.sink.add(currentTime);
                                   // showToast("Se solicitó nuevo SMS");
