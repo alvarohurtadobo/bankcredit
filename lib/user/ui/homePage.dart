@@ -27,7 +27,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     API.getCuota().then((myRes) {
       CuotaMensual object = CuotaMensual.fromBackendResponse(myRes.myBody);
-      saldo = object.capital;
+      //---------------------------
+      saldo = object.capital;     // proximo cambio
+      //---------------------------
       cuota = object.cuota;
       setState(() {});
     });

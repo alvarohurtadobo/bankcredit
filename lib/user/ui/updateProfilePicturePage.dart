@@ -196,6 +196,7 @@ class _UpdateProfilePicturePageState extends State<UpdateProfilePicturePage> {
         filePathTemporal = croppedFile!.path;
         Navigator.of(context).pushNamed("/confirmProfilePicture");
       });
+      return null;
     });
   }
 }

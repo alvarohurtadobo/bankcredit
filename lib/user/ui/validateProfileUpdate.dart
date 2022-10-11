@@ -13,7 +13,7 @@ import 'package:credidiunsa_app/common/model/secondsToMinSec.dart';
 import 'package:credidiunsa_app/common/widgets/simpleAlertDialog.dart';
 import 'package:flutter/services.dart';
 
-int AWAIT_TIME = 300;
+int AWAIT_TIME = 180;
 
 class ValidateProfileUpdatePage extends StatefulWidget {
   final int type;

@@ -32,18 +32,21 @@ PreferredSizeWidget myAppBar2() {
                   Navigator.of(context).pop();
                 }
               },
-              child: Container(
-                alignment: Alignment.topCenter,
-                height: 1.5 * Sizes.padding,
-                width: 1.5 * Sizes.padding,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(1.5 * Sizes.padding / 2))),
-                child: Icon(
-                  Icons.arrow_back,
-                  size: 1.5 * Sizes.padding,
-                  color: const Color(0xff0077CD),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  height: 1.5 * Sizes.padding,
+                  width: 1.5 * Sizes.padding,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(1.5 * Sizes.padding / 2))),
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 1.5 * Sizes.padding,
+                    color: const Color(0xff0077CD),
+                  ),
                 ),
               ),
             ),
